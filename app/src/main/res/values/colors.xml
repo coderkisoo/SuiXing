@@ -6,4 +6,9 @@
     <color name="fragment_background">#F7F7F7</color>
     <color name="vehicle_information_choose_vehicle_text_color">#FFFFFF</color>
     <color name="information_text_color">#666666</color>
+    <color name="add_vehicle_text_color">#CCCCCC</color>
+    <color name="add_vehicle_background">#7B7B7B</color>
+    <color name="add_vehicle_frame_color">#4FA3F9</color>
+    <color name="toolbar_background">#FFFFFF</color>
+    <color name="bottom_color">#3D3D3D</color>
 </resources>

@@ -14,7 +14,8 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.Toolbar
-                android:layout_marginTop="24dp"
+                android:background="@color/toolbar_background"
+                android:paddingTop="@dimen/toolbar_top"
                 android:id="@+id/tb_main_toobar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/toolbar_height">

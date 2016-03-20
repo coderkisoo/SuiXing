@@ -6,5 +6,12 @@
     <style name="Apptheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+
     </style>
+    <!--<style name="AnimationActivity" parent="@android:style/Animation.Activity">-->
+        <!--<item name="android:activityOpenEnterAnimation">@anim/tran_next_in</item>-->
+        <!--<item name="android:activityOpenExitAnimation">@anim/tran_next_out</item>-->
+        <!--<item name="android:activityCloseEnterAnimation">@anim/tran_pre_in</item>-->
+        <!--<item name="android:activityCloseExitAnimation">@anim/tran_pre_out</item>-->
+    <!--</style>-->
 </resources>

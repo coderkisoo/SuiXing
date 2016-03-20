@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 
 import com.vehicle.suixing.suixing.R;
+import com.vehicle.suixing.suixing.ui.BaseActivity;
 import com.vehicle.suixing.suixing.ui.fragment.VehicleInformationFragment;
 
 import butterknife.Bind;
@@ -20,6 +21,10 @@ public class MainActivity extends BaseActivity {
     @OnClick(R.id.iv_toolbar_left_image)
     void iv_toolbar_left_image(){
         dl_view.openDrawer(Gravity.LEFT);
+    }
+    @OnClick(R.id.ll_me)
+    void ll_me(){
+
     }
     @OnClick(R.id.ll_vehicle_information)
     void ll_vehicle_information(){
@@ -59,7 +64,7 @@ public class MainActivity extends BaseActivity {
     }
     @OnClick(R.id.ll_location)
     void ll_location(){
-    //
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
