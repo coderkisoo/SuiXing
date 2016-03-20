@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SuiXing</string>
+    <string name="example_name">张思远</string>
+    <string name="example_motto">The best accessory a girl can own is confidence so you</string>
+    <string name="vehicle_information">车辆信息</string>
+    <string name="add_gas">加油</string>
+    <string name="music">音乐</string>
+    <string name="peccany">交通违法信息</string>
+    <string name="about_us">关于我们</string>
+    <string name="back">退出</string>
+    <string name="toolbar_text_example">主页</string>
+    <string name="example_location_city">重庆</string>
+
+</resources>

@@ -1,0 +1,22 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="drawer_layout_text_size">16sp</dimen>
+    <dimen name="drawer_layout_name">16sp</dimen>
+    <dimen name="drawer_layout_motto">12sp</dimen>
+    <dimen name="toolbar_left_image_width">16dp</dimen>
+    <dimen name="toolbar_left_image_height">16dp</dimen>
+    <dimen name="toolbar_title_size">22sp</dimen>
+    <dimen name="toolbar_location_text_size">15sp</dimen>
+    <dimen name="toolbar_location_image_width">16dp</dimen>
+    <dimen name="toolbar_location_image_height">16dp</dimen>
+    <dimen name="toolbar_height">48dp</dimen>
+    <dimen name="vehicle_information_panel_width">140dp</dimen>
+    <dimen name="vehicle_information_recylerview_width">180dp</dimen>
+    <dimen name="vehicle_information_viewpager_height">64dp</dimen>
+    <dimen name="three_word_width">62dp</dimen>
+    <dimen name="five_word">30dp</dimen>
+    <dimen name="four_word">46dp</dimen>
+    <dimen name="two_word">78dp</dimen>
+</resources>

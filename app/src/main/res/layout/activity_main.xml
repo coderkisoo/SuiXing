@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/dl_main_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_marginTop="24dp"
+                android:id="@+id/tb_main_toobar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height">
+
+                <ImageView
+                    android:background="?android:attr/selectableItemBackground"
+                    android:id="@+id/iv_toolbar_left_image"
+                    android:layout_width="@dimen/toolbar_left_image_width"
+                    android:layout_height="@dimen/toolbar_left_image_height"
+                    android:layout_marginLeft="13dp"
+                    android:src="@mipmap/tb_back" />
+
+                <TextView
+                    android:id="@+id/toolbar_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/toolbar_text_example"
+                    android:textColor="#4EA2F8"
+                    android:textSize="@dimen/toolbar_title_size"
+                    android:layout_gravity="center" />
+                <LinearLayout
+                    android:background="?android:attr/selectableItemBackground"
+                    android:id="@+id/ll_location"
+                    android:layout_gravity="right"
+                    android:layout_width="70dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_height="24dp">
+                    <ImageView
+                        android:layout_width="@dimen/toolbar_location_image_width"
+                        android:layout_height="@dimen/toolbar_location_image_height"
+                        android:src="@mipmap/tb_location"
+                        />
+                    <TextView
+                        android:layout_marginLeft="4dp"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/toolbar_location_text_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/example_location_city"/>
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
+
+            <FrameLayout
+                android:id="@+id/fl_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tb_main_toobar" />
+        </RelativeLayout>
+
+        <include layout="@layout/dl_left_information" />
+    </android.support.v4.widget.DrawerLayout>
+</LinearLayout>
