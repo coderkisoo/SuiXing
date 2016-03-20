@@ -1,6 +1,7 @@
 package com.vehicle.suixing.suixing.ui.fragment;
 
 import android.content.Intent;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -55,7 +56,9 @@ public class VehicleInformationFragment extends Fragment {
             }
         });
         vp_choose_vehicle_list.setAdapter(new MyPagerAdapter(getActivity(), drawable));
-        vp_choose_vehicle_list.setPageTransformer(true,new MyPageTransFormer());
+        vp_choose_vehicle_list.setPageTransformer(true, new MyPageTransFormer());
         return view;
     }
+
+
 }
