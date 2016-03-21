@@ -1,7 +1,6 @@
 package com.vehicle.suixing.suixing.ui.fragment;
 
 import android.content.Intent;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -37,7 +36,10 @@ public class VehicleInformationFragment extends Fragment {
     @OnClick(R.id.iv_add_vehicle)
     void iv_add_vehicle() {
         Log.d(TAG, "iv_add_vehicle: 添加汽车");
-        startActivity(new Intent(getActivity(), AddVehicleActivity.class));
+        /**
+         * 启动相机是耗时操作，防止多次点击创建多个activity
+         * */
+        startActivity(new Intent(getActivity(), AddVehicleActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
     }
     @Nullable
     @Override

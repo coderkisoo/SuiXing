@@ -58,6 +58,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/example_location_city"/>
                 </LinearLayout>
+
             </android.support.v7.widget.Toolbar>
 
             <FrameLayout
