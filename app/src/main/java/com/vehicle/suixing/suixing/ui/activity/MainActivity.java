@@ -73,7 +73,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bmob.initialize(this, Config.bmobId);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", true);

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/fragment_background"
     android:gravity="center_horizontal"
+    android:id="@+id/ll_container"
     android:orientation="vertical">
 
     <LinearLayout
@@ -41,7 +42,6 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/rl_container"
             android:layout_width="200dp"
             android:layout_height="64dp"
             android:layout_centerVertical="true"
@@ -118,7 +118,7 @@
                 android:textColor="@color/information_text_color"
                 android:textSize="16sp"
                 android:id="@+id/tv_vehicle_information_name"
-                android:text="二手奥拓"
+                android:text=""
                 android:layout_marginLeft="@dimen/four_word"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -146,7 +146,7 @@
                 android:textColor="@color/information_text_color"
                 android:textSize="16sp"
                 android:id="@+id/tv_vehicle_information_number"
-                android:text="渝B74110"
+                android:text=""
                 android:layout_marginLeft="@dimen/three_word_width"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -174,7 +174,7 @@
                 android:textColor="@color/information_text_color"
                 android:textSize="16sp"
                 android:id="@+id/tv_vehicle_information_gas_percent"
-                android:text="43%"
+                android:text=""
                 android:layout_marginLeft="@dimen/three_word_width"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -202,7 +202,7 @@
                 android:textColor="@color/information_text_color"
                 android:textSize="16sp"
                 android:id="@+id/tv_vehicle_information_level"
-                android:text="四门四座"
+                android:text=""
                 android:layout_marginLeft="@dimen/four_word"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -230,7 +230,7 @@
                 android:textColor="@color/information_text_color"
                 android:textSize="16sp"
                 android:id="@+id/tv_vehicle_information_mileage"
-                android:text="121km"
+                android:text=""
                 android:layout_marginLeft="@dimen/three_word_width"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -258,7 +258,7 @@
                 android:textColor="@color/information_text_color"
                 android:textSize="16sp"
                 android:id="@+id/tv_vehicle_information_engine_version"
-                android:text="待定"
+                android:text=""
                 android:layout_marginLeft="@dimen/five_word"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -286,7 +286,7 @@
                 android:textColor="@color/information_text_color"
                 android:textSize="16sp"
                 android:id="@+id/tv_vehicle_information_engine_function"
-                android:text="121km"
+                android:text=""
                 android:layout_marginLeft="@dimen/five_word"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -314,7 +314,7 @@
                 android:textColor="@color/information_text_color"
                 android:textSize="16sp"
                 android:id="@+id/tv_vehicle_information_speed_changer"
-                android:text="异常"
+                android:text=""
                 android:layout_marginLeft="@dimen/five_word"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -341,8 +341,8 @@
             <TextView
                 android:textColor="@color/information_text_color"
                 android:textSize="16sp"
-                android:id="@+id/tv_vehicle_information_engine_"
-                android:text="好"
+                android:id="@+id/tv_vehicle_information_light"
+                android:text=""
                 android:layout_marginLeft="@dimen/two_word"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

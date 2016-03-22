@@ -7,15 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.vehicle.suixing.suixing.bean.VehicleInformation;
+
+import java.util.List;
+
+import cn.bmob.v3.datatype.BmobFile;
+
 /**
  * Created by KiSoo on 2016/3/20.
  */
 public class MyPagerAdapter extends PagerAdapter {
-    int[] drawable = {};
-    Context context;
+    private List<VehicleInformation> info;
+    private Context context;
     @Override
     public int getCount() {
-        return drawable.length;
+        return info.size();
     }
 
     @Override
@@ -26,7 +32,9 @@ public class MyPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         ImageView imageView = new ImageView(context);
-        imageView.setImageResource(drawable[position]);
+        BmobFile bmobFile = new BmobFile();
+        bmobFile.setUrl(info.get(position).getUrl());
+        bmobFile.loadImage(context,imageView);
         container.addView(imageView, position);
         return imageView;
 
@@ -40,8 +48,8 @@ public class MyPagerAdapter extends PagerAdapter {
         ((ViewPager)container).removeView((ImageView)object);
     }
 
-    public MyPagerAdapter(Context context, int[] drawable) {
+    public MyPagerAdapter(Context context, List<VehicleInformation> info) {
         this.context = context;
-        this.drawable = drawable;
+        this.info = info;
     }
 }
