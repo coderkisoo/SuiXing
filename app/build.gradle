@@ -30,5 +30,7 @@ dependencies {
     compile files('src/libs/BmobSDK_V3.4.5_1111.jar')
     compile files('src/libs/okhttp-2.4.0.jar')
     compile files('src/libs/okio-1.4.0.jar')
+    compile 'com.google.code.gson:gson:2.3'
+    compile 'com.android.support:cardview-v7:23.2.1'
     compile project(':zxinglib')
 }

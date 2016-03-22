@@ -6,12 +6,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 
 import com.vehicle.suixing.suixing.R;
+import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.ui.BaseActivity;
 import com.vehicle.suixing.suixing.ui.fragment.VehicleInformationFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.Bmob;
 
 public class MainActivity extends BaseActivity {
     @Bind(R.id.tb_main_toobar)
@@ -69,9 +71,10 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bmob.initialize(this, Config.bmobId);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "主页", true);
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", true);
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fl_main,new VehicleInformationFragment()).commit();
     }

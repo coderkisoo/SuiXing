@@ -10,5 +10,6 @@
     <string name="back">退出</string>
     <string name="toolbar_text_example">主页</string>
     <string name="example_location_city">重庆</string>
+    <string name="add_vehicle_information">添加车辆信息</string>
 
 </resources>
