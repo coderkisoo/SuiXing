@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.bean.VehicleInformation;
+import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.ui.activity.AddVehicleActivity;
 import com.vehicle.suixing.suixing.ui.adapter.MyPageTransFormer;
 import com.vehicle.suixing.suixing.ui.adapter.MyPagerAdapter;
@@ -109,7 +110,7 @@ public class VehicleInformationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        info = DbDao.queryPart(getActivity(), "123");
+        info = DbDao.queryPart(getActivity(), Config.userName);
         Log.e(TAG, info.size() + "");
         vp_choose_vehicle_list.setAdapter(new MyPagerAdapter(getActivity(), info));
         vp_choose_vehicle_list.setOffscreenPageLimit(info.size());
