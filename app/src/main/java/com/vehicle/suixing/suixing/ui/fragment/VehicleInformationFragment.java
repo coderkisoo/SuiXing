@@ -89,6 +89,7 @@ public class VehicleInformationFragment extends Fragment {
         });
         vp_choose_vehicle_list.setPageTransformer(true, new MyPageTransFormer());
         vp_choose_vehicle_list.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -103,6 +104,7 @@ public class VehicleInformationFragment extends Fragment {
             public void onPageScrollStateChanged(int state) {
 
             }
+
         });
         return view;
     }
@@ -117,6 +119,7 @@ public class VehicleInformationFragment extends Fragment {
         if (info.size() > 0)
             initInfo(info.get(0));
     }
+
 
     private void initInfo(VehicleInformation vehicleInformation) {
         tv_name.setText(vehicleInformation.getName());

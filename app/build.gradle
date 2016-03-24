@@ -23,17 +23,26 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'de.hdodenhof:circleimageview:1.3.0'
+    //butterknife
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.android.support:recyclerview-v7:23.2.1'
+    //bmob的库
     compile files('src/libs/Bmob_Push_V0.6beta_20150408.jar')
     compile files('src/libs/BmobSDK_V3.4.5_1111.jar')
     compile files('src/libs/okhttp-2.4.0.jar')
     compile files('src/libs/okio-1.4.0.jar')
-    compile 'com.google.code.gson:gson:2.3'
+    //google退出解析json用的 官方的库
+    compile 'com.google.code.gson:gson:2.4'
+    //控件
     compile 'com.android.support:cardview-v7:23.2.1'
+    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'//material design 的 edittext
+    compile 'de.hdodenhof:circleimageview:1.3.0'
+
     //缓存图片用的库
     compile 'com.squareup.picasso:picasso:2.5.2'
+    //扫描二维码用的库
     compile project(':zxinglib')
+    //网络请求
     compile files('libs/volley.jar')
+
 }

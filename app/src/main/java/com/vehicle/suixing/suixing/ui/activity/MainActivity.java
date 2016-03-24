@@ -6,14 +6,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.ui.BaseActivity;
 import com.vehicle.suixing.suixing.ui.fragment.VehicleInformationFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bmob.v3.Bmob;
 
 public class MainActivity extends BaseActivity {
     @Bind(R.id.tb_main_toobar)

@@ -19,6 +19,7 @@ import cn.bmob.v3.datatype.BmobFile;
 public class MyPagerAdapter extends PagerAdapter {
     private List<VehicleInformation> info;
     private Context context;
+    private String TAG = "MyPagerAdapter";
     @Override
     public int getCount() {
         return info.size();
@@ -34,7 +35,13 @@ public class MyPagerAdapter extends PagerAdapter {
         ImageView imageView = new ImageView(context);
         BmobFile bmobFile = new BmobFile();
         bmobFile.setUrl(info.get(position).getUrl());
-        bmobFile.loadImage(context,imageView);
+        bmobFile.loadImage(context, imageView);
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e(TAG,"点击了第"+position+"个");
+//            }
+//        });
         container.addView(imageView, position);
         return imageView;
 
@@ -42,6 +49,11 @@ public class MyPagerAdapter extends PagerAdapter {
     public void itemClick(){
 
     }
+
+//    @Override
+//    public Object instantiateItem(View container, int position) {
+//        return super.instantiateItem(container, position);
+//    }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
