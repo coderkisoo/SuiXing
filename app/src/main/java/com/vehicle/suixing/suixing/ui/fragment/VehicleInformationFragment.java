@@ -126,7 +126,7 @@ public class VehicleInformationFragment extends Fragment {
     private void initInfo(VehicleInformation vehicleInformation) {
         tv_name.setText(vehicleInformation.getName());
         tv_num.setText(vehicleInformation.getNum());
-        tv_frame_num.setText(vehicleInformation.getFrameNum());
+        tv_frame_num.setText(vehicleInformation.getFramenum());
         tv_percent.setText(vehicleInformation.getPercent());
         tv_size.setText(vehicleInformation.getSize());
         tv_mileage.setText(vehicleInformation.getMileage());

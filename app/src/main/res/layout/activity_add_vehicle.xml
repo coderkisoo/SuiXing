@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:background="@color/bottom_color"
+        android:paddingTop="@dimen/toolbar_top"
+        android:id="@+id/tb_main_toobar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <ImageView
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/toolbar_left_image_width"
+            android:layout_height="@dimen/toolbar_left_image_height"
+            android:layout_marginLeft="13dp"
+            android:src="@mipmap/add_back" />
+
+        <TextView
+            android:id="@+id/toolbar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="添加车辆信息"
+            android:textColor="#4EA2F8"
+            android:textSize="@dimen/toolbar_title_size"
+            android:layout_gravity="center" />
+
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/tb_main_toobar">
+        <View
+            android:background="@color/add_vehicle_background"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:background="@color/add_vehicle_background"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <RelativeLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:id="@+id/rl_scan_window">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="9dp"
+                    android:id="@+id/iv_scanner_line"
+                    android:src="@mipmap/blue_scanner"
+                    android:visibility="gone"/>
+
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/add_vehicle_frame_color"/>
+
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/add_vehicle_frame_color"/>
+
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="3dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:background="@color/add_vehicle_frame_color"/>
+
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/add_vehicle_frame_color"/>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/add_vehicle_frame_color"/>
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/add_vehicle_frame_color"/>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:background="@color/add_vehicle_frame_color"/>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/add_vehicle_frame_color"/>
+            </RelativeLayout>
+
+            <View
+                android:background="@color/add_vehicle_background"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
+         <TextView
+            android:background="@color/add_vehicle_background"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="bottom|center_horizontal"
+            android:paddingBottom="15dp"
+            android:textSize="18sp"
+            android:text="请将车辆二维码放入扫描框内"
+            android:textColor="@color/add_vehicle_text_color"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/add_vehicle_background"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_choose_in_mobile"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:background="@mipmap/choose_in_mobile"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:textColor="@color/add_vehicle_frame_color"
+                android:layout_height="wrap_content"
+                android:text="手机内选择"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

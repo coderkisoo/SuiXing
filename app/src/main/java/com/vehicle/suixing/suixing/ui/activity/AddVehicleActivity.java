@@ -113,7 +113,7 @@ public class AddVehicleActivity extends BaseSlidingActivity implements
          * */
         String json = rawResult.toString();
         Log.d(TAG, json);
-        if (json.startsWith("{\"isYours\":\"")&&json.endsWith("}")) {
+        if (json.startsWith("{\"isYours\":\"")&&json.endsWith("\"}")) {
             //粗略的判断是否为我们所需的json字符
             VehicleInformation info = parseJsonWithGson(json);
             if (info.getIsYours().equals("0x110")) {
