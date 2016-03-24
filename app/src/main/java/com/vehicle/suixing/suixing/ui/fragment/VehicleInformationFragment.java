@@ -44,6 +44,8 @@ public class VehicleInformationFragment extends Fragment {
      * */
     @Bind(R.id.tv_vehicle_information_name)
     TextView tv_name;
+    @Bind(R.id.tv_vehicle_information_frame_num)
+    TextView tv_frame_num;
     @Bind(R.id.tv_vehicle_information_number)
     TextView tv_num;
     @Bind(R.id.tv_vehicle_information_gas_percent)
@@ -124,6 +126,7 @@ public class VehicleInformationFragment extends Fragment {
     private void initInfo(VehicleInformation vehicleInformation) {
         tv_name.setText(vehicleInformation.getName());
         tv_num.setText(vehicleInformation.getNum());
+        tv_frame_num.setText(vehicleInformation.getFrameNum());
         tv_percent.setText(vehicleInformation.getPercent());
         tv_size.setText(vehicleInformation.getSize());
         tv_mileage.setText(vehicleInformation.getMileage());

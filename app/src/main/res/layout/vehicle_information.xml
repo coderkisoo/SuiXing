@@ -161,6 +161,35 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
+                android:src="@mipmap/frame_num"/>
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text="车架号："
+                android:textColor="@color/information_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                />
+            <TextView
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp"
+                android:id="@+id/tv_vehicle_information_frame_num"
+                android:text=""
+                android:layout_marginLeft="@dimen/three_word_width"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:layout_height="30dp">
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
                 android:src="@mipmap/gas_percent"/>
             <TextView
                 android:layout_marginLeft="10dp"
