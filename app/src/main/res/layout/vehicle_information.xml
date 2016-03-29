@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fragment_background"
     android:gravity="center_horizontal"
-    android:id="@+id/ll_container"
     android:orientation="vertical">
 
     <LinearLayout
@@ -36,7 +36,7 @@
         android:layout_height="64dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="@color/vehicle_information_choose_vehicle_text_color"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -96,285 +96,314 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="30dp">
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_marginLeft="10dp"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/vehicle_name"/>
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/vehicle_name" />
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="车辆名称："
                 android:textColor="@color/information_text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                />
+                android:textSize="16sp" />
+
             <TextView
-                android:textColor="@color/information_text_color"
-                android:textSize="16sp"
                 android:id="@+id/tv_vehicle_information_name"
-                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/four_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="3dp"
-            android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="30dp">
-            <ImageView
-                android:layout_marginLeft="10dp"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/vehicle_number"/>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:text="车牌号："
-                android:textColor="@color/information_text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:textColor="@color/information_text_color"
-                android:textSize="16sp"
-                android:id="@+id/tv_vehicle_information_number"
                 android:text=""
-                android:layout_marginLeft="@dimen/three_word_width"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="3dp"
-            android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="30dp">
-            <ImageView
-                android:layout_marginLeft="10dp"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/frame_num"/>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:text="车架号："
                 android:textColor="@color/information_text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:textColor="@color/information_text_color"
-                android:textSize="16sp"
-                android:id="@+id/tv_vehicle_information_frame_num"
-                android:text=""
-                android:layout_marginLeft="@dimen/three_word_width"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="30dp">
+            android:layout_height="30dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_marginLeft="10dp"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/gas_percent"/>
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/vehicle_number" />
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="车牌号："
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_vehicle_information_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/three_word_width"
+                android:text=""
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/frame_num" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="车架号："
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_vehicle_information_frame_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/three_word_width"
+                android:text=""
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/gas_percent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="汽油量："
                 android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_vehicle_information_gas_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:textColor="@color/information_text_color"
-                android:textSize="16sp"
-                android:id="@+id/tv_vehicle_information_gas_percent"
-                android:text=""
                 android:layout_marginLeft="@dimen/three_word_width"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text=""
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="30dp">
+            android:layout_height="30dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_marginLeft="10dp"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/vehicle_level"/>
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/vehicle_level" />
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="车身级别："
                 android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_vehicle_information_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:textColor="@color/information_text_color"
-                android:textSize="16sp"
-                android:id="@+id/tv_vehicle_information_level"
-                android:text=""
                 android:layout_marginLeft="@dimen/four_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text=""
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="30dp">
+            android:layout_height="30dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_marginLeft="10dp"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/vehicle_mileage"/>
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/vehicle_mileage" />
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="里程数："
                 android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_vehicle_information_mileage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:textColor="@color/information_text_color"
-                android:textSize="16sp"
-                android:id="@+id/tv_vehicle_information_mileage"
-                android:text=""
                 android:layout_marginLeft="@dimen/three_word_width"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text=""
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="30dp">
+            android:layout_height="30dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_marginLeft="10dp"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/engine_version"/>
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/engine_version" />
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="发动机型号："
                 android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_vehicle_information_engine_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:textColor="@color/information_text_color"
-                android:textSize="16sp"
-                android:id="@+id/tv_vehicle_information_engine_version"
-                android:text=""
                 android:layout_marginLeft="@dimen/five_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text=""
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="30dp">
+            android:layout_height="30dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_marginLeft="10dp"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/engine_function"/>
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/engine_function" />
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="发动机性能："
                 android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_vehicle_information_engine_function"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:textColor="@color/information_text_color"
-                android:textSize="16sp"
-                android:id="@+id/tv_vehicle_information_engine_function"
-                android:text=""
                 android:layout_marginLeft="@dimen/five_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text=""
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="30dp">
+            android:layout_height="30dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_marginLeft="10dp"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/vehicle_speed_changer"/>
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/vehicle_speed_changer" />
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="变速器性能："
                 android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_vehicle_information_speed_changer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:textColor="@color/information_text_color"
-                android:textSize="16sp"
-                android:id="@+id/tv_vehicle_information_speed_changer"
-                android:text=""
                 android:layout_marginLeft="@dimen/five_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text=""
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="30dp">
+            android:layout_height="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_marginLeft="10dp"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/vehicle_light"/>
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/vehicle_light" />
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="车灯："
                 android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_vehicle_information_light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:textColor="@color/information_text_color"
-                android:textSize="16sp"
-                android:id="@+id/tv_vehicle_information_light"
-                android:text=""
                 android:layout_marginLeft="@dimen/two_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text=""
+                android:textColor="@color/information_text_color"
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

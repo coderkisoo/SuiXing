@@ -1,4 +1,4 @@
-package com.vehicle.suixing.suixing.bean;
+package com.vehicle.suixing.suixing.bean.BmobBean;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;

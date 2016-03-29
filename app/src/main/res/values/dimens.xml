@@ -21,4 +21,13 @@
     <dimen name="two_word">78dp</dimen>
     <dimen name="toolbar_top">24dp</dimen>
     <dimen name="gas_item_info_text_size">13sp</dimen>
+    <dimen name="item_peccany_icon_size">20dp</dimen>
+    <dimen name="peccany_card_textsize">12sp</dimen>
+    <dimen name="peccany_item1">12dp</dimen>
+    <dimen name="peccany_item2">48dp</dimen>
+    <dimen name="peccany_item3">108dp</dimen>
+    <dimen name="peccany_item3_right">8dp</dimen>
+    <dimen name="username_frame_height">48dp</dimen>
+    <dimen name="frame_margin">40dp</dimen>
+    <dimen name="login_frame_textsize">18sp</dimen>
 </resources>

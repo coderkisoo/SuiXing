@@ -16,7 +16,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.bean.VehicleInformation;
+import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
 
 import java.util.ArrayList;

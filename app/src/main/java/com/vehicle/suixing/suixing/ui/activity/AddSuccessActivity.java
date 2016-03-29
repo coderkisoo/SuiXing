@@ -9,9 +9,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.bean.VehicleImage;
-import com.vehicle.suixing.suixing.bean.VehicleInformation;
+import com.vehicle.suixing.suixing.bean.BmobBean.VehicleImage;
+import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
 import com.vehicle.suixing.suixing.util.DbDao;
 
@@ -51,10 +52,8 @@ public class AddSuccessActivity extends BaseSlidingActivity {
         /**
          * 确认添加,将图片缓存到本地
          * */
-        Log.e(TAG,img.getFilename()+"\n"+img.getFileUrl(AddSuccessActivity.this)+"\n"+img.getUrl());
-        img.getFileUrl(AddSuccessActivity.this);
-
-        DbDao.add(AddSuccessActivity.this, "123", information, img.getUrl());
+        Log.e(TAG, img.getFilename() + "\n" + img.getFileUrl(AddSuccessActivity.this) + "\n" + img.getUrl());
+        DbDao.add(AddSuccessActivity.this, "123", information, img.getFileUrl(AddSuccessActivity.this));
         finish();
     }
 
@@ -87,7 +86,15 @@ public class AddSuccessActivity extends BaseSlidingActivity {
                  * 查询成功，将图片赋值
                  * */
                 img = list.get(0).getVehicleImg();
-                img.loadImage(AddSuccessActivity.this, iv_vehicle_img);
+                //picasso的图片缓存
+//                Picasso.with(AddSuccessActivity.this)
+//                        .load(img.getFileUrl(AddSuccessActivity.this))
+//                        .into(iv_vehicle_img);
+                //Bmob的图片缓存
+//                img.loadImage(AddSuccessActivity.this, iv_vehicle_img);
+                ImageLoader
+                        .getInstance()
+                        .displayImage(img.getFileUrl(AddSuccessActivity.this), iv_vehicle_img);
                 Log.e(TAG, img.getFileUrl(AddSuccessActivity.this));
                 /**
                  * 此处得到url
@@ -106,7 +113,8 @@ public class AddSuccessActivity extends BaseSlidingActivity {
                 /**
                  * 查询失败
                  * */
-                Toast.makeText(AddSuccessActivity.this, "车辆检测失败，请检查网络", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddSuccessActivity.this, "你的网络似乎有些问题哦", Toast.LENGTH_SHORT).show();
+                Log.e(TAG,"出错原因："+s+"错误代码："+i);
                 pb_islaunch.setVisibility(View.GONE);
                 new Thread() {
                     @Override
@@ -114,10 +122,10 @@ public class AddSuccessActivity extends BaseSlidingActivity {
                         super.run();
                         try {
                             sleep(2000);
+                            finish();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        finish();
                     }
                 }.start();
             }

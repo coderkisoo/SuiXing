@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.vehicle.suixing.suixing.bean.VehicleInformation;
+import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.common.Config;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class DbDao {
             values.put("speed", vehicleInformation.getSpeed());
             values.put("light", vehicleInformation.getLight());
             values.put("url", url);
-            database.insert(Config.tableName, null, values);
+            database.insert(Config.TABLE_NAME, null, values);
             database.close();
             Toast.makeText(context, "添加车辆成功", Toast.LENGTH_SHORT).show();
         } else {

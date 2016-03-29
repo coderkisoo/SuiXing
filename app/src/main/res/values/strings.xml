@@ -12,5 +12,6 @@
     <string name="example_location_city">重庆</string>
     <string name="add_vehicle_information">添加车辆信息</string>
     <string name="peccay_text">违章信息查询</string>
+    <string name="sample_text"></string>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.vehicle.suixing.suixing.bean;
+package com.vehicle.suixing.suixing.bean.BmobBean;
 
 import java.io.Serializable;
 

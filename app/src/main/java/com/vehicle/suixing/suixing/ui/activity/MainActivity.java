@@ -7,7 +7,7 @@ import android.view.Gravity;
 
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.ui.BaseActivity;
-import com.vehicle.suixing.suixing.ui.fragment.VehicleInformationFragment;
+import com.vehicle.suixing.suixing.ui.fragment.main.VehicleInformationFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
