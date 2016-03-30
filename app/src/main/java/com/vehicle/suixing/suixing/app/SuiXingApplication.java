@@ -1,7 +1,9 @@
 package com.vehicle.suixing.suixing.app;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -13,6 +15,7 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.vehicle.suixing.suixing.common.Config;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import cn.bmob.v3.Bmob;
 
@@ -20,6 +23,9 @@ import cn.bmob.v3.Bmob;
  * Created by KiSoo on 2016/3/24.
  */
 public class SuiXingApplication extends Application {
+    private static ArrayList<Activity> activities;
+    private static String TAG = SuiXingApplication.class.getName();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -31,6 +37,26 @@ public class SuiXingApplication extends Application {
          * imageloader的初始化
          * */
         initImageLoader(getApplicationContext());
+        activities = new ArrayList<>();
+    }
+
+    public synchronized static void addActivity(Activity activity) {
+        activities.add(activity);
+        Log.e(TAG, activity.toString() + "已经被添加");
+    }
+
+    public synchronized static void clearAll() {
+        int size = activities.size();
+        for (int i = size; i > 0; i--) {
+            activities.get(i-1).finish();
+        }
+        if (activities.size() == 0)
+            activities.clear();
+    }
+
+    public synchronized static void removeActivity(Activity activity) {
+        activities.remove(activity);
+        Log.e(TAG, activity.toString() + "已经被移除");
     }
 
     private void initImageLoader(Context context) {

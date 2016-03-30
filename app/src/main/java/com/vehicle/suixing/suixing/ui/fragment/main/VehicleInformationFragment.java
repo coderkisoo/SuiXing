@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
@@ -62,7 +63,8 @@ public class VehicleInformationFragment extends Fragment {
     TextView tv_speed;
     @Bind(R.id.tv_vehicle_information_light)
     TextView tv_light;
-
+    @Bind(R.id.sv_info)
+    ScrollView sv_info;
 
 
     @OnClick(R.id.iv_add_vehicle)
@@ -77,7 +79,7 @@ public class VehicleInformationFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.vehicle_information, null);
+        view = inflater.inflate(R.layout.fragment_vehicle_information, null);
         ButterKnife.bind(this, view);
 //        final ViewPager vp_choose_vehicle_list = (ViewPager) view.findViewById(R.id.vp_choose_vehicle_list);
         ll_container.setOnTouchListener(new View.OnTouchListener() {
@@ -89,6 +91,7 @@ public class VehicleInformationFragment extends Fragment {
                 return vp_choose_vehicle_list.dispatchTouchEvent(event);
             }
         });
+
         vp_choose_vehicle_list.setPageTransformer(true, new MyPageTransFormer());
         vp_choose_vehicle_list.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 

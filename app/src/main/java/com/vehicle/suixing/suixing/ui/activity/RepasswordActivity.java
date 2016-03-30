@@ -1,6 +1,5 @@
 package com.vehicle.suixing.suixing.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +11,7 @@ import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -41,14 +41,6 @@ public class RepasswordActivity extends BaseSlidingActivity {
         }
     }
 
-    @OnClick(R.id.tv_use_free)
-    void tv_use_free() {
-        /**
-         * 随便看看
-         * */
-        startActivity(new Intent(RepasswordActivity.this, MainActivity.class));
-        finish();
-    }
 
     @OnClick(R.id.tv_send_authcode)
     void tv_send_authcode() {
@@ -81,6 +73,8 @@ public class RepasswordActivity extends BaseSlidingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget);
+        ButterKnife.bind(this);
     }
+
 
 }

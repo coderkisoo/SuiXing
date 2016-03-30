@@ -100,7 +100,7 @@ public class AddSuccessActivity extends BaseSlidingActivity {
                  * 此处得到url
                  * */
                 Log.e(TAG, img.getUrl());
-                Log.e(TAG,img.getFilename());
+                Log.e(TAG, img.getFilename());
 //                startActivity(new Intent(AddSuccessActivity.this,TestActivity.class).putExtra("0",img.getUrl()));
                 rl_islaunch.setVisibility(View.GONE);
                 tv_add_success.setVisibility(View.VISIBLE);
@@ -114,7 +114,7 @@ public class AddSuccessActivity extends BaseSlidingActivity {
                  * 查询失败
                  * */
                 Toast.makeText(AddSuccessActivity.this, "你的网络似乎有些问题哦", Toast.LENGTH_SHORT).show();
-                Log.e(TAG,"出错原因："+s+"错误代码："+i);
+                Log.e(TAG, "出错原因：" + s + "错误代码：" + i);
                 pb_islaunch.setVisibility(View.GONE);
                 new Thread() {
                     @Override
@@ -130,5 +130,6 @@ public class AddSuccessActivity extends BaseSlidingActivity {
                 }.start();
             }
         });
+
     }
 }

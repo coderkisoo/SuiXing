@@ -15,4 +15,6 @@
     <color name="toolbar_background">#FFFFFF</color>
     <color name="bottom_color">#3D3D3D</color>
     <color name="login_blue_color">#50A2F8</color>
+    <color name="sample">#6fffffff</color>
+    <color name="clicked">#808080</color>
 </resources>

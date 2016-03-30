@@ -17,6 +17,7 @@
         android:layout_marginTop="53dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_head"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@mipmap/dl_example_head" />
@@ -42,7 +43,8 @@
                 android:layout_marginTop="3dp"
                 android:text="@string/example_motto"
                 android:textColor="#ffffff"
-                android:textSize="@dimen/drawer_layout_motto" />
+                android:textSize="@dimen/drawer_layout_motto"
+                android:id="@+id/tv_motto" />
         </LinearLayout>
     </LinearLayout>
 

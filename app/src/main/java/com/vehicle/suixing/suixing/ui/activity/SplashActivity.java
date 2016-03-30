@@ -44,10 +44,13 @@ public class SplashActivity extends BaseActivity {
         });
     }
 
+
     private void initList() {
         fragments = new ArrayList<>();
         fragments.add(new SplashFragment1());
         fragments.add(new SplashFragment2());
         fragments.add(new SplashFragment3());
     }
+
+
 }
