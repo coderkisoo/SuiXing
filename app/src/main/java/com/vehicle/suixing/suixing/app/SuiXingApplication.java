@@ -25,6 +25,7 @@ import cn.bmob.v3.Bmob;
 public class SuiXingApplication extends Application {
     private static ArrayList<Activity> activities;
     private static String TAG = SuiXingApplication.class.getName();
+    public static boolean hasUser = false;
 
     @Override
     public void onCreate() {
@@ -48,7 +49,7 @@ public class SuiXingApplication extends Application {
     public synchronized static void clearAll() {
         int size = activities.size();
         for (int i = size; i > 0; i--) {
-            activities.get(i-1).finish();
+            activities.get(i - 1).finish();
         }
         if (activities.size() == 0)
             activities.clear();

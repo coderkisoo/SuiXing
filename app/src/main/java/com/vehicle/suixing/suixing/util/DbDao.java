@@ -20,7 +20,7 @@ public class DbDao {
     static String TAG = "DbDao";
 
     /**
-     * 像数据库中添加车辆信息
+     * 向数据库中添加车辆信息
      * */
     public static synchronized void add(Context context, String UserName, VehicleInformation vehicleInformation, String url) {
         if (!queryIsIn(context,vehicleInformation.getNum())){

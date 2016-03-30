@@ -1,14 +1,16 @@
 package com.vehicle.suixing.suixing.ui.activity;
 
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
+import com.vehicle.suixing.suixing.util.AuthCodeUtil;
+import com.vehicle.suixing.suixing.util.ForgetUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -18,6 +20,36 @@ import butterknife.OnClick;
  * Created by KiSoo on 2016/3/28.
  */
 public class RepasswordActivity extends BaseSlidingActivity {
+    private static final int AUTH_CODING = 0;
+    private static final int AUTH_CODED = 1;
+
+
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                /**
+                 * 改变ui
+                 * */
+                case AUTH_CODING:
+                    tv_send_authcode.setClickable(false);
+                    tv_send_authcode.setBackgroundResource(R.mipmap.clicked);
+                    tv_send_authcode.setText("重新发送" + msg.arg1 + "s");
+                    break;
+                case AUTH_CODED:
+                    tv_send_authcode.setClickable(true);
+                    tv_send_authcode.setBackgroundResource(R.mipmap.send_authcode);
+                    tv_send_authcode.setText("重新发送");
+                default:
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+
+
     @OnClick(R.id.iv_toolbar_left_image)
     void back() {
         /**
@@ -31,14 +63,12 @@ public class RepasswordActivity extends BaseSlidingActivity {
         /**
          * 确认修改
          * */
-        if (et_password1.getText().toString().length() < 8) {
-            Toast.makeText(RepasswordActivity.this, "密码长度要大于八位哦", Toast.LENGTH_SHORT).show();
-        } else if (!TextUtils.equals(et_password1.getText().toString(), et_password2.getText().toString())) {
-            tv_nosame.setVisibility(View.VISIBLE);
-            Toast.makeText(RepasswordActivity.this, "两次输入的密码不太一样，请检查", Toast.LENGTH_SHORT).show();
-        } else {
+        ForgetUtil.register(RepasswordActivity.this,
+                et_password1.getText().toString(),
+                et_password2.getText().toString(),
+                et_authcode.getText().toString(),
+                et_tel.getText().toString());
 
-        }
     }
 
 
@@ -47,6 +77,7 @@ public class RepasswordActivity extends BaseSlidingActivity {
         /**
          * 发送验证码
          * */
+        AuthCodeUtil.sendAuthCode(RepasswordActivity.this,et_tel.getText().toString(),handler);
     }
 
     @OnClick({R.id.et_password1, R.id.et_password2})
@@ -54,8 +85,12 @@ public class RepasswordActivity extends BaseSlidingActivity {
         tv_nosame.setVisibility(View.INVISIBLE);
     }
 
-    @Bind(R.id.et_username)
-    EditText et_username;//用户名
+
+    @Bind(R.id.tv_send_authcode)
+    TextView tv_send_authcode;//验证码
+
+    @Bind(R.id.et_tel)
+    EditText et_tel;
 
     @Bind(R.id.et_password1)
     EditText et_password1;//第一次输入
@@ -75,6 +110,4 @@ public class RepasswordActivity extends BaseSlidingActivity {
         setContentView(R.layout.activity_forget);
         ButterKnife.bind(this);
     }
-
-
 }

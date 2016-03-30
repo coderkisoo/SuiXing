@@ -1,5 +1,7 @@
 package com.vehicle.suixing.suixing.ui.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -28,6 +30,10 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sp = getSharedPreferences("user",MODE_PRIVATE);
+        if (sp.getString("username", "").length()>=8){
+            startActivity(new Intent(SplashActivity.this,MainActivity.class));
+        }
         initList();
         setContentView(R.layout.splash_layout);
         ButterKnife.bind(this);

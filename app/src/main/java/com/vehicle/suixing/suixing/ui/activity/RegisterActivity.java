@@ -1,6 +1,5 @@
 package com.vehicle.suixing.suixing.ui.activity;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,17 +9,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.app.SuiXingApplication;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
-import com.vehicle.suixing.suixing.util.BmobError;
+import com.vehicle.suixing.suixing.util.AuthCodeUtil;
 import com.vehicle.suixing.suixing.util.RegisterUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobSMS;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.RequestSMSCodeListener;
 
 /**
  * Created by KiSoo on 2016/3/28.
@@ -67,26 +62,7 @@ public class RegisterActivity extends BaseSlidingActivity {
         /**
          * 发送验证码
          * */
-        final ProgressDialog dialog = ProgressDialog.show(RegisterActivity.this, "提示", "正在发送短信中...");
-        BmobSMS.requestSMSCode(RegisterActivity.this, et_tel.getText().toString(), "AuthCode", new RequestSMSCodeListener() {
-            @Override
-            public void done(Integer integer, BmobException e) {
-                dialog.dismiss();
-                if (e == null) {
-                    Log.i("smile", "短信id：" + integer);//用于查询本次短信发送详情
-                    changeUI();
-                } else {
-                    String error = BmobError.error(e.getErrorCode());
-                    if (e.equals("")) {
-                        Log.e(TAG, e.getMessage() + e.getErrorCode());
-                        toast(e.getMessage());
-                    } else {
-                        toast(error);
-                    }
-
-                }
-            }
-        });
+        AuthCodeUtil.sendAuthCode(RegisterActivity.this,et_tel.getText().toString(),handler);
     }
 
     @OnClick(R.id.tv_register)
