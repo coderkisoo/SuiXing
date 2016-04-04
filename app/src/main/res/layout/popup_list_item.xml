@@ -3,8 +3,7 @@
     android:id="@+id/rl_verhicle_item"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:background="@color/toolbar_background">
-
+    android:background="@drawable/vehicle_list">
     <TextView
         android:textColor="#999999"
         android:id="@+id/tv_vehicle_item_name"

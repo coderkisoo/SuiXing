@@ -2,6 +2,7 @@ package com.vehicle.suixing.suixing.presenter;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -21,9 +22,13 @@ import java.util.List;
  * Created by KiSoo on 2016/4/4.
  */
 public class PeccanyFragmentPresenter {
+    private boolean isSelected = false;
+
+    private String TAG = this.getClass().getName();
     private PeccanyFragmentView view;
     private Context context;
     private List<VehicleInformation> vehicleInfos;
+    private VehicleInformation info;
 
     public PeccanyFragmentPresenter(PeccanyFragmentView view, Context context) {
         this.view = view;
@@ -31,9 +36,10 @@ public class PeccanyFragmentPresenter {
         vehicleInfos = DbDao.queryPart(context, Config.USERNAME);
         view.setVehicle("");
     }
+
     /**
      * 弹出选择车辆的框
-     * */
+     */
     public void showWindow() {
         if (vehicleInfos.size() != 0) {
             final PopupWindow window = new PopupWindow();
@@ -47,6 +53,8 @@ public class PeccanyFragmentPresenter {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View itemView, int position, long id) {
                     view.setVehicle(vehicleInfos.get(position).getNum());
+                    isSelected = true;
+                    info = vehicleInfos.get(position);
                     window.dismiss();
                 }
             });
@@ -70,7 +78,12 @@ public class PeccanyFragmentPresenter {
      * 查询
      */
     public void query() {
+        if (isSelected){
+            Log.d(TAG, "正在查询中");
 
+        }else{
+            Toast.makeText(context, "您还未选择车辆...", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

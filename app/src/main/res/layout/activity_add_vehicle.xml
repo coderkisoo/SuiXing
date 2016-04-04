@@ -136,22 +136,6 @@
             android:layout_width="match_parent"
             android:background="@color/add_vehicle_background"
             android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_choose_in_mobile"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textSize="20sp"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="20dp"
-                android:background="@mipmap/choose_in_mobile"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:textColor="@color/add_vehicle_frame_color"
-                android:layout_height="wrap_content"
-                android:text="手机内选择"/>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

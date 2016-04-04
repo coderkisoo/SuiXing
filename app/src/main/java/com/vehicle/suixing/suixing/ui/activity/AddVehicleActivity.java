@@ -40,12 +40,6 @@ public class AddVehicleActivity extends BaseSlidingActivity implements
         Log.d(TAG, "结束，切换activity");
     }
 
-    @OnClick(R.id.tv_choose_in_mobile)
-    void tv_choose_in_mobile() {
-        Log.d(TAG, "在手机中选择图片");
-
-    }
-
     ZXingScannerViewNew scanView;
     @Bind(R.id.iv_scanner_line)
     ImageView iv_scanner_line;
