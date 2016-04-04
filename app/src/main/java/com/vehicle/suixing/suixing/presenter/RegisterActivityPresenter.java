@@ -51,16 +51,15 @@ public class RegisterActivityPresenter {
             super.handleMessage(msg);
         }
     };
+    public void sendAuth(){
+        AuthCodeUtil.sendAuthCode(context,view.getTel(), handler);
+
+    }
 
 
     public RegisterActivityPresenter(RegisterActivityView view, Context context) {
         this.view = view;
         this.context = context;
-    }
-
-    public void sendAuthCode() {
-        AuthCodeUtil.sendAuthCode(context, view.getTel(), handler);
-
     }
 
     public void register() {
@@ -153,7 +152,6 @@ public class RegisterActivityPresenter {
         });
 
     }
-
     private static boolean startWithLetter(String s) {
         char c;
         c = s.charAt(0);

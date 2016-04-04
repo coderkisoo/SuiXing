@@ -55,7 +55,7 @@ public class RepasswordActivityPresenter {
     }
 
     public void sendAuth(){
-        AuthCodeUtil.sendAuthCode(context,view.getTel(), handler);
+        AuthCodeUtil.sendAuthCode(context,view.getTel().toString(), handler);
     }
 
     public void repassword() {

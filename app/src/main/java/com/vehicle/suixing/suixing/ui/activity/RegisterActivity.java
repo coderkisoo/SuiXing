@@ -19,6 +19,7 @@ import butterknife.OnClick;
  */
 public class RegisterActivity extends BaseSlidingActivity implements RegisterActivityView {
 
+    private int WAIT_SECONDS = 100;
     private RegisterActivityPresenter presenter;
 
 
@@ -36,7 +37,7 @@ public class RegisterActivity extends BaseSlidingActivity implements RegisterAct
         /**
          * 发送验证码
          * */
-        presenter.sendAuthCode();
+        presenter.sendAuth();
     }
 
     @OnClick(R.id.tv_register)
@@ -109,11 +110,13 @@ public class RegisterActivity extends BaseSlidingActivity implements RegisterAct
     @Override
     public void sending(int seconds) {
         tv_authcode.setBackgroundResource(R.mipmap.clicked);
-        tv_authcode.setText("重新发送" + seconds + "s");
+        tv_authcode.setText("重新发送" + seconds+"s");
+
     }
 
     @Override
     public void sendable() {
-
+        tv_authcode.setBackgroundResource(R.mipmap.send_authcode);
+        tv_authcode.setText("重新发送");
     }
 }

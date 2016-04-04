@@ -21,8 +21,8 @@ public class AuthCodeUtil {
     private static final int AUTH_CODED = 1;
 
     /**
-     * 这个方法用来发送验证码
-     */
+     *  这个方法用来发送验证码
+     * */
     public static void sendAuthCode(final Context context, String phoneNum, final Handler handler) {
         final ProgressDialog dialog = ProgressDialog.show(context, "提示", "正在发送短信中...");
         BmobSMS.requestSMSCode(context, phoneNum, "AuthCode", new RequestSMSCodeListener() {
