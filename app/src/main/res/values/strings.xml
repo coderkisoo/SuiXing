@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SuiXing</string>
-    <string name="example_name">张思远</string>
-    <string name="example_motto">The best accessory a girl can own is confidence so you</string>
+    <string name="example_name">请登录</string>
+    <string name="example_motto"></string>
     <string name="vehicle_information">车辆信息</string>
     <string name="add_gas">加油</string>
     <string name="music">音乐</string>
@@ -16,5 +16,6 @@
     <string name="limit_code">0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@()%&amp;*#/~?!:;\'-_,."+-$^&amp;</string>
     <string name="limit_phone">+0123456789*#</string>
     <string name="auth_code">0123456789</string>
+    <string name="vehicle_num">渝B741000</string>
 
 </resources>

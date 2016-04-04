@@ -1,13 +1,14 @@
 package com.vehicle.suixing.suixing.ui.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.vehicle.suixing.suixing.R;
+import com.vehicle.suixing.suixing.bean.BmobBean.User;
 import com.vehicle.suixing.suixing.ui.BaseActivity;
 import com.vehicle.suixing.suixing.ui.fragment.splash.SplashFragment1;
 import com.vehicle.suixing.suixing.ui.fragment.splash.SplashFragment2;
@@ -25,14 +26,19 @@ import butterknife.ButterKnife;
 public class SplashActivity extends BaseActivity {
     @Bind(R.id.vp_splash)
     ViewPager vp_splash;
+    private String TAG = SplashActivity.class.getName();
     private List<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sp = getSharedPreferences("user",MODE_PRIVATE);
-        if (sp.getString("username", "").length()>=8){
-            startActivity(new Intent(SplashActivity.this,MainActivity.class));
+        User user = User.getCurrentUser(this,User.class);
+        if (user!=null){
+            /**
+             * 已经登陆过了
+             * */
+            Log.e(TAG,"已经登录过了");
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
         }
         initList();
         setContentView(R.layout.splash_layout);

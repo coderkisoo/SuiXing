@@ -5,8 +5,8 @@
     <dimen name="drawer_layout_text_size">16sp</dimen>
     <dimen name="drawer_layout_name">16sp</dimen>
     <dimen name="drawer_layout_motto">12sp</dimen>
-    <dimen name="toolbar_left_image_width">18dp</dimen>
-    <dimen name="toolbar_left_image_height">18dp</dimen>
+    <dimen name="icon_size_width">18dp</dimen>
+    <dimen name="icon_size_height">18dp</dimen>
     <dimen name="toolbar_title_size">22sp</dimen>
     <dimen name="toolbar_location_text_size">15sp</dimen>
     <dimen name="toolbar_location_image_width">16dp</dimen>

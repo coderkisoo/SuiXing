@@ -17,7 +17,7 @@ public class DbHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "create table if not exists UserData(" +
                 "username string(20)," +//用户名
-                "name string(10)," +//车名
+                "name string(50)," +//车名
                 "num string(10)," +//车牌号
                 "framenum string(10)," +//车架号
                 "percent string(10)," +//汽油量

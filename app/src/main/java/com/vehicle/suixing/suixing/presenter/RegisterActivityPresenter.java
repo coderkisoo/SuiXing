@@ -1,31 +1,74 @@
-package com.vehicle.suixing.suixing.util;
+package com.vehicle.suixing.suixing.presenter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
+import com.vehicle.suixing.suixing.model.RegisterActivityView;
 import com.vehicle.suixing.suixing.ui.activity.MainActivity;
+import com.vehicle.suixing.suixing.util.AuthCodeUtil;
+import com.vehicle.suixing.suixing.util.BmobError;
+import com.vehicle.suixing.suixing.util.MD5Utils;
+import com.vehicle.suixing.suixing.util.SaveUser;
 
 import cn.bmob.v3.BmobSMS;
-import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.VerifySMSCodeListener;
 
 /**
- * Created by KiSoo on 2016/3/31.
+ * Created by KiSoo on 2016/4/4.
  */
-public class RegisterUtil {
-    /**
-     * 判断注册所用的逻辑
-     */
-    private static String TAG = RegisterUtil.class.getName();
+public class RegisterActivityPresenter {
+    private RegisterActivityView view;
+    private Context context;
+    private String TAG = RegisterActivityPresenter.class.getName();
+    private static final int AUTH_CODING = 0;
+    private static final int AUTH_CODED = 1;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                /**
+                 * 改变ui
+                 * */
+                case AUTH_CODING:
+                    view.setClickable(false);
+                    view.sending(msg.arg1);
+                    break;
+                case AUTH_CODED:
+                    view.setClickable(true);
+                    view.sendable();
+                default:
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
 
-    public static void register(final Context context, final String username, final String password1, String password2, String authcode, final String tel) {
+
+    public RegisterActivityPresenter(RegisterActivityView view, Context context) {
+        this.view = view;
+        this.context = context;
+    }
+
+    public void sendAuthCode() {
+        AuthCodeUtil.sendAuthCode(context, view.getTel(), handler);
+
+    }
+
+    public void register() {
+        final String username = view.getUsername();
+        final String password1 = view.getPassword1();
+        final String password2 = view.getPassword2();
+        final String authcode = view.getAuthCode();
+        final String tel = view.getTel();
         //判断是我们要的验证码
         if (authcode.length() != 6) {
             Toast.makeText(context, "请输入正确的验证码", Toast.LENGTH_SHORT).show();
@@ -57,14 +100,15 @@ public class RegisterUtil {
             public void done(final BmobException e) {
                 if (e == null) {
                     /**
-                     * 验证通过，注册成功
+                     * 验证通过
                      * */
+                    final String deUsername = MD5Utils.ecoder(username);
+                    final String dePassword = MD5Utils.ecoder(password1);
                     User user = new User();
-                    user.setUsername(username);
-                    user.setPassword(password1);
+                    user.setUsername(deUsername);
+                    user.setPassword(dePassword);
                     user.setMobilePhoneNumber(tel);
                     user.setName("待修改");
-                    user.setHead(BmobFile.createEmptyFile());
                     user.setMotto("待修改");
                     user.signUp(context, new SaveListener() {
                         @Override
@@ -72,6 +116,7 @@ public class RegisterUtil {
                             /**
                              * 注册成功
                              * */
+                            SaveUser.save(deUsername, dePassword, context);
                             Toast.makeText(context, "注册成功", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                             context.startActivity(new Intent(context, MainActivity.class));
@@ -106,6 +151,7 @@ public class RegisterUtil {
                 }
             }
         });
+
     }
 
     private static boolean startWithLetter(String s) {

@@ -1,6 +1,5 @@
 package com.vehicle.suixing.suixing.ui.fragment.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,7 +16,8 @@ import android.widget.TextView;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.common.Config;
-import com.vehicle.suixing.suixing.ui.activity.AddVehicleActivity;
+import com.vehicle.suixing.suixing.model.VehicleInfoFragmentView;
+import com.vehicle.suixing.suixing.presenter.VehicleInfoFragmentPresenter;
 import com.vehicle.suixing.suixing.ui.adapter.MyPageTransFormer;
 import com.vehicle.suixing.suixing.ui.adapter.MyPagerAdapter;
 import com.vehicle.suixing.suixing.util.DbDao;
@@ -31,18 +31,18 @@ import butterknife.OnClick;
 /**
  * Created by KiSoo on 2016/3/20.
  */
-public class VehicleInformationFragment extends Fragment {
+public class VehicleInformationFragment extends Fragment implements VehicleInfoFragmentView{
     private String TAG = "VehicleInformationFragment";
     private View view;
+    private VehicleInfoFragmentPresenter presenter;
     private List<VehicleInformation> info;
-    private int[] drawable = {R.mipmap.vehicle_1, R.mipmap.vehicle_2, R.mipmap.vehicle_3, R.mipmap.vehicle_4};
     @Bind(R.id.vp_choose_vehicle_list)
     ViewPager vp_choose_vehicle_list;
     @Bind(R.id.ll_container)
     LinearLayout ll_container;
     /**
      * 车上的数据绑定
-     * */
+     */
     @Bind(R.id.tv_vehicle_information_name)
     TextView tv_name;
     @Bind(R.id.tv_vehicle_information_frame_num)
@@ -73,7 +73,7 @@ public class VehicleInformationFragment extends Fragment {
         /**
          * 启动相机是耗时操作，防止多次点击创建多个activity
          * */
-        startActivity(new Intent(getActivity(), AddVehicleActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
+        presenter.addVehicle();
     }
 
     @Nullable
@@ -82,6 +82,12 @@ public class VehicleInformationFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_vehicle_information, null);
         ButterKnife.bind(this, view);
 //        final ViewPager vp_choose_vehicle_list = (ViewPager) view.findViewById(R.id.vp_choose_vehicle_list);
+        presenter = new VehicleInfoFragmentPresenter(this,getActivity());
+        initView();
+        return view;
+    }
+
+    private void initView() {
         ll_container.setOnTouchListener(new View.OnTouchListener() {
             /**
              * 将父控件的onTouch()方法分发
@@ -111,7 +117,6 @@ public class VehicleInformationFragment extends Fragment {
             }
 
         });
-        return view;
     }
 
     @Override
@@ -138,4 +143,5 @@ public class VehicleInformationFragment extends Fragment {
         tv_speed.setText(vehicleInformation.getSpeed());
         tv_light.setText(vehicleInformation.getLight());
     }
+
 }

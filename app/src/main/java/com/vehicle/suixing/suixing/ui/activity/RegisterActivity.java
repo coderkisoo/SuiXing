@@ -1,17 +1,14 @@
 package com.vehicle.suixing.suixing.ui.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
+import com.vehicle.suixing.suixing.model.RegisterActivityView;
+import com.vehicle.suixing.suixing.presenter.RegisterActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
-import com.vehicle.suixing.suixing.util.AuthCodeUtil;
-import com.vehicle.suixing.suixing.util.RegisterUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -20,34 +17,11 @@ import butterknife.OnClick;
 /**
  * Created by KiSoo on 2016/3/28.
  */
-public class RegisterActivity extends BaseSlidingActivity {
-    private static final int AUTH_CODING = 0;
-    private static final int AUTH_CODED = 1;
-    private int WAIT_SECONDS = 100;
+public class RegisterActivity extends BaseSlidingActivity implements RegisterActivityView {
+
+    private RegisterActivityPresenter presenter;
 
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                /**
-                 * 改变ui
-                 * */
-                case AUTH_CODING:
-                    tv_authcode.setClickable(false);
-                    tv_authcode.setBackgroundResource(R.mipmap.clicked);
-                    tv_authcode.setText("重新发送" + msg.arg1 + "s");
-                    break;
-                case AUTH_CODED:
-                    tv_authcode.setClickable(true);
-                    tv_authcode.setBackgroundResource(R.mipmap.send_authcode);
-                    tv_authcode.setText("重新发送");
-                default:
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-    };
 
     @OnClick(R.id.iv_toolbar_left_image)
     void back() {
@@ -62,7 +36,7 @@ public class RegisterActivity extends BaseSlidingActivity {
         /**
          * 发送验证码
          * */
-        AuthCodeUtil.sendAuthCode(RegisterActivity.this,et_tel.getText().toString(),handler);
+        presenter.sendAuthCode();
     }
 
     @OnClick(R.id.tv_register)
@@ -70,12 +44,7 @@ public class RegisterActivity extends BaseSlidingActivity {
         /**
          * 注册
          * */
-        RegisterUtil.register(RegisterActivity.this,
-                et_username.getText().toString(),
-                et_password1.getText().toString(),
-                et_password2.getText().toString(),
-                et_authcode.getText().toString(),
-                et_tel.getText().toString());
+        presenter.register();
     }
 
 
@@ -93,7 +62,6 @@ public class RegisterActivity extends BaseSlidingActivity {
     EditText et_username;
     @Bind(R.id.et_authcode)
     EditText et_authcode;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,39 +72,48 @@ public class RegisterActivity extends BaseSlidingActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         ButterKnife.bind(this);
+        presenter = new RegisterActivityPresenter(this,this);
     }
 
 
-
-    /**
-     * 发送验证码改变按键UI
-     */
-    private void changeUI() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int m = WAIT_SECONDS;
-                while (m > 1) {
-                    Message authCoding = new Message();
-                    authCoding.what = AUTH_CODING;
-                    authCoding.arg1 = m;
-                    handler.sendMessage(authCoding);
-                    Log.v(TAG, "更新秒数" + m + "s");
-                    try {
-                        Thread.sleep(1000);
-                        Log.v(TAG, "sleep" + m + "s");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        Log.e(TAG, "sleep失败");
-                    }
-                    m = m - 1;
-                }
-                Message authCoded = new Message();
-                authCoded.what = AUTH_CODED;
-                handler.sendMessage(authCoded);
-            }
-        }).start();
+    @Override
+    public String getUsername() {
+        return et_username.getText().toString();
     }
 
+    @Override
+    public String getPassword1() {
+        return et_password1.getText().toString();
+    }
 
+    @Override
+    public String getPassword2() {
+        return et_password2.getText().toString();
+    }
+
+    @Override
+    public String getAuthCode() {
+        return et_authcode.getText().toString();
+    }
+
+    @Override
+    public String getTel() {
+        return et_tel.getText().toString();
+    }
+
+    @Override
+    public void setClickable(Boolean clickable) {
+        tv_authcode.setClickable(clickable);
+    }
+
+    @Override
+    public void sending(int seconds) {
+        tv_authcode.setBackgroundResource(R.mipmap.clicked);
+        tv_authcode.setText("重新发送" + seconds + "s");
+    }
+
+    @Override
+    public void sendable() {
+
+    }
 }

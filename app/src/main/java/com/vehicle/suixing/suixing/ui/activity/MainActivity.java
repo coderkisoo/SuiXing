@@ -1,29 +1,26 @@
 package com.vehicle.suixing.suixing.ui.activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuiXingApplication;
-import com.vehicle.suixing.suixing.bean.BmobBean.User;
+import com.vehicle.suixing.suixing.model.MainActivityView;
+import com.vehicle.suixing.suixing.presenter.MainActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseActivity;
-import com.vehicle.suixing.suixing.ui.fragment.main.VehicleInformationFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobUser;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainActivityView{
     private String TAG = MainActivity.class.getName();
-    private SharedPreferences sp;
+    private MainActivityPresenter presenter;
     @Bind(R.id.tb_main_toobar)
     Toolbar toolbar;
     @Bind(R.id.dl_main_drawer)
@@ -42,14 +39,16 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.ll_me)
     void ll_me() {
-
+        presenter.me();
     }
 
     @OnClick(R.id.ll_vehicle_information)
     void ll_vehicle_information() {
         /**
          * 车辆信息
+         *
          * */
+        presenter.vehicle();
     }
 
     @OnClick(R.id.ll_get_gas)
@@ -57,6 +56,7 @@ public class MainActivity extends BaseActivity {
         /**
          * 加油
          * */
+        presenter.getGas();
     }
 
     @OnClick(R.id.ll_music)
@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity {
         /**
          * 音乐
          * */
+        presenter.music();
     }
 
     @OnClick(R.id.ll_peccany)
@@ -71,6 +72,7 @@ public class MainActivity extends BaseActivity {
         /**
          * 交通违法信息
          * */
+        presenter.peccany();
     }
 
     @OnClick(R.id.ll_about_us)
@@ -78,6 +80,7 @@ public class MainActivity extends BaseActivity {
         /**
          * 关于我们
          * */
+        presenter.aboutUs();
     }
 
     @OnClick(R.id.ll_back)
@@ -85,6 +88,7 @@ public class MainActivity extends BaseActivity {
         /**
          * 退出
          * */
+        presenter.logOut();
     }
 
     @OnClick(R.id.ll_location)
@@ -103,34 +107,43 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", true);
-        initUser();
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fl_main, new VehicleInformationFragment()).commit();
+        presenter = new MainActivityPresenter(this,this,getSupportFragmentManager());
+        presenter.init();
     }
-    /**
-     * 利用本地存储好的user来更新信息
-     * */
-    private void initUser() {
 
-        sp = getSharedPreferences("user", MODE_PRIVATE);
-        User user = BmobUser.getCurrentUser(this, User.class);
-        if (user != null) {
-            SuiXingApplication.hasUser = true;
-            Log.v(TAG, "调用本地存好的");
-            ImageLoader.getInstance().displayImage(user.getHead().getFileUrl(this), civ_head);
-            SharedPreferences.Editor editor = sp.edit();
-            editor.putString("name", user.getName());
-            editor.putString("motto", user.getMotto());
-            editor.putString("username", user.getUsername());
-            editor.putString("head", user.getHead().getFileUrl(this));
-            editor.apply();
-        }
-        String name = sp.getString("name", "未登录");
-        String motto = sp.getString("motto","暂无");
-        String head = sp.getString("head","");
-        dl_tv_name.setText(name);
-        tv_motto.setText(motto);
-        ImageLoader.getInstance().displayImage(head,civ_head);
+
+    @Override
+    public void logOut() {
+        finish();
     }
+
+    @Override
+    public void UpdateName(String name) {
+        dl_tv_name.setText(name);
+    }
+
+
+    @Override
+    public void updateMotto(String motto) {
+        tv_motto.setText(motto);
+    }
+
+    @Override
+    public void updateHead(String head) {
+        ImageLoader.getInstance().displayImage(head, civ_head);
+    }
+
+    @Override
+    public void closeDrawer() {
+        dl_view.closeDrawer(Gravity.LEFT);
+    }
+
+    @Override
+    public void showToast(String toast) {
+        toast(toast);
+    }
+
+
+
 
 }

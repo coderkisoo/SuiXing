@@ -1,16 +1,14 @@
 package com.vehicle.suixing.suixing.ui.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
+import com.vehicle.suixing.suixing.model.RegisterActivityView;
+import com.vehicle.suixing.suixing.presenter.RepasswordActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
-import com.vehicle.suixing.suixing.util.AuthCodeUtil;
-import com.vehicle.suixing.suixing.util.ForgetUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,35 +17,9 @@ import butterknife.OnClick;
 /**
  * Created by KiSoo on 2016/3/28.
  */
-public class RepasswordActivity extends BaseSlidingActivity {
-    private static final int AUTH_CODING = 0;
-    private static final int AUTH_CODED = 1;
+public class RepasswordActivity extends BaseSlidingActivity implements RegisterActivityView {
 
-
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                /**
-                 * 改变ui
-                 * */
-                case AUTH_CODING:
-                    tv_send_authcode.setClickable(false);
-                    tv_send_authcode.setBackgroundResource(R.mipmap.clicked);
-                    tv_send_authcode.setText("重新发送" + msg.arg1 + "s");
-                    break;
-                case AUTH_CODED:
-                    tv_send_authcode.setClickable(true);
-                    tv_send_authcode.setBackgroundResource(R.mipmap.send_authcode);
-                    tv_send_authcode.setText("重新发送");
-                default:
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-    };
-
+    private RepasswordActivityPresenter presenter;
 
 
     @OnClick(R.id.iv_toolbar_left_image)
@@ -63,12 +35,7 @@ public class RepasswordActivity extends BaseSlidingActivity {
         /**
          * 确认修改
          * */
-        ForgetUtil.register(RepasswordActivity.this,
-                et_password1.getText().toString(),
-                et_password2.getText().toString(),
-                et_authcode.getText().toString(),
-                et_tel.getText().toString());
-
+        presenter.repassword();
     }
 
 
@@ -77,7 +44,7 @@ public class RepasswordActivity extends BaseSlidingActivity {
         /**
          * 发送验证码
          * */
-        AuthCodeUtil.sendAuthCode(RepasswordActivity.this,et_tel.getText().toString(),handler);
+        presenter.sendAuth();
     }
 
     @OnClick({R.id.et_password1, R.id.et_password2})
@@ -109,5 +76,49 @@ public class RepasswordActivity extends BaseSlidingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget);
         ButterKnife.bind(this);
+        presenter = new RepasswordActivityPresenter(this, this);
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public String getPassword1() {
+        return et_password1.getText().toString();
+    }
+
+    @Override
+    public String getPassword2() {
+        return et_password2.getText().toString();
+    }
+
+    @Override
+    public String getAuthCode() {
+        return et_authcode.getText().toString();
+    }
+
+    @Override
+    public String getTel() {
+        return et_tel.getText().toString();
+    }
+
+    @Override
+    public void setClickable(Boolean clickable) {
+        tv_send_authcode.setBackgroundResource(R.mipmap.send_authcode);
+        tv_send_authcode.setText("重新发送");
+    }
+
+    @Override
+    public void sending(int seconds) {
+        tv_send_authcode.setBackgroundResource(R.mipmap.clicked);
+        tv_send_authcode.setText("重新发送" + seconds + "s");
+    }
+
+    @Override
+    public void sendable() {
+        tv_send_authcode.setBackgroundResource(R.mipmap.send_authcode);
+        tv_send_authcode.setText("重新发送");
     }
 }

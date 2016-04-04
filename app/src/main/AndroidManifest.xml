@@ -31,7 +31,6 @@
         <activity android:name=".ui.activity.RepasswordActivity"/>
         <activity android:name=".ui.activity.AddVehicleActivity"/>
         <activity android:name=".ui.activity.AddSuccessActivity"/>
-        <activity android:name=".ui.activity.TestActivity"/>
     </application>
 
 </manifest>

@@ -121,6 +121,12 @@ public class BmobError {
             case 10013:
                 Log.e(TAG,"sms content illegal.\t非法短信内容");
                 return "非法短信内容";
+            case 108:
+                Log.e(TAG,"username and password required.\t用户名和密码是必需的");
+                return "用户名和密码是必需的";
+            case 101:
+                Log.e(TAG,"username or password incorrect");
+                return "用户名或密码错误,请重新登录";
             default:
                 break;
         }
