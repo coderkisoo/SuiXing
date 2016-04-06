@@ -1,11 +1,14 @@
 package com.vehicle.suixing.suixing.bean.BmobBean;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
  * Created by KiSoo on 2016/3/21.
  */
 public class VehicleInformation implements Serializable{
+    private String TAG = getClass().getName();
     private String isYours;//判断是否是车的二维码
     private String name;//车名
     private String num;//车牌号
@@ -18,6 +21,10 @@ public class VehicleInformation implements Serializable{
     }
 
     public void setFramenum(String framenum) {
+        while (framenum.length()<6){
+            framenum = 0+framenum;
+            Log.e(TAG, framenum);
+        }
         this.framenum = framenum;
     }
 
@@ -89,6 +96,10 @@ public class VehicleInformation implements Serializable{
     }
 
     public void setModel(String model) {
+        while (model.length()<4){
+            model = 0+model;
+            Log.e(TAG, model);
+        }
         this.model = model;
     }
 

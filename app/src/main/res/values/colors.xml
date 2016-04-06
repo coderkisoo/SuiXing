@@ -12,7 +12,7 @@
     <color name="add_vehicle_text_color">#CCCCCC</color>
     <color name="add_vehicle_background">#b0000000</color>
     <color name="add_vehicle_frame_color">#4FA3F9</color>
-    <color name="toolbar_background">#FFFFFF</color>
+    <color name="white_background">#FFFFFF</color>
     <color name="bottom_color">#3D3D3D</color>
     <color name="login_blue_color">#50A2F8</color>
     <color name="sample">#6fffffff</color>

@@ -30,6 +30,7 @@ public class DbDao {
             values.put("username", UserName);
             values.put("name", vehicleInformation.getName());
             values.put("framenum",vehicleInformation.getFramenum());
+            Log.e(TAG,vehicleInformation.getFramenum());
             values.put("num", vehicleInformation.getNum());
             values.put("percent", vehicleInformation.getPercent());
             values.put("size", vehicleInformation.getSize());

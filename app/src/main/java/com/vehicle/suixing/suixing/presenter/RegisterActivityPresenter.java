@@ -31,6 +31,7 @@ public class RegisterActivityPresenter {
     private String TAG = RegisterActivityPresenter.class.getName();
     private static final int AUTH_CODING = 0;
     private static final int AUTH_CODED = 1;
+    private int WAITING_SECONDS = 100;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -51,9 +52,75 @@ public class RegisterActivityPresenter {
             super.handleMessage(msg);
         }
     };
-    public void sendAuth(){
-        AuthCodeUtil.sendAuthCode(context,view.getTel(), handler);
 
+    public void sendAuth() {
+        AuthCodeUtil.sendAuthCode(context, view.getTel(), handler);
+        Log.e(TAG, "发送验证码中...");
+
+//        rx.Observable.create(new rx.Observable.OnSubscribe<Integer>() {
+//            @Override
+//            public void call(final Subscriber<? super Integer> subscriber) {
+//                Log.e(TAG,"调用call()");
+//                view.showDialog();
+//                BmobSMS.requestSMSCode(context, view.getTel(), "AuthCode", new RequestSMSCodeListener() {
+//                    @Override
+//                    public void done(Integer integer, BmobException e) {
+//                        Log.e(TAG,"发送结果是"+e.getErrorCode());
+//                        view.dismissDialog();
+//                        if (e == null) {
+//                            Log.i("smile", "短信id：" + integer);//用于查询本次短信发送详情
+//                            subscriber.onNext(WAITING_SECONDS);
+//                            int waited = WAITING_SECONDS;
+//                            while (true) {
+//                                subscriber.onNext(waited);
+//                                if (waited == 0) {
+//                                    break;
+//                                }
+//                                waited = waited - 1;
+//                                try {
+//                                    Thread.sleep(1000);
+//                                    Log.e(TAG, "现在为" + waited + "秒");
+//                                } catch (InterruptedException error) {
+//                                    error.printStackTrace();
+//                                }
+//                            }
+//                        } else {
+//                            String error = BmobError.error(e.getErrorCode());
+//                            if (e.equals("")) {
+//                                Log.e(TAG, e.getMessage() + e.getErrorCode());
+//                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                        }
+//                    }
+//                });
+//            }
+//        }).subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Subscriber<Integer>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(Integer integer) {
+//                        if (integer == 0) {
+//                            view.setClickable(true);
+//                            view.sendable();
+//                        } else {
+//                            view.setClickable(false);
+//                            view.sending(integer);
+//                        }
+//                    }
+//                });
     }
 
 
@@ -152,6 +219,7 @@ public class RegisterActivityPresenter {
         });
 
     }
+
     private static boolean startWithLetter(String s) {
         char c;
         c = s.charAt(0);

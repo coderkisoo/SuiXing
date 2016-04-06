@@ -31,6 +31,9 @@
         <activity android:name=".ui.activity.RepasswordActivity"/>
         <activity android:name=".ui.activity.AddVehicleActivity"/>
         <activity android:name=".ui.activity.AddSuccessActivity"/>
+        <activity android:name=".ui.activity.PeccanydActivity"/>
+
+        <!--<service android:name="com.cheshouye.api.client.WeizhangIntentService"/>-->
     </application>
 
 </manifest>

@@ -12,4 +12,5 @@ public interface RegisterActivityView {
     void setClickable(Boolean clickable);
     void sending(int seconds);
     void sendable();
+
 }

@@ -23,6 +23,9 @@ import butterknife.OnClick;
  * Created by KiSoo on 2016/3/31.
  */
 public class PeccanyFragment extends Fragment implements PeccanyFragmentView {
+    /**
+     * 查询前的fragment
+     * */
     private View view;
     private String TAG = this.getClass().getName();
     private PeccanyFragmentPresenter presenter;

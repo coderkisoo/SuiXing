@@ -301,7 +301,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="发动机型号："
+                    android:text="发动机号："
                     android:textColor="@color/information_text_color"
                     android:textSize="16sp" />
 
@@ -309,7 +309,7 @@
                     android:id="@+id/tv_vehicle_information_engine_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/five_word"
+                    android:layout_marginLeft="@dimen/four_word"
                     android:text=""
                     android:textColor="@color/information_text_color"
                     android:textSize="16sp" />

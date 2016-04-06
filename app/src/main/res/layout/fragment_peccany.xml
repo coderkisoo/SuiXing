@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/peccany_toolbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +14,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="12dp">
 
             <LinearLayout
 
@@ -24,30 +26,32 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@mipmap/unused"
+                    android:id="@+id/tv_now"
+                    android:background="@mipmap/used_1"
                     android:gravity="center"
                     android:text="本月"
-                    android:textColor="#4EA2F8"
+                    android:textColor="@color/white_background"
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/tv_past"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@mipmap/used"
+                    android:background="@mipmap/unuse_1"
                     android:gravity="center"
                     android:text="之前"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/blue_color"
                     android:textSize="18sp" />
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
-        <ListView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="16dp">
-
-        </ListView>
+            android:layout_marginTop="16dp"
+            android:id="@+id/fl_peccany_list">
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>

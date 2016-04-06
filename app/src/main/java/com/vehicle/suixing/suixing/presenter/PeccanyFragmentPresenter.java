@@ -1,6 +1,7 @@
 package com.vehicle.suixing.suixing.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.PeccanyFragmentView;
+import com.vehicle.suixing.suixing.ui.activity.PeccanydActivity;
 import com.vehicle.suixing.suixing.ui.adapter.PopupListAdapter;
 import com.vehicle.suixing.suixing.util.DbDao;
 
@@ -44,7 +46,7 @@ public class PeccanyFragmentPresenter {
         if (vehicleInfos.size() != 0) {
             final PopupWindow window = new PopupWindow();
             window.setWidth(view.getWidth());
-            window.setHeight(view.getHeight());
+            window.setHeight(view.getHeight()*vehicleInfos.size());
             View popupView = View.inflate(context, R.layout.popup_list, null);
             window.setContentView(popupView);
             ListView lv_my_vehicle = (ListView) popupView.findViewById(R.id.lv_my_vehicle);
@@ -80,7 +82,8 @@ public class PeccanyFragmentPresenter {
     public void query() {
         if (isSelected){
             Log.d(TAG, "正在查询中");
-
+//            context.startActivity(new Intent(context,));
+            context.startActivity(new Intent(context, PeccanydActivity.class).putExtra("carInfo",info));
         }else{
             Toast.makeText(context, "您还未选择车辆...", Toast.LENGTH_SHORT).show();
         }

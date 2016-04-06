@@ -104,6 +104,7 @@ public class AddSuccessActivity extends BaseSlidingActivity implements AddSucces
     @Override
     public void launchFailed() {
         pb_islaunch.setVisibility(View.GONE);
+        finish();
     }
 
 }

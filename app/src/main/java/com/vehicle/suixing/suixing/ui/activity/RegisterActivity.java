@@ -23,7 +23,6 @@ public class RegisterActivity extends BaseSlidingActivity implements RegisterAct
     private RegisterActivityPresenter presenter;
 
 
-
     @OnClick(R.id.iv_toolbar_left_image)
     void back() {
         /**
@@ -63,6 +62,7 @@ public class RegisterActivity extends BaseSlidingActivity implements RegisterAct
     EditText et_username;
     @Bind(R.id.et_authcode)
     EditText et_authcode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,7 @@ public class RegisterActivity extends BaseSlidingActivity implements RegisterAct
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         ButterKnife.bind(this);
-        presenter = new RegisterActivityPresenter(this,this);
+        presenter = new RegisterActivityPresenter(this, this);
     }
 
 
@@ -110,7 +110,7 @@ public class RegisterActivity extends BaseSlidingActivity implements RegisterAct
     @Override
     public void sending(int seconds) {
         tv_authcode.setBackgroundResource(R.mipmap.clicked);
-        tv_authcode.setText("重新发送" + seconds+"s");
+        tv_authcode.setText("重新发送" + seconds + "s");
 
     }
 

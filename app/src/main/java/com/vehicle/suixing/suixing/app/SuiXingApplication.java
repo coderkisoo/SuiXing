@@ -39,6 +39,12 @@ public class SuiXingApplication extends Application {
          * */
         initImageLoader(getApplicationContext());
         activities = new ArrayList<>();
+        /**
+         * 违章CLIENT的初始化
+         * */
+//        startService(new Intent(this,WeizhangIntentService.class)
+//                .putExtra("appId", Config.WEIZHANG_APPID)
+//                .putExtra("appKey", Config.WEIZHANG_KEY));
     }
 
     public synchronized static void addActivity(Activity activity) {

@@ -39,6 +39,7 @@ public class AddSuccessActivityPresenter {
         Log.e(TAG, img.getFilename() + "\n" + img.getFileUrl(context) + "\n" + img.getUrl());
         DbDao.add(context, Config.USERNAME, view.getInformation(), img.getFileUrl(context));
         view.finish();
+
     }
 
     public void startDownLoad() {
@@ -84,18 +85,7 @@ public class AddSuccessActivityPresenter {
                 Toast.makeText(context, "你的网络似乎有些问题哦", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "出错原因：" + s + "错误代码：" + i);
                 view.launchFailed();
-                new Thread() {
-                    @Override
-                    public void run() {
-                        super.run();
-                        try {
-                            sleep(2000);
-                            view.finish();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }.start();
+
             }
         });
 

@@ -123,7 +123,7 @@
                     android:layout_marginRight="@dimen/peccany_item3_right"
                     android:textSize="@dimen/peccany_card_textsize"
                     android:id="@+id/tv_peccany_remarks"
-                    android:text="扣2分，罚500元"/>
+                    android:text="扣2分，罚金500元"/>
             </RelativeLayout>
 
         </LinearLayout>

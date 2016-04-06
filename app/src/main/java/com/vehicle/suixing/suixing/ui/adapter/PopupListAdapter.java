@@ -36,16 +36,24 @@ public class PopupListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder = null;
         if (convertView == null){
+            viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.popup_list_item,null);
+            viewHolder.textView = (TextView) convertView.findViewById(R.id.tv_vehicle_item_name);
+            convertView.setTag(viewHolder);
+        }else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        TextView itemName = (TextView) convertView.findViewById(R.id.tv_vehicle_item_name);
-        itemName.setText(list.get(position).getNum());
+        viewHolder.textView.setText(list.get(position).getNum());
         return convertView;
     }
 
     public PopupListAdapter(Context context, List<VehicleInformation> list) {
         this.list = list;
         this.inflater = LayoutInflater.from(context);
+    }
+    private final class ViewHolder{
+        TextView textView;
     }
 }
