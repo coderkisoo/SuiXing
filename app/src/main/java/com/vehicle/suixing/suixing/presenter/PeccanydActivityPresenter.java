@@ -7,11 +7,11 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
-import com.vehicle.suixing.suixing.bean.WeiZhang.Historys;
+import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 import com.vehicle.suixing.suixing.callback.GetWeizhangInfo;
 import com.vehicle.suixing.suixing.model.PeccanydAcitivtyView;
 import com.vehicle.suixing.suixing.ui.fragment.peccany.PeccanydFragment;
-import com.vehicle.suixing.suixing.util.PeccanyQueryUtils;
+import com.vehicle.suixing.suixing.util.JisuApiQuery;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,8 +27,8 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
     private VehicleInformation info;
     private Fragment nowFragment;
     private Fragment pastFragment;
-    private List<Historys> now;
-    private List<Historys> past;
+    private List<WeizhangDate> now;
+    private List<WeizhangDate> past;
     private final int BEGIN = 0;
     private final int FINISH = 1;
     private final int DEFAILT = 2;
@@ -43,6 +43,7 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
                     break;
                 case FINISH:
                     view.dismiss();
+                    now();
                     break;
                 case DEFAILT:
                     view.defau();
@@ -67,16 +68,18 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
         Message message = new Message();
         message.what = BEGIN;
         handler.sendMessage(message);
-        PeccanyQueryUtils.query(info.getNum(), info.getModel(), info.getFramenum(), this);
+//        PeccanyQueryUtils.query(info.getNum(), info.getModel(), info.getFramenum(), this);
+        JisuApiQuery query = new JisuApiQuery(context);
+        query.query(info.getNum(), info.getFramenum(), info.getModel(), this);
     }
 
-    private void switchDate(List<Historys> history) {
+    private void switchDate(List<WeizhangDate> infos) {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH);
-        if (null != history)
-            for (int i = 0; i < history.size(); i++) {
+        if (null != infos)
+            for (int i = 0; i < infos.size(); i++) {
                 Log.e(TAG, "history不为null");
-                String date = history.get(i).getOccur_date();
+                String date = infos.get(i).getTime();
                 /**
                  * 将返回值转化成年和月
                  * */
@@ -84,14 +87,16 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
                 int peccanyYear = Integer.parseInt(date.substring(5, 7));
                 //年份小于今年，不是本月
                 if (peccanyYear < year) {
-                    past.add(history.get(i));
+                    past.add(infos.get(i));
+                    continue;
                 }
                 //月份小于本月，不是本月
                 if (peccanyMonth < month) {
-                    past.add(history.get(i));
+                    past.add(infos.get(i));
+                    continue;
                 }
                 //做完判断，添加到本月
-                now.add(history.get(i));
+                now.add(infos.get(i));
             }
         Log.e(TAG, "for循环执行完");
     }
@@ -110,7 +115,18 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
 
 
     @Override
-    public void geted(com.vehicle.suixing.suixing.bean.WeiZhang.WeizhangResponseHistoryJson json) {
+    public void requestSuccess(List<WeizhangDate> list) {
+        switchDate(list);
+        Message message = new Message();
+        message.what = FINISH;
+        handler.sendMessage(message);
 
+    }
+
+    @Override
+    public void requestDefault(String error) {
+        Message message = new Message();
+        message.what = DEFAILT;
+        handler.sendMessage(message);
     }
 }

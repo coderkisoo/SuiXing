@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.bean.WeiZhang.WeizhangResponseHistoryJson;
+import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ import java.util.List;
  * Created by KiSoo on 2016/4/5.
  */
 public class PeccanyItemAdapter extends BaseAdapter {
-    private List<WeizhangResponseHistoryJson> list;
+    private List<WeizhangDate> list;
     private Context context;
 
-    public PeccanyItemAdapter(List<WeizhangResponseHistoryJson> list, Context context) {
+    public PeccanyItemAdapter(List<WeizhangDate> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -43,6 +43,7 @@ public class PeccanyItemAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
+            holder = new ViewHolder();
             convertView = View.inflate(context, R.layout.item_peccany_card, null);
             holder.tv_peccany_time = (TextView) convertView.findViewById(R.id.tv_peccany_time);
             holder.tv_peccany_location = (TextView) convertView.findViewById(R.id.tv_peccany_location);
@@ -51,10 +52,10 @@ public class PeccanyItemAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-//        holder.tv_peccany_time.setText(list.get(position).getOccur_date());
-//        holder.tv_peccany_location.setText(list.get(position).getOccur_area());
-//        holder.tv_peccany_reason.setText(list.get(position).getInfo());
-//        holder.tv_peccany_remarks.setText("扣" + list.get(position).getFen() + "分，罚金" + list.get(position).getMoney() + "元");
+        holder.tv_peccany_time.setText(list.get(position).getTime());
+        holder.tv_peccany_location.setText(list.get(position).getAddress());
+        holder.tv_peccany_remarks.setText("扣" + list.get(position).getScore() + "分，罚金" + list.get(position).getPrice() + "元");
+        holder.tv_peccany_reason.setText(list.get(position).getContent());
         return convertView;
     }
 

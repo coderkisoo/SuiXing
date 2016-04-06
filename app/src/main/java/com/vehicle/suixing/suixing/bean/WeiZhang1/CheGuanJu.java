@@ -1,27 +1,26 @@
-package com.vehicle.suixing.suixing.bean.WeiZhang;
+package com.vehicle.suixing.suixing.bean.WeiZhang1;
 
 /**
  * Created by KiSoo on 2016/4/6.
  */
-@Deprecated
 public class CheGuanJu {
-    private int frameno;
-    private int engineno;
+    private String frameno;
+    private String engineno;
     private String carorg;
 
-    public int getFrameno() {
+    public String getFrameno() {
         return frameno;
     }
 
-    public void setFrameno(int frameno) {
+    public void setFrameno(String frameno) {
         this.frameno = frameno;
     }
 
-    public int getEngineno() {
+    public String getEngineno() {
         return engineno;
     }
 
-    public void setEngineno(int engineno) {
+    public void setEngineno(String engineno) {
         this.engineno = engineno;
     }
 

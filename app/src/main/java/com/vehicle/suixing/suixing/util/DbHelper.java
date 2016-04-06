@@ -19,7 +19,7 @@ public class DbHelper extends SQLiteOpenHelper{
                 "username string(20)," +//用户名
                 "name string(50)," +//车名
                 "num string(10)," +//车牌号
-                "framenum string(10)," +//车架号
+                "framenum string(20)," +//车架号
                 "percent string(10)," +//汽油量
                 "size string(10)," +//车身级别
                 "mileage string(10)," +//里程数

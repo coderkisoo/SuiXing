@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.bean.WeiZhang.Historys;
+import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 import com.vehicle.suixing.suixing.model.PeccanydFragmentView;
 import com.vehicle.suixing.suixing.presenter.PeccanydFragmentPresenter;
 import com.vehicle.suixing.suixing.ui.adapter.PeccanyItemAdapter;
@@ -29,19 +29,19 @@ public class PeccanydFragment extends Fragment implements PeccanydFragmentView {
     private View view;
     @Bind(R.id.lv_now_peccany)
     ListView lv_now_peccany;
-    private List<Historys> list;
+    private List<WeizhangDate> list;
     private PeccanydFragmentPresenter presenter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.now_peccany, null);
         ButterKnife.bind(this, view);
-//        presenter = new PeccanydFragmentPresenter(this,getActivity(),list);
+        presenter = new PeccanydFragmentPresenter(this,getActivity(),list);
         presenter.showData();
         return view;
     }
 
-    public PeccanydFragment(List<Historys> list) {
+    public PeccanydFragment(List<WeizhangDate> list) {
         this.list = list;
 
     }

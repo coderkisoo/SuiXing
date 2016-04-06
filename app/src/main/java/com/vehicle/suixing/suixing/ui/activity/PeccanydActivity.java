@@ -32,6 +32,10 @@ public class PeccanydActivity extends BaseSlidingActivity
     TextView tv_past;
     @Bind(R.id.tv_now)
     TextView tv_now;
+    @OnClick(R.id.iv_toolbar_left_image)
+    void iv_toolbar_left_image(){
+        finish();
+    }
 
     @OnClick(R.id.tv_now)
     void tv_now() {
@@ -93,5 +97,6 @@ public class PeccanydActivity extends BaseSlidingActivity
     @Override
     public void defau() {
         toast("网络状态不佳，请检查网络设置");
+        dismiss();
     }
 }

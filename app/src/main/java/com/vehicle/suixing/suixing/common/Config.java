@@ -13,4 +13,5 @@ public class Config {
     public static String TABLE_NAME = "UserData";
     public static String USERNAME = "";
     public static String INFO = "carInfo";
+    public static String JISU_APPKEY = "7bee19beb72bfbf9";
 }

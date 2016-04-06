@@ -1,4 +1,4 @@
-package com.vehicle.suixing.suixing.bean.WeiZhang;
+package com.vehicle.suixing.suixing.bean.WeiZhang1;
 
 /**
  * Created by KiSoo on 2016/4/5.

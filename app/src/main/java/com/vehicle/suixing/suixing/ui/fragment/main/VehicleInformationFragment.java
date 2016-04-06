@@ -134,7 +134,7 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
     private void initInfo(VehicleInformation vehicleInformation) {
         tv_name.setText(vehicleInformation.getName());
         tv_num.setText(vehicleInformation.getNum());
-        tv_frame_num.setText(vehicleInformation.getFramenum());
+        tv_frame_num.setText(vehicleInformation.getFramenum().substring(11,17));//只显示11-17位的
         tv_percent.setText(vehicleInformation.getPercent());
         tv_size.setText(vehicleInformation.getSize());
         tv_mileage.setText(vehicleInformation.getMileage());

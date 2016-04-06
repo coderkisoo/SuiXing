@@ -1,4 +1,4 @@
-package com.vehicle.suixing.suixing.bean.WeiZhang;
+package com.vehicle.suixing.suixing.bean.WeiZhang1;
 
 import java.util.List;
 
