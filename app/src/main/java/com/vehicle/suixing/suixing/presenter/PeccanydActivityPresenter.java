@@ -15,6 +15,7 @@ import com.vehicle.suixing.suixing.util.JisuApiQuery;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -76,28 +77,49 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
     private void switchDate(List<WeizhangDate> infos) {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH);
-        if (null != infos)
-            for (int i = 0; i < infos.size(); i++) {
-                Log.e(TAG, "history不为null");
-                String date = infos.get(i).getTime();
-                /**
-                 * 将返回值转化成年和月
-                 * */
+        if (null != infos){
+            Iterator<WeizhangDate> weizhangDateIterator = infos.iterator();
+            while (weizhangDateIterator.hasNext()){
+                WeizhangDate weizhangDate = weizhangDateIterator.next();
+                String date = weizhangDate.getTime();
                 int peccanyMonth = Integer.parseInt(date.substring(0, 4));
                 int peccanyYear = Integer.parseInt(date.substring(5, 7));
                 //年份小于今年，不是本月
                 if (peccanyYear < year) {
-                    past.add(infos.get(i));
+                    past.add(weizhangDate);
                     continue;
                 }
                 //月份小于本月，不是本月
                 if (peccanyMonth < month) {
-                    past.add(infos.get(i));
+                    past.add(weizhangDate);
                     continue;
                 }
                 //做完判断，添加到本月
-                now.add(infos.get(i));
+                now.add(weizhangDate);
             }
+        }
+
+//            for (int i = 0; i < infos.size(); i++) {
+//                Log.e(TAG, "history不为null");
+//                String date = infos.get(i).getTime();
+//                /**
+//                 * 将返回值转化成年和月
+//                 * */
+//                int peccanyMonth = Integer.parseInt(date.substring(0, 4));
+//                int peccanyYear = Integer.parseInt(date.substring(5, 7));
+//                //年份小于今年，不是本月
+//                if (peccanyYear < year) {
+//                    past.add(infos.get(i));
+//                    continue;
+//                }
+//                //月份小于本月，不是本月
+//                if (peccanyMonth < month) {
+//                    past.add(infos.get(i));
+//                    continue;
+//                }
+//                //做完判断，添加到本月
+//                now.add(infos.get(i));
+//            }
         Log.e(TAG, "for循环执行完");
     }
 

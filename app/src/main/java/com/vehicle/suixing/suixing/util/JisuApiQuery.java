@@ -11,6 +11,8 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.CheGuanJu;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.CheGuanName;
+import com.vehicle.suixing.suixing.bean.WeiZhang1.City;
+import com.vehicle.suixing.suixing.bean.WeiZhang1.Province;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangInfo;
 import com.vehicle.suixing.suixing.callback.GetWeizhangInfo;
@@ -21,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -123,13 +126,13 @@ public class JisuApiQuery {
                         @Override
                         public void onResponse(Response response2) throws IOException {
                             String response2body = response2.body().string();
-                            if (response2body.length()>140){
+                            if (response2body.length() > 140) {
                                 Gson gson3 = new Gson();
                                 Type type3 = new TypeToken<WeizhangInfo>() {
                                 }.getType();
                                 WeizhangInfo result3 = gson3.fromJson(response2body, type3);
                                 info.requestSuccess(result3.getResult().getList());
-                            }else {
+                            } else {
                                 List<WeizhangDate> infos = new ArrayList<WeizhangDate>();
                                 info.requestSuccess(infos);
                             }
@@ -154,27 +157,45 @@ public class JisuApiQuery {
             cheGuanJu.setFrameno("100");
             return cheGuanJu;
         }
-        int cursorSize = 0;
-        while (cursorSize < name.getResult().getData().size()) {
-            int citySize = 0;
-            if (name.getResult().getData().get(cursorSize).getLsprefix().equals(firstLetter))
-                while (citySize < name.getResult().getData().get(cursorSize).getList().size()) {
-                    if (name.getResult().getData().get(cursorSize).getList().get(citySize).getLsnum().equals(secondLetter)) {
-                        Log.e(TAG, "设置成功" + name.getResult().getData().get(cursorSize).getLsprefix());
-                        Log.e(TAG, "设置成功" + name.getResult().getData().get(cursorSize).getList().get(citySize).getLsnum());
+        Iterator<Province> provinceIterator = name.getResult().getData().iterator();
+        while (provinceIterator.hasNext()) {
+            Province province = provinceIterator.next();
+            if (province.getLsprefix().equals(firstLetter)){
+                Iterator<City> cityIterator = province.getList().iterator();
+                while (cityIterator.hasNext()){
+                    City city = cityIterator.next();
+                    if (secondLetter.equals(city.getLsnum())){
                         CheGuanJu cheGuanJu = new CheGuanJu();
-                        //给车管局设置参数
-                        cheGuanJu.setCarorg(name.getResult().getData().get(cursorSize).getList().get(citySize).getCarorg());
-                        cheGuanJu.setEngineno(name.getResult().getData().get(cursorSize).getList().get(citySize).getEngineno());
-                        cheGuanJu.setFrameno(name.getResult().getData().get(cursorSize).getList().get(citySize).getFrameno());
+                        cheGuanJu.setCarorg(city.getCarorg());
+                        cheGuanJu.setFrameno(city.getFrameno());
+                        cheGuanJu.setEngineno(city.getEngineno());
                         return cheGuanJu;
                     }
-                    citySize++;
-                    Log.e(TAG, "内层" + citySize);
                 }
-            cursorSize++;
-            Log.e(TAG, cursorSize + "外层");
+            }
         }
+
+//        int cursorSize = 0;
+//        while (cursorSize < name.getResult().getData().size()) {
+//            int citySize = 0;
+//            if (name.getResult().getData().get(cursorSize).getLsprefix().equals(firstLetter))
+//                while (citySize < name.getResult().getData().get(cursorSize).getList().size()) {
+//                    if (name.getResult().getData().get(cursorSize).getList().get(citySize).getLsnum().equals(secondLetter)) {
+//                        Log.e(TAG, "设置成功" + name.getResult().getData().get(cursorSize).getLsprefix());
+//                        Log.e(TAG, "设置成功" + name.getResult().getData().get(cursorSize).getList().get(citySize).getLsnum());
+//                        CheGuanJu cheGuanJu = new CheGuanJu();
+//                        //给车管局设置参数
+//                        cheGuanJu.setCarorg(name.getResult().getData().get(cursorSize).getList().get(citySize).getCarorg());
+//                        cheGuanJu.setEngineno(name.getResult().getData().get(cursorSize).getList().get(citySize).getEngineno());
+//                        cheGuanJu.setFrameno(name.getResult().getData().get(cursorSize).getList().get(citySize).getFrameno());
+//                        return cheGuanJu;
+//                    }
+//                    citySize++;
+//                    Log.e(TAG, "内层" + citySize);
+//                }
+//            cursorSize++;
+//            Log.e(TAG, cursorSize + "外层");
+//        }
         return null;
     }
 

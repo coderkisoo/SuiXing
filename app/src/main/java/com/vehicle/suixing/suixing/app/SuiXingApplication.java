@@ -53,9 +53,14 @@ public class SuiXingApplication extends Application {
     }
 
     public synchronized static void clearAll() {
-        int size = activities.size();
-        for (int i = size; i > 0; i--) {
-            activities.get(i - 1).finish();
+//        int size = activities.size();
+//        for (int i = size; i > 0; i--) {
+//            activities.get(i - 1).finish();
+//        }
+
+//        Iterator<Activity> activityIterator = activities.iterator();
+        while (activities.size()!=0){
+            activities.get(0).finish();
         }
         if (activities.size() == 0)
             activities.clear();
