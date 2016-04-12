@@ -11,13 +11,16 @@ import android.widget.Toast;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuiXingApplication;
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
+import com.vehicle.suixing.suixing.bean.BmobBean.Users;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.MainActivityView;
 import com.vehicle.suixing.suixing.ui.activity.SplashActivity;
+import com.vehicle.suixing.suixing.ui.fragment.main.MeFragment;
 import com.vehicle.suixing.suixing.ui.fragment.main.VehicleInformationFragment;
 import com.vehicle.suixing.suixing.ui.fragment.peccany.PeccanyFragment;
 import com.vehicle.suixing.suixing.util.BmobError;
 import com.vehicle.suixing.suixing.util.SaveUser;
+import com.vehicle.suixing.suixing.util.UserSpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +71,10 @@ public class MainActivityPresenter {
             if (null != user.getHead())
                 editor.putString("head", user.getHead().getFileUrl(context));
             editor.apply();
-            String name = sp.getString("name", "未登录");
-            String motto = sp.getString("motto", "暂无");
-            String head = sp.getString("head", "");
-            view.UpdateName(name);
-            view.updateMotto(motto);
-            view.updateHead(head);
+            Users users = UserSpUtils.getUsers(context);
+            view.UpdateName(users.getName());
+            view.updateMotto(users.getMotto());
+            view.updateHead(users.getHead());
         } else {
             SuiXingApplication.hasUser = false;
         }
@@ -118,9 +119,10 @@ public class MainActivityPresenter {
          * 初始化fragment列表
          * */
         fragments = new ArrayList<>();
+        fragments.add(new MeFragment());
         fragments.add(new VehicleInformationFragment());
         fragments.add(new PeccanyFragment());
-        startFragment(fragments.get(0));
+        startFragment(fragments.get(1));
 
     }
 
@@ -128,8 +130,9 @@ public class MainActivityPresenter {
         fragmentManager.beginTransaction().replace(R.id.fl_main, newFragment).commit();
     }
 
+
     public void peccany() {
-        startFragment(fragments.get(1));
+        startFragment(fragments.get(2));
         view.closeDrawer();
     }
 
@@ -152,11 +155,12 @@ public class MainActivityPresenter {
         } else {
             Log.e(TAG, "已经有了用户");
             view.closeDrawer();
+            startFragment(fragments.get(0));
         }
     }
 
     public void vehicle() {
-        startFragment(fragments.get(0));
+        startFragment(fragments.get(1));
         view.closeDrawer();
     }
 

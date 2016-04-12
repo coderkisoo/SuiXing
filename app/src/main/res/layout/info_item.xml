@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_vehicle_img"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="20dp"
+        android:background="#F7F7F7"
+        android:src="@mipmap/vehicle_1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_vehicle_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/event_background"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:text="二手奥拓"
+            android:textColor="@color/vehicle_information_choose_vehicle_text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_vehicle_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="车牌号:渝B74123"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_vehicle_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="车身级别:四门四座"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_vehicle_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="汽油量:43%"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

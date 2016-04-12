@@ -17,5 +17,6 @@
     <string name="limit_phone">+0123456789*#</string>
     <string name="auth_code">0123456789</string>
     <string name="vehicle_num">渝B741000</string>
+    <string name="example_location"></string>
 
 </resources>

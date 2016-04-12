@@ -9,10 +9,13 @@ import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
+import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.PeccanydAcitivtyView;
 import com.vehicle.suixing.suixing.presenter.PeccanydActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,15 +28,16 @@ public class PeccanydActivity extends BaseSlidingActivity
         implements PeccanydAcitivtyView {
     private PeccanydActivityPresenter presenter;
     private FragmentManager fm;
-    private int BLUE_COLOR ;
+    private int BLUE_COLOR;
     private int WHITE_COLOR;
     private ProgressDialog dialog;
     @Bind(R.id.tv_past)
     TextView tv_past;
     @Bind(R.id.tv_now)
     TextView tv_now;
+
     @OnClick(R.id.iv_toolbar_left_image)
-    void iv_toolbar_left_image(){
+    void iv_toolbar_left_image() {
         finish();
     }
 
@@ -53,14 +57,22 @@ public class PeccanydActivity extends BaseSlidingActivity
         setContentView(R.layout.fragment_peccany);
         ButterKnife.bind(this);
         initInfo();
-        VehicleInformation info = (VehicleInformation) getIntent().getSerializableExtra(Config.INFO);
-        presenter = new PeccanydActivityPresenter(this, this, info);
+        if (getIntent().getBooleanExtra("isLoad", false)){
+            List<WeizhangDate> infos = (List<WeizhangDate>) getIntent().getSerializableExtra("list");
+            presenter = new PeccanydActivityPresenter(infos, this,this);
+        }else {
+            VehicleInformation info = (VehicleInformation) getIntent().getSerializableExtra(Config.INFO);
+            presenter = new PeccanydActivityPresenter(this, this, info);
+        }
     }
 
     private void initInfo() {
         BLUE_COLOR = ContextCompat.getColor(this, R.color.blue_color);
         WHITE_COLOR = ContextCompat.getColor(this, R.color.white_background);
         fm = getSupportFragmentManager();
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("提示：");
+        dialog.setMessage("正在加载中");
     }
 
     @Override
@@ -69,7 +81,7 @@ public class PeccanydActivity extends BaseSlidingActivity
         tv_now.setBackgroundResource(R.mipmap.used_1);
         tv_past.setTextColor(BLUE_COLOR);
         tv_past.setBackgroundResource(R.mipmap.unuse_1);
-        fm.beginTransaction().replace(R.id.fl_peccany_list,fragment).commit();
+        fm.beginTransaction().replace(R.id.fl_peccany_list, fragment).commit();
     }
 
     @Override
@@ -81,12 +93,12 @@ public class PeccanydActivity extends BaseSlidingActivity
         tv_now.setBackgroundResource(R.mipmap.unused);
         tv_past.setTextColor(WHITE_COLOR);
         tv_past.setBackgroundResource(R.mipmap.used);
-        fm.beginTransaction().replace(R.id.fl_peccany_list,fragment).commit();
+        fm.beginTransaction().replace(R.id.fl_peccany_list, fragment).commit();
     }
 
     @Override
     public void begin() {
-        dialog = ProgressDialog.show(this, "提示", "正在查询中，请稍后...", false);
+        dialog.show();
     }
 
     @Override

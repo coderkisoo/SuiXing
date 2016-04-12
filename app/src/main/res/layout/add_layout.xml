@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:gravity="center">
+    <TextView
+        android:layout_below="@+id/cv_add_success"
+        android:id="@+id/tv_add_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@mipmap/choose_in_mobile"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="5dp"
+        android:text="添加车辆"
+        android:textColor="@color/add_vehicle_frame_color"
+        android:textSize="20sp" />
+</LinearLayout>

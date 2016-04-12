@@ -7,6 +7,7 @@ public class CheGuanJu {
     private String frameno;
     private String engineno;
     private String carorg;
+    private String lsprefix;
 
     public String getFrameno() {
         return frameno;
@@ -18,6 +19,14 @@ public class CheGuanJu {
 
     public String getEngineno() {
         return engineno;
+    }
+
+    public String getLsprefix() {
+        return lsprefix;
+    }
+
+    public void setLsprefix(String lsprefix) {
+        this.lsprefix = lsprefix;
     }
 
     public void setEngineno(String engineno) {

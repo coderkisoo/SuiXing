@@ -1,6 +1,5 @@
 package com.vehicle.suixing.suixing.util;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -11,6 +10,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.CheGuanJu;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.CheGuanName;
+import com.vehicle.suixing.suixing.bean.WeiZhang1.CheguanjuError;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.City;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.Province;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
@@ -34,20 +34,17 @@ public class JisuApiQuery {
     private String firstLetter = "";
     private String secondLetter = "";
     private String TAG = "JisuApiQuery";
-    private String cheguanUrl = "http://api.jisuapi.com/illegal/carorg?appkey=";
+//    private String cheguanUrl = "http://api.jisuapi.com/illegal/carorg?appkey=";
     private String URL = "http://api.jisuapi.com/illegal/query?appkey=";
-    private Context context;
+
     private String lsnum = "";
     private String frameNum = "";
     private String engineNo = "";
 
-    private void getCheguanju() {
-        getCheGuanJu(cheguanUrl + Config.JISU_APPKEY);
-    }
+//    private void getCheguanju() {
+//        getCheGuanJu(cheguanUrl + Config.JISU_APPKEY);
+//    }
 
-    public JisuApiQuery(Context context) {
-        this.context = context;
-    }
 
     public void query(final String vehiclenum, String frameNum, String model, GetWeizhangInfo call) {
         firstLetter = vehiclenum.substring(0, 1);
@@ -58,90 +55,98 @@ public class JisuApiQuery {
         this.engineNo = model;
         info = call;
         Log.e(TAG, "vehiclenum" + vehiclenum + "engineNo" + model + "frameNum" + frameNum);
-        getCheguanju();
+        getCheGuanJu();
     }
 
-    private void getCheGuanJu(final String url) {
+    private void getCheGuanJu() {
         final OkHttpClient client = new OkHttpClient();
 
-        final Request request = new Request.Builder().url(url).build();
-        Log.v(TAG, "请求的数据为" + url);
-        com.squareup.okhttp.Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                Log.e(TAG, request.toString());
-                info.requestDefault("请求失败,请检查网络");
+//        final Request request = new Request.Builder().url(url).build();
+//        Log.v(TAG, "请求的数据为" + url);
+//        com.squareup.okhttp.Call call = client.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Request request, IOException e) {
+//                Log.e(TAG, request.toString());
+//                info.requestDefault("请求失败,请检查网络");
+//            }
+//
+//            @Override
+//            public void onResponse(Response response) throws IOException {
+////                String response1body = response.body().string();
+        String json = Config.json;
+        Type type = new TypeToken<CheGuanName>() {
+        }.getType();
+        Gson gson = new Gson();
+        CheGuanName name = gson.fromJson(json, type);
+        Log.e(TAG, "json1为" + json);
+        CheGuanJu cheGuanJu = getCheguanjuInfo(name);
+        if (null == cheGuanJu) {
+            Log.e(TAG, "chegaunju为null");
+        } else {
+            String lsprefix = "";
+            try {
+                lsprefix = URLEncoder.encode(firstLetter, "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                String response1body = response.body().string();
-                Type type = new TypeToken<CheGuanName>() {
-                }.getType();
-                Gson gson = new Gson();
-                CheGuanName name = gson.fromJson(response1body, type);
-                Log.e(TAG, "json1为" + response1body);
-                CheGuanJu cheGuanJu = getCheguanjuInfo(name);
-                if (null == cheGuanJu) {
-                    Log.e(TAG, "chegaunju为null");
-                } else {
-                    String lsprefix = "";
-                    try {
-                        lsprefix = URLEncoder.encode(firstLetter, "utf-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    int bit = 0;
-                    if (cheGuanJu.getFrameno().length() > 0) {
-                        bit = Integer.valueOf(cheGuanJu.getFrameno());
-                        if (bit == 100)
-                            bit = 17;
-                    }
+            int bit = 0;
+            if (cheGuanJu.getFrameno().length() > 0) {
+                bit = Integer.valueOf(cheGuanJu.getFrameno());
+                if (bit == 100)
+                    bit = 17;
+            }
 //                    int bit2 = 7;
 //                    if (cheGuanJu.getEngineno().length() > 0) {
 //                        bit2 = Integer.valueOf(cheGuanJu.getEngineno());
 //                        if (bit2 == 100)
 //                            bit2 = 7;
 //                    }
-                    String m = frameNum.substring(17 - bit, 17);
+            String m = frameNum.substring(17 - bit, 17);
 //                    String n = engineNo.substring(7 - bit2, 7);
-                    String getResult =
-                            URL + Config.JISU_APPKEY +
-                                    "&carorg=" + cheGuanJu.getCarorg() +
-                                    "&lsprefix=" + lsprefix +
-                                    "&lsnum=" + lsnum +
-                                    "&frameno=" + m +
-                                    "&engineno=" + engineNo;
-                    final Request request2 = new Request.Builder().url(getResult).build();
-                    Log.v(TAG, "请求的数据为" + getResult);
-                    com.squareup.okhttp.Call call2 = client.newCall(request2);
-                    call2.enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Request request, IOException e) {
-                            Log.e(TAG, "第二次请求失败");
-                            info.requestDefault("请求失败,请检查网络");
-                        }
-
-                        @Override
-                        public void onResponse(Response response2) throws IOException {
-                            String response2body = response2.body().string();
-                            if (response2body.length() > 140) {
-                                Gson gson3 = new Gson();
-                                Type type3 = new TypeToken<WeizhangInfo>() {
-                                }.getType();
-                                WeizhangInfo result3 = gson3.fromJson(response2body, type3);
-                                info.requestSuccess(result3.getResult().getList());
-                            } else {
-                                List<WeizhangDate> infos = new ArrayList<WeizhangDate>();
-                                info.requestSuccess(infos);
-                            }
-                        }
-                    });
+            String getResult =
+                    URL + Config.JISU_APPKEY +
+                            "&carorg=" + cheGuanJu.getCarorg() +
+                            "&lsprefix=" + lsprefix +
+                            "&lsnum=" + lsnum +
+                            "&frameno=" + m +
+                            "&engineno=" + engineNo;
+            final Request request2 = new Request.Builder().url(getResult).build();
+            Log.v(TAG, "请求的数据为" + getResult);
+            com.squareup.okhttp.Call call2 = client.newCall(request2);
+            call2.enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    Log.e(TAG, "第二次请求失败");
+                    info.requestDefault("请求失败,请检查网络");
                 }
-            }
-        });
 
+                @Override
+                public void onResponse(Response response2) throws IOException {
+                    String response2body = response2.body().string();
+                    Log.e(TAG,response2body);
+                    if (response2body.length() > 140) {
+                        Gson gson3 = new Gson();
+                        Type type3 = new TypeToken<WeizhangInfo>() {
+                        }.getType();
+                        WeizhangInfo result3 = gson3.fromJson(response2body, type3);
+                        info.requestSuccess(result3.getResult().getList());
+                    }else {
+                        Gson gson = new Gson();
+                        Type type3 = new TypeToken<CheguanjuError>() {}.getType();
+                        CheguanjuError result = gson.fromJson(response2body, type3);
+                        if (result.getStatus().equals("0")) {
+                            List<WeizhangDate> infos = new ArrayList<WeizhangDate>();
+                            info.requestSuccess(infos);
+//                            view.showError(result.getMsg());
+                        }else {
+                            info.showText(result.getMsg());
+                        }
+
+                    }
+                }
+            });
+        }
     }
 
     /**
@@ -160,11 +165,11 @@ public class JisuApiQuery {
         Iterator<Province> provinceIterator = name.getResult().getData().iterator();
         while (provinceIterator.hasNext()) {
             Province province = provinceIterator.next();
-            if (province.getLsprefix().equals(firstLetter)){
+            if (province.getLsprefix().equals(firstLetter)) {
                 Iterator<City> cityIterator = province.getList().iterator();
-                while (cityIterator.hasNext()){
+                while (cityIterator.hasNext()) {
                     City city = cityIterator.next();
-                    if (secondLetter.equals(city.getLsnum())){
+                    if (secondLetter.equals(city.getLsnum())) {
                         CheGuanJu cheGuanJu = new CheGuanJu();
                         cheGuanJu.setCarorg(city.getCarorg());
                         cheGuanJu.setFrameno(city.getFrameno());

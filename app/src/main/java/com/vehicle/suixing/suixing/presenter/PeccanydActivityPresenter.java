@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
@@ -64,22 +65,30 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
         beginQuery();
     }
 
+    public PeccanydActivityPresenter(List<WeizhangDate> infos, Context context, PeccanydAcitivtyView view) {
+        this.now = new ArrayList<>();
+        this.past = new ArrayList<>();
+        this.view = view;
+        this.context = context;
+        switchDate(infos);
+    }
+
     private void beginQuery() {
         Log.e(TAG, "查询中");
         Message message = new Message();
         message.what = BEGIN;
         handler.sendMessage(message);
 //        PeccanyQueryUtils.query(info.getNum(), info.getModel(), info.getFramenum(), this);
-        JisuApiQuery query = new JisuApiQuery(context);
+        JisuApiQuery query = new JisuApiQuery();
         query.query(info.getNum(), info.getFramenum(), info.getModel(), this);
     }
 
     private void switchDate(List<WeizhangDate> infos) {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH);
-        if (null != infos){
+        if (null != infos) {
             Iterator<WeizhangDate> weizhangDateIterator = infos.iterator();
-            while (weizhangDateIterator.hasNext()){
+            while (weizhangDateIterator.hasNext()) {
                 WeizhangDate weizhangDate = weizhangDateIterator.next();
                 String date = weizhangDate.getTime();
                 int peccanyMonth = Integer.parseInt(date.substring(0, 4));
@@ -97,6 +106,7 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
                 //做完判断，添加到本月
                 now.add(weizhangDate);
             }
+
         }
 
 //            for (int i = 0; i < infos.size(); i++) {
@@ -121,6 +131,9 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
 //                now.add(infos.get(i));
 //            }
         Log.e(TAG, "for循环执行完");
+        Message message = new Message();
+        message.what = FINISH;
+        handler.sendMessage(message);
     }
 
     public void now() {
@@ -139,10 +152,6 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
     @Override
     public void requestSuccess(List<WeizhangDate> list) {
         switchDate(list);
-        Message message = new Message();
-        message.what = FINISH;
-        handler.sendMessage(message);
-
     }
 
     @Override
@@ -150,5 +159,10 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
         Message message = new Message();
         message.what = DEFAILT;
         handler.sendMessage(message);
+    }
+
+    @Override
+    public void showText(String msg) {
+        Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
     }
 }

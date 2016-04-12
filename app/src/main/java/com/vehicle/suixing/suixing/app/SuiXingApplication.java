@@ -17,7 +17,9 @@ import com.vehicle.suixing.suixing.common.Config;
 import java.io.File;
 import java.util.ArrayList;
 
+import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobInstallation;
 
 /**
  * Created by KiSoo on 2016/3/24.
@@ -34,6 +36,10 @@ public class SuiXingApplication extends Application {
          * bmob的初始化
          * */
         Bmob.initialize(this, Config.BMOBID);
+        // 使用推送服务时的初始化操作
+        BmobInstallation.getCurrentInstallation(this).save();
+        // 启动推送服务
+        BmobPush.startWork(this,Config.BMOBID);
         /**
          * imageloader的初始化
          * */

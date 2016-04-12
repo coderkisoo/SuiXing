@@ -40,6 +40,7 @@ public class MainActivity extends BaseActivity implements MainActivityView{
     @OnClick(R.id.ll_me)
     void ll_me() {
         presenter.me();
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "我的", true);
     }
 
     @OnClick(R.id.ll_vehicle_information)
@@ -49,6 +50,7 @@ public class MainActivity extends BaseActivity implements MainActivityView{
          *
          * */
         presenter.vehicle();
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", true);
     }
 
     @OnClick(R.id.ll_get_gas)
@@ -57,6 +59,8 @@ public class MainActivity extends BaseActivity implements MainActivityView{
          * 加油
          * */
         presenter.getGas();
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "加油", true);
+
     }
 
     @OnClick(R.id.ll_music)
@@ -73,6 +77,7 @@ public class MainActivity extends BaseActivity implements MainActivityView{
          * 交通违法信息
          * */
         presenter.peccany();
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "交通违法", true);
     }
 
     @OnClick(R.id.ll_about_us)

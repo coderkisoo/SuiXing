@@ -1,9 +1,11 @@
 package com.vehicle.suixing.suixing.bean.WeiZhang1;
 
+import java.io.Serializable;
+
 /**
  * Created by KiSoo on 2016/4/7.
  */
-public class WeizhangDate {
+public class WeizhangDate implements Serializable{
     private String time;
     private String address;
     private String content;

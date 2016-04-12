@@ -15,6 +15,13 @@ public class VehicleInformation implements Serializable{
     private String framenum;//车架号
     private String percent;//汽油百分比
     private String size;//车身级别
+    private String mileage;//车行驶的里程
+    private String model;//发动机型号
+    private String function;//发动机性能
+    private String speed;//变速器性能
+    private String light;//车灯状况
+    private String url;
+
 
     public String getFramenum() {
         return framenum;
@@ -28,12 +35,6 @@ public class VehicleInformation implements Serializable{
         this.framenum = framenum;
     }
 
-    private String mileage;//车行驶的里程
-    private String model;//发动机型号
-    private String function;//发动机性能
-    private String speed;//变速器性能
-    private String light;//车灯状况
-    private String url;
 
     public String getUrl() {
         return url;

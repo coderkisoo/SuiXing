@@ -23,7 +23,7 @@ public class BaseActivity extends AppCompatActivity {
      */
     public void initToolbar(android.support.v7.widget.Toolbar mToolbar, int resId, String activityName, Boolean isShow) {
         mToolbar.setTitle("");
-        TextView toolbar_title = (TextView) findViewById(R.id.toolbar_text);
+        TextView toolbar_title = (TextView) mToolbar.findViewById(R.id.toolbar_text);
         toolbar_title.setText(activityName);
         ImageView iv_toolbar_left_image = (ImageView) findViewById(R.id.iv_toolbar_left_image);
         iv_toolbar_left_image.setImageResource(resId);
@@ -34,6 +34,7 @@ public class BaseActivity extends AppCompatActivity {
             ll_location.setVisibility(View.INVISIBLE);
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

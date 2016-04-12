@@ -50,6 +50,8 @@ public class AddSuccessActivityPresenter {
         query.addWhereEqualTo("vehicleId", name);
         query.setLimit(1);
         query.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ONLY);
+        
+
         query.findObjects(context, new FindListener<VehicleImage>() {
             @Override
             public void onSuccess(List<VehicleImage> list) {

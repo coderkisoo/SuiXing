@@ -15,6 +15,7 @@ import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.PeccanyFragmentView;
 import com.vehicle.suixing.suixing.ui.activity.PeccanydActivity;
+import com.vehicle.suixing.suixing.ui.activity.QueryOthersActivity;
 import com.vehicle.suixing.suixing.ui.adapter.PopupListAdapter;
 import com.vehicle.suixing.suixing.util.DbDao;
 
@@ -73,7 +74,7 @@ public class PeccanyFragmentPresenter {
      */
 
     public void queryOthers() {
-
+        context.startActivity(new Intent(context, QueryOthersActivity.class));
     }
 
     /**
