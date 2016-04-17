@@ -82,22 +82,10 @@ public class QueryOthersActivityPresenter {
             public void onItemClick(AdapterView<?> parent, View view1, int position, long id) {
                 view.showProvince(provinces.get(position).getProvince());
                 view.dismissWindow(window);
-                if (position == 0) {
-                    view.showCity("北京");
-                    cityChoosed = true;
-                    cheGuanJu.setFrameno(provinces.get(position).getFrameno());
-                    cheGuanJu.setEngineno(provinces.get(position).getEngineno());
-                    cheGuanJu.setCarorg(provinces.get(position).getCarorg());
-                    cheGuanJu.setLsprefix(provinces.get(position).getLsprefix());
-                    Log.e(TAG, cheGuanJu.getFrameno() + "---1");
-                    Log.e(TAG, cheGuanJu.getEngineno() + "---2");
-                    Log.e(TAG, cheGuanJu.getCarorg() + "---3");
-                    Log.e(TAG, cheGuanJu.getLsprefix() + "---4");
 
-                } else {
-                    cityChoosed = false;
-                    view.showCity("");
-                }
+                cityChoosed = false;
+                view.showCity("");
+
                 provincePosition = position;
             }
         });
@@ -114,8 +102,12 @@ public class QueryOthersActivityPresenter {
             Toast.makeText(context, "你还没有选择省份...", Toast.LENGTH_SHORT).show();
             chooseProvince();
         }
-        if (provincePosition > 0) {
-            cities = provinces.get(provincePosition).getList();
+
+        cities = provinces.get(provincePosition).getList();
+        if (cities == null) {
+            view.showCity(provinces.get(provincePosition).getProvince());
+            Log.e(TAG, "显示城市为" + provinces.get(provincePosition).getProvince());
+        } else {
             final PopupWindow window = new PopupWindow();
             window.setWidth(view.getWidth());
             window.setHeight(view.getHeight() * 8);
@@ -140,6 +132,7 @@ public class QueryOthersActivityPresenter {
             window.setFocusable(true);
             view.showCityWindow(window);
         }
+
     }
 
 
@@ -195,7 +188,6 @@ public class QueryOthersActivityPresenter {
                     } else {
 
                         List<WeizhangDate> infos = new ArrayList<WeizhangDate>();
-//                        info.requestSuccess(infos);
                         context.startActivity(new Intent(context, PeccanydActivity.class).putExtra("isLoad", true).putExtra("list", (Serializable) infos));
                     }
                 }

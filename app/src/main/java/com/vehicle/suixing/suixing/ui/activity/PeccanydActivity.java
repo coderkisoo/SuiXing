@@ -73,6 +73,7 @@ public class PeccanydActivity extends BaseSlidingActivity
         dialog = new ProgressDialog(this);
         dialog.setTitle("提示：");
         dialog.setMessage("正在加载中");
+        dialog.setCanceledOnTouchOutside(false);
     }
 
     @Override

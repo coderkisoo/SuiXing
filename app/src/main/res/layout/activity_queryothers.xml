@@ -65,6 +65,7 @@
                         android:layout_weight="1"
                         android:src="@mipmap/down" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ll_city_show"
                     android:layout_width="0dp"
@@ -107,18 +108,25 @@
             android:layout_marginLeft="24dp"
             android:src="@mipmap/licence_plate" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/et_vehicle_num"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/til_vehicle_num"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelAlwaysShown="true"
-            app:met_floatingLabelText="请输入你的车牌号"
-            app:met_floatingLabelTextColor="@color/colorPrimary"
-            app:met_helperTextAlwaysShown="true" />
+            android:layout_marginRight="20dp">
+
+            <EditText
+                android:id="@+id/et_vehicle_num"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="start"
+                android:hint="@string/input_num"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:textSize="18sp" />
+        </android.support.design.widget.TextInputLayout>
+
 
     </LinearLayout>
 
@@ -133,19 +141,27 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="24dp"
             android:src="@mipmap/frame_num" />
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/et_frame_num"
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
+            android:id="@+id/til_frame_num"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelAlwaysShown="true"
-            app:met_floatingLabelAnimating="true"
-            app:met_floatingLabelText="请输入车架号"
-            app:met_floatingLabelTextColor="@color/blue_color" />
+            android:layout_marginRight="20dp">
+
+            <EditText
+                android:id="@+id/et_frame_num"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="start"
+                android:hint="@string/input_frame"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:textSize="18sp" />
+        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"
@@ -157,19 +173,27 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="24dp"
             android:src="@mipmap/engine_function" />
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/et_engine_num"
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_engine_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelAlwaysShown="true"
-            app:met_floatingLabelAnimating="true"
-            app:met_floatingLabelText="请输入引擎号"
-            app:met_floatingLabelTextColor="@color/blue_color" />
+            android:layout_marginRight="20dp">
+
+            <EditText
+                android:id="@+id/et_engine_num"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="start"
+                android:hint="@string/input_engine"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:textSize="18sp" />
+        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
+
     <TextView
         android:id="@+id/tv_query"
         android:layout_width="wrap_content"

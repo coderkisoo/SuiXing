@@ -2,16 +2,16 @@ package com.vehicle.suixing.suixing.presenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.app.SuiXingApplication;
+import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
-import com.vehicle.suixing.suixing.bean.BmobBean.Users;
+import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
+import com.vehicle.suixing.suixing.callback.UpdateList;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.MainActivityView;
 import com.vehicle.suixing.suixing.ui.activity.SplashActivity;
@@ -19,6 +19,8 @@ import com.vehicle.suixing.suixing.ui.fragment.main.MeFragment;
 import com.vehicle.suixing.suixing.ui.fragment.main.VehicleInformationFragment;
 import com.vehicle.suixing.suixing.ui.fragment.peccany.PeccanyFragment;
 import com.vehicle.suixing.suixing.util.BmobError;
+import com.vehicle.suixing.suixing.util.BmobUtils;
+import com.vehicle.suixing.suixing.util.DbDao;
 import com.vehicle.suixing.suixing.util.SaveUser;
 import com.vehicle.suixing.suixing.util.UserSpUtils;
 
@@ -31,11 +33,10 @@ import cn.bmob.v3.listener.SaveListener;
 /**
  * Created by KiSoo on 2016/4/4.
  */
-public class MainActivityPresenter {
+public class MainActivityPresenter implements UpdateList{
     private String TAG = MainActivityPresenter.class.getName();
     private Context context;
     private MainActivityView view;
-    private SharedPreferences sp;
     private FragmentManager fragmentManager;
     private List<Fragment> fragments;
 
@@ -60,27 +61,27 @@ public class MainActivityPresenter {
              * 更新信息
              * */
             updateUserInfo(user);
-            SuiXingApplication.hasUser = true;
+            SuixingApp.hasUser = true;
             Log.e(TAG, "有缓存的用户");
             Config.USERNAME = user.getUsername();
+            SuixingApp.infos = DbDao.queryPart(context,Config.USERNAME);
+            BmobUtils.updateList(context,this);
             Log.v(TAG, "调用本地存好的");
-            sp = context.getSharedPreferences("user", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sp.edit();
-            editor.putString("name", user.getName());
-            editor.putString("motto", user.getMotto());
-            if (null != user.getHead())
-                editor.putString("head", user.getHead().getFileUrl(context));
-            editor.apply();
-            Users users = UserSpUtils.getUsers(context);
-            view.UpdateName(users.getName());
-            view.updateMotto(users.getMotto());
-            view.updateHead(users.getHead());
+            UserSpUtils.saveName(context,user.getName());
+            UserSpUtils.saveMotto(context, user.getMotto());
+            UserSpUtils.saveHead(context,user.getHead());
+
         } else {
-            SuiXingApplication.hasUser = false;
+            SuixingApp.hasUser = false;
         }
     }
 
-
+    public void onResume(){
+        User users = UserSpUtils.getUsers(context);
+        view.UpdateName(users.getName());
+        view.updateMotto(users.getMotto());
+        view.updateHead(users.getHead());
+    }
     /**
      * 更新用户信息，检查账号密码是否有误
      */
@@ -96,6 +97,7 @@ public class MainActivityPresenter {
                 /**
                  * 登录成功，更新好了
                  * */
+
             }
 
             @Override
@@ -119,7 +121,7 @@ public class MainActivityPresenter {
          * 初始化fragment列表
          * */
         fragments = new ArrayList<>();
-        fragments.add(new MeFragment());
+        fragments.add(new MeFragment(view));
         fragments.add(new VehicleInformationFragment());
         fragments.add(new PeccanyFragment());
         startFragment(fragments.get(1));
@@ -143,13 +145,13 @@ public class MainActivityPresenter {
     public void logOut() {
         User.logOut(context);
         context.startActivity(new Intent(context, SplashActivity.class));
-        SuiXingApplication.hasUser = false;
+        SuixingApp.hasUser = false;
         Config.USERNAME = "";
         view.finish();
     }
 
     public void me() {
-        if (SuiXingApplication.hasUser == false) {
+        if (!SuixingApp.hasUser) {
             Toast.makeText(context,"请先登录...",Toast.LENGTH_SHORT).show();
             logOut();
         } else {
@@ -170,5 +172,10 @@ public class MainActivityPresenter {
 
     public void music() {
         view.closeDrawer();
+    }
+
+    @Override
+    public void updateList(List<VehicleInformation> infos) {
+        SuixingApp.infos = infos;
     }
 }

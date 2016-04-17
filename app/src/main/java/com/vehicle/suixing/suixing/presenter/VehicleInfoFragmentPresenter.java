@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.vehicle.suixing.suixing.app.SuiXingApplication;
+import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.model.VehicleInfoFragmentView;
 import com.vehicle.suixing.suixing.ui.activity.AddVehicleActivity;
 import com.vehicle.suixing.suixing.ui.activity.SplashActivity;
@@ -21,7 +21,7 @@ public class VehicleInfoFragmentPresenter {
         this.context = context;
     }
     public void addVehicle(){
-        if (SuiXingApplication.hasUser == true){
+        if (SuixingApp.hasUser){
             context.startActivity(new Intent(context, AddVehicleActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
         }else {
             /**

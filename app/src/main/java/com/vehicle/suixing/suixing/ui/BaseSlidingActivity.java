@@ -14,6 +14,8 @@ import com.vehicle.suixing.suixing.R;
 
 import java.lang.reflect.Field;
 
+import me.drakeet.materialdialog.MaterialDialog;
+
 
 /**
  * Created by hailonghan on 15/6/9.
@@ -94,5 +96,23 @@ public abstract class BaseSlidingActivity extends BaseActivity implements Slidin
     }
     @Override
     public void onPanelSlide(View view, float v) {
+    }
+    protected void ifBack() {
+        final MaterialDialog materialDialog = new MaterialDialog(this);
+        materialDialog.setTitle("提醒");
+        materialDialog.setMessage("确定退出不保存吗？");
+        materialDialog.setPositiveButton("确定", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        materialDialog.setNegativeButton("取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                materialDialog.dismiss();
+            }
+        });
+        materialDialog.show();
     }
 }

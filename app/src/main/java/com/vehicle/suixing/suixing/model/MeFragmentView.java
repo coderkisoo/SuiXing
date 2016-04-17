@@ -7,4 +7,15 @@ import com.vehicle.suixing.suixing.ui.adapter.InfoAdapter;
  */
 public interface MeFragmentView {
     void setAdapter(InfoAdapter infoAdapter);
+
+    void editHead();
+
+    void editMotto();
+
+    void editName();
+
+    void setUpdate(boolean b);
+
+    void addVehicle();
+
 }

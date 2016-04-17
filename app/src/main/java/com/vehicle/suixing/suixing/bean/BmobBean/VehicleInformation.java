@@ -4,10 +4,22 @@ import android.util.Log;
 
 import java.io.Serializable;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * Created by KiSoo on 2016/3/21.
  */
-public class VehicleInformation implements Serializable{
+public class VehicleInformation extends BmobObject implements Serializable {
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     private String TAG = getClass().getName();
     private String isYours;//判断是否是车的二维码
     private String name;//车名
@@ -28,8 +40,8 @@ public class VehicleInformation implements Serializable{
     }
 
     public void setFramenum(String framenum) {
-        while (framenum.length()<6){
-            framenum = 0+framenum;
+        while (framenum.length() < 6) {
+            framenum = 0 + framenum;
             Log.e(TAG, framenum);
         }
         this.framenum = framenum;
@@ -97,8 +109,8 @@ public class VehicleInformation implements Serializable{
     }
 
     public void setModel(String model) {
-        while (model.length()<4){
-            model = 0+model;
+        while (model.length() < 4) {
+            model = 0 + model;
             Log.e(TAG, model);
         }
         this.model = model;
@@ -127,7 +139,6 @@ public class VehicleInformation implements Serializable{
     public void setLight(String light) {
         this.light = light;
     }
-
 
 
 }

@@ -12,10 +12,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.common.Config;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
@@ -24,10 +26,11 @@ import cn.bmob.v3.BmobInstallation;
 /**
  * Created by KiSoo on 2016/3/24.
  */
-public class SuiXingApplication extends Application {
+public class SuixingApp extends Application {
     private static ArrayList<Activity> activities;
-    private static String TAG = SuiXingApplication.class.getName();
+    private static String TAG = SuixingApp.class.getName();
     public static boolean hasUser = false;
+    public static List<VehicleInformation> infos;
 
     @Override
     public void onCreate() {
@@ -45,6 +48,7 @@ public class SuiXingApplication extends Application {
          * */
         initImageLoader(getApplicationContext());
         activities = new ArrayList<>();
+        infos = new ArrayList<>();
         /**
          * 违章CLIENT的初始化
          * */

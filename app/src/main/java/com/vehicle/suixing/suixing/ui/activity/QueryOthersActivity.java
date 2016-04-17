@@ -2,12 +2,12 @@ package com.vehicle.suixing.suixing.ui.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.model.QueryOthersView;
 import com.vehicle.suixing.suixing.presenter.QueryOthersActivityPresenter;
@@ -25,9 +25,9 @@ public class QueryOthersActivity extends BaseSlidingActivity implements QueryOth
     private QueryOthersActivityPresenter presenter;
     private ProgressDialog dialog;
     @Bind(R.id.et_frame_num)
-    MaterialEditText et_frame_num;
+    EditText et_frame_num;
     @Bind(R.id.et_vehicle_num)
-    MaterialEditText et_vehicle_num;
+    EditText et_vehicle_num;
     @Bind(R.id.et_engine_num)
     EditText et_engine_num;
     @Bind(R.id.tv_province)
@@ -38,6 +38,12 @@ public class QueryOthersActivity extends BaseSlidingActivity implements QueryOth
     LinearLayout ll_province_show;
     @Bind(R.id.ll_city_show)
     LinearLayout ll_city_show;
+    @Bind(R.id.til_engine_num)
+    TextInputLayout til_engine_num;
+    @Bind(R.id.til_vehicle_num)
+    TextInputLayout til_vehicle_num;
+    @Bind(R.id.til_frame_num)
+    TextInputLayout til_frame_num;
 
 
     @OnClick(R.id.tv_province)
@@ -68,6 +74,13 @@ public class QueryOthersActivity extends BaseSlidingActivity implements QueryOth
         setContentView(R.layout.activity_queryothers);
         ButterKnife.bind(this);
         presenter = new QueryOthersActivityPresenter(this,this);
+        initView();
+    }
+
+    private void initView() {
+        til_vehicle_num.setHint("请输入你的车牌号");
+        til_engine_num.setHint("请输入引擎号");
+        til_frame_num.setHint("请输入车架号");
     }
 
     @Override

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.app.SuiXingApplication;
+import com.vehicle.suixing.suixing.app.SuixingApp;
 
 
 /**
@@ -42,7 +42,7 @@ public class BaseActivity extends AppCompatActivity {
         /**
          * 完全沉浸式布局
          * */
-        SuiXingApplication.addActivity(this);
+        SuixingApp.addActivity(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         /**
          * 取消了完全沉浸式，不理想
@@ -75,7 +75,7 @@ public class BaseActivity extends AppCompatActivity {
         /**
          * 让软键盘消失
          * */
-        SuiXingApplication.removeActivity(this);
+        SuixingApp.removeActivity(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.common.Config;
@@ -22,12 +21,12 @@ public class DbDao {
     /**
      * 向数据库中添加车辆信息
      * */
-    public static synchronized void add(Context context, String UserName, VehicleInformation vehicleInformation, String url) {
+    public static synchronized void add(Context context, VehicleInformation vehicleInformation) {
         if (!queryIsIn(context,vehicleInformation.getNum())){
             DbHelper dbHelper = new DbHelper(context);
             SQLiteDatabase database = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put("username", UserName);
+            values.put("username", vehicleInformation.getUsername());
             values.put("name", vehicleInformation.getName());
             values.put("framenum",vehicleInformation.getFramenum());
             Log.e(TAG,vehicleInformation.getFramenum());
@@ -39,12 +38,9 @@ public class DbDao {
             values.put("function", vehicleInformation.getFunction());
             values.put("speed", vehicleInformation.getSpeed());
             values.put("light", vehicleInformation.getLight());
-            values.put("url", url);
+            values.put("url", vehicleInformation.getUrl());
             database.insert(Config.TABLE_NAME, null, values);
             database.close();
-            Toast.makeText(context, "添加车辆成功", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context,"你似乎已经添加过这辆车了哦",Toast.LENGTH_SHORT).show();
         }
     }
     public static synchronized List<VehicleInformation> queryPart(Context context,String username) {

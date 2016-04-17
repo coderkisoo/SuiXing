@@ -2,9 +2,9 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Apptheme.Base">
+
     </style>
     <style name="Apptheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
 

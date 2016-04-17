@@ -10,19 +10,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
+import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
-import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.VehicleInfoFragmentView;
 import com.vehicle.suixing.suixing.presenter.VehicleInfoFragmentPresenter;
 import com.vehicle.suixing.suixing.ui.adapter.MyPageTransFormer;
 import com.vehicle.suixing.suixing.ui.adapter.MyPagerAdapter;
-import com.vehicle.suixing.suixing.util.DbDao;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,7 +31,7 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
     private String TAG = "VehicleInformationFragment";
     private View view;
     private VehicleInfoFragmentPresenter presenter;
-    private List<VehicleInformation> info;
+    private int nowPosition = 0;
     @Bind(R.id.vp_choose_vehicle_list)
     ViewPager vp_choose_vehicle_list;
     @Bind(R.id.ll_container)
@@ -59,12 +55,17 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
     TextView tv_model;
     @Bind(R.id.tv_vehicle_information_engine_function)
     TextView tv_function;
-    @Bind(R.id.tv_vehicle_information_speed_changer)
-    TextView tv_speed;
+
     @Bind(R.id.tv_vehicle_information_light)
     TextView tv_light;
-    @Bind(R.id.sv_info)
-    ScrollView sv_info;
+    @OnClick(R.id.v_left_view)
+    void v_left_view(){
+        vp_choose_vehicle_list.setCurrentItem(nowPosition-1);
+    }
+    @OnClick(R.id.v_right_view)
+    void v_right_view(){
+        vp_choose_vehicle_list.setCurrentItem(nowPosition+1);
+    }
 
 
     @OnClick(R.id.iv_add_vehicle)
@@ -108,7 +109,8 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
 
             @Override
             public void onPageSelected(int position) {
-                initInfo(info.get(position));
+                initInfo(SuixingApp.infos.get(position));
+                nowPosition = position;
             }
 
             @Override
@@ -122,12 +124,11 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
     @Override
     public void onResume() {
         super.onResume();
-        info = DbDao.queryPart(getActivity(), Config.USERNAME);
-        Log.e(TAG, info.size() + "");
-        vp_choose_vehicle_list.setAdapter(new MyPagerAdapter(getActivity(), info));
-        vp_choose_vehicle_list.setOffscreenPageLimit(info.size());
-        if (info.size() > 0)
-            initInfo(info.get(0));
+        Log.e(TAG, SuixingApp.infos.size() + "");
+        vp_choose_vehicle_list.setAdapter(new MyPagerAdapter(getActivity(), SuixingApp.infos));
+        vp_choose_vehicle_list.setOffscreenPageLimit(SuixingApp.infos.size());
+        if (SuixingApp.infos.size() > 0)
+            initInfo(SuixingApp.infos.get(0));
     }
 
 
@@ -140,7 +141,6 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
         tv_mileage.setText(vehicleInformation.getMileage());
         tv_model.setText(vehicleInformation.getModel());
         tv_function.setText(vehicleInformation.getFunction());
-        tv_speed.setText(vehicleInformation.getSpeed());
         tv_light.setText(vehicleInformation.getLight());
     }
 

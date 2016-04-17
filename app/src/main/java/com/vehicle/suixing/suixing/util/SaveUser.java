@@ -10,6 +10,9 @@ import java.util.List;
  * Created by KiSoo on 2016/3/31.
  */
 public class SaveUser {
+    /**
+     * 存储登陆信息
+     * */
     public static void save(String username, String password, Context context) {
         /**
          * 用于存储本地信息

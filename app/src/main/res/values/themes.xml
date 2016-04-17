@@ -4,6 +4,7 @@
         <!--<item name="android:windowAnimationStyle">@style/AnimationActivity</item>-->
         <item name="android:windowActionBar">@style/AppTheme</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:colorAccent">@color/blue_color</item>
         <item name="android:screenOrientation">portrait</item>
         <!--<item name="android:windowSoftInputMode">stateHidden|adjustResize</item>-->
         <item name="android:windowBackground">@android:color/transparent</item>

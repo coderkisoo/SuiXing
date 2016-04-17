@@ -1,5 +1,6 @@
 package com.vehicle.suixing.suixing.presenter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -8,6 +9,7 @@ import com.vehicle.suixing.suixing.bean.BmobBean.VehicleImage;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.AddSuccessActivityView;
+import com.vehicle.suixing.suixing.util.BmobError;
 import com.vehicle.suixing.suixing.util.DbDao;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * Created by KiSoo on 2016/4/4.
@@ -34,11 +37,32 @@ public class AddSuccessActivityPresenter {
 
     public void addSuccess() {
         /**
-         * 确认添加,将图片缓存到本地
+         * 确认添加,将图片先存至网络，再缓存到本地
          * */
         Log.e(TAG, img.getFilename() + "\n" + img.getFileUrl(context) + "\n" + img.getUrl());
-        DbDao.add(context, Config.USERNAME, view.getInformation(), img.getFileUrl(context));
-        view.finish();
+        final ProgressDialog dialog = new ProgressDialog(context);
+        dialog.setTitle("提示:");
+        dialog.setMessage("正在添加中...");
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        final VehicleInformation info = view.getInformation();
+        info.setUsername(Config.USERNAME);
+        info.setUrl(img.getFileUrl(context));
+        info.save(context, new SaveListener() {
+            @Override
+            public void onSuccess() {
+                DbDao.add(context, info);
+                dialog.dismiss();
+                view.finish();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                dialog.dismiss();
+                Toast.makeText(context, BmobError.error(i),Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 

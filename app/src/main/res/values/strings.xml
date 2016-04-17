@@ -18,5 +18,8 @@
     <string name="auth_code">0123456789</string>
     <string name="vehicle_num">渝B741000</string>
     <string name="example_location"></string>
+    <string name="input_num">请输入你的车牌号</string>
+    <string name="input_frame">请输入车架号</string>
+    <string name="input_engine">请输入引擎号</string>
 
 </resources>

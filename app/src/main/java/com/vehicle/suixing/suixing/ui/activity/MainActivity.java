@@ -3,12 +3,13 @@ package com.vehicle.suixing.suixing.ui.activity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.app.SuiXingApplication;
+import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.model.MainActivityView;
 import com.vehicle.suixing.suixing.presenter.MainActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseActivity;
@@ -40,7 +41,7 @@ public class MainActivity extends BaseActivity implements MainActivityView{
     @OnClick(R.id.ll_me)
     void ll_me() {
         presenter.me();
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "我的", true);
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "我的", false);
     }
 
     @OnClick(R.id.ll_vehicle_information)
@@ -50,7 +51,7 @@ public class MainActivity extends BaseActivity implements MainActivityView{
          *
          * */
         presenter.vehicle();
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", true);
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", false);
     }
 
     @OnClick(R.id.ll_get_gas)
@@ -59,7 +60,7 @@ public class MainActivity extends BaseActivity implements MainActivityView{
          * 加油
          * */
         presenter.getGas();
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "加油", true);
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "加油", false);
 
     }
 
@@ -77,7 +78,7 @@ public class MainActivity extends BaseActivity implements MainActivityView{
          * 交通违法信息
          * */
         presenter.peccany();
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "交通违法", true);
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "交通违法", false);
     }
 
     @OnClick(R.id.ll_about_us)
@@ -106,16 +107,21 @@ public class MainActivity extends BaseActivity implements MainActivityView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SuiXingApplication.removeActivity(this);
-        SuiXingApplication.clearAll();
-        SuiXingApplication.addActivity(this);
+        SuixingApp.removeActivity(this);
+        SuixingApp.clearAll();
+        SuixingApp.addActivity(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", true);
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", false);
         presenter = new MainActivityPresenter(this,this,getSupportFragmentManager());
         presenter.init();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.onResume();
+    }
 
     @Override
     public void logOut() {
@@ -136,11 +142,17 @@ public class MainActivity extends BaseActivity implements MainActivityView{
     @Override
     public void updateHead(String head) {
         ImageLoader.getInstance().displayImage(head, civ_head);
+        Log.e(TAG,"成功设置头像"+head);
     }
 
     @Override
     public void closeDrawer() {
         dl_view.closeDrawer(Gravity.LEFT);
+    }
+
+    @Override
+    public void resume() {
+        presenter.onResume();
     }
 
     @Override

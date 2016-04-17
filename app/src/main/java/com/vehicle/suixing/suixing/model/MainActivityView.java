@@ -15,4 +15,6 @@ public interface MainActivityView extends BaseView{
     void closeDrawer();
 
     void finish();
+
+    void resume();
 }
