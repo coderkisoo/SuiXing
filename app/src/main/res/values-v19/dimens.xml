@@ -11,7 +11,7 @@
     <dimen name="toolbar_location_text_size">15sp</dimen>
     <dimen name="toolbar_location_image_width">16dp</dimen>
     <dimen name="toolbar_location_image_height">16dp</dimen>
-    <dimen name="toolbar_height">48dp</dimen>
+    <dimen name="toolbar_height">72dp</dimen>
     <dimen name="vehicle_information_panel_width">140dp</dimen>
     <dimen name="vehicle_information_recylerview_width">180dp</dimen>
     <dimen name="vehicle_information_viewpager_height">64dp</dimen>
@@ -19,7 +19,7 @@
     <dimen name="five_word">30dp</dimen>
     <dimen name="four_word">46dp</dimen>
     <dimen name="two_word">78dp</dimen>
-    <dimen name="toolbar_top">0dp</dimen>
+    <dimen name="toolbar_top">24dp</dimen>
     <dimen name="gas_item_info_text_size">13sp</dimen>
     <dimen name="item_peccany_icon_size">20dp</dimen>
     <dimen name="peccany_card_textsize">12sp</dimen>
