@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="修改名称"
-            android:textColor="#7FE5D2"
+            android:textColor="@color/blue_color"
             android:textSize="20sp"
             android:layout_gravity="center_horizontal" />
         <TextView
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="完成"
-            android:textColor="@color/blue_color"
+            android:textColor="@color/add_vehicle_background"
             android:textSize="16sp"
             android:layout_marginRight="12dp"
             android:layout_gravity="end" />

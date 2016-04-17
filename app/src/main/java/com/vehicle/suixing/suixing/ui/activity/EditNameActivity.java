@@ -30,10 +30,10 @@ public class EditNameActivity extends BaseSlidingActivity {
 
     @Bind(R.id.et_name)
     EditText et_name;
-
-
-
-
+    @OnClick(R.id.iv_toolbar_left_image)
+    void back(){
+        ifBack();
+    }
 
     @OnClick(R.id.iv_cancel)
      void iv_cancel() {

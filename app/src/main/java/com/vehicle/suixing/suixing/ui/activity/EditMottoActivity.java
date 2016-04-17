@@ -35,7 +35,10 @@ public class EditMottoActivity extends BaseSlidingActivity {
     EditText et_motto;
     @Bind(R.id.tv_text_num)
     TextView tv_text_num;
-
+    @OnClick(R.id.iv_toolbar_left_image)
+    void back(){
+        ifBack();
+    }
 
     @OnClick(R.id.iv_cancel)
     void iv_cancel() {
