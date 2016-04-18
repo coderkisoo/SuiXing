@@ -6,11 +6,16 @@ package com.vehicle.suixing.suixing.bean.WeiZhang1;
 public class CheguanjuError {
     private String status;
     private String msg;
-    private CheguanjuErrorResult result;
+    private String result;
 
-    public void setResult(CheguanjuErrorResult result) {
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
         this.result = result;
     }
+
 
     public String getStatus() {
         return status;

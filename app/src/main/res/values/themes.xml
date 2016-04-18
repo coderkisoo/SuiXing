@@ -4,7 +4,7 @@
         <!--<item name="android:windowAnimationStyle">@style/AnimationActivity</item>-->
         <item name="android:windowActionBar">@style/AppTheme</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:colorAccent">@color/blue_color</item>
+        <item name="colorAccent">@color/blue_color</item>
         <item name="android:screenOrientation">portrait</item>
         <!--<item name="android:windowSoftInputMode">stateHidden|adjustResize</item>-->
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -13,11 +13,6 @@
         <item name="android:actionBarStyle">@style/JKActionBar.Custom</item>
     </style>
     <style name="JK.Animation.SlidingBack" parent="@android:style/Animation.Activity">
-        <!--<item name="android:activityOpenEnterAnimation">@anim/tran_next_in</item>-->
-        <!--<item name="android:activityOpenExitAnimation">@anim/tran_next_out</item>-->
-        <!--<item name="android:activityCloseEnterAnimation">@anim/tran_pre_in</item>-->
-        <!--<item name="android:activityCloseExitAnimation">@anim/tran_pre_out</item>-->
-
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_right</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>

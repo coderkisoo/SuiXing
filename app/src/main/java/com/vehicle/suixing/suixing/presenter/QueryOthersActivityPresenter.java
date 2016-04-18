@@ -101,37 +101,45 @@ public class QueryOthersActivityPresenter {
         if (provincePosition == -1) {
             Toast.makeText(context, "你还没有选择省份...", Toast.LENGTH_SHORT).show();
             chooseProvince();
+        }else {
+            cities = provinces.get(provincePosition).getList();
+            if (cities == null) {
+                view.showCity(provinces.get(provincePosition).getProvince());
+                cityChoosed = true;
+                cheGuanJu.setCarorg(provinces.get(provincePosition).getCarorg());
+                cheGuanJu.setEngineno(provinces.get(provincePosition).getEngineno());
+                cheGuanJu.setFrameno(provinces.get(provincePosition).getFrameno());
+                cheGuanJu.setLsprefix(provinces.get(provincePosition).getLsprefix());
+
+                Log.e(TAG, "显示城市为" + provinces.get(provincePosition).getProvince());
+            } else {
+                final PopupWindow window = new PopupWindow();
+                window.setWidth(view.getWidth());
+                window.setHeight(view.getHeight() * 8);
+                View popupView = View.inflate(context, R.layout.popup_list, null);
+                window.setContentView(popupView);
+                ListView provinceList = (ListView) popupView.findViewById(R.id.lv_my_vehicle);
+                provinceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view1, int position, long id) {
+                        view.showCity(cities.get(position).getCity());
+                        view.dismissWindow(window);
+                        cityChoosed = true;
+                        cheGuanJu.setCarorg(cities.get(position).getCarorg());
+                        cheGuanJu.setEngineno(cities.get(position).getEngineno());
+                        cheGuanJu.setFrameno(cities.get(position).getFrameno());
+                        cheGuanJu.setLsprefix(cities.get(position).getLsprefix());
+                    }
+                });
+                CityAdapter adapter = new CityAdapter(cities, context);
+                provinceList.setAdapter(adapter);
+                window.setBackgroundDrawable(new BitmapDrawable());
+                window.setFocusable(true);
+                view.showCityWindow(window);
+            }
         }
 
-        cities = provinces.get(provincePosition).getList();
-        if (cities == null) {
-            view.showCity(provinces.get(provincePosition).getProvince());
-            Log.e(TAG, "显示城市为" + provinces.get(provincePosition).getProvince());
-        } else {
-            final PopupWindow window = new PopupWindow();
-            window.setWidth(view.getWidth());
-            window.setHeight(view.getHeight() * 8);
-            View popupView = View.inflate(context, R.layout.popup_list, null);
-            window.setContentView(popupView);
-            ListView provinceList = (ListView) popupView.findViewById(R.id.lv_my_vehicle);
-            provinceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view1, int position, long id) {
-                    view.showCity(cities.get(position).getCity());
-                    view.dismissWindow(window);
-                    cityChoosed = true;
-                    cheGuanJu.setCarorg(cities.get(position).getCarorg());
-                    cheGuanJu.setEngineno(cities.get(position).getEngineno());
-                    cheGuanJu.setFrameno(cities.get(position).getFrameno());
-                    cheGuanJu.setLsprefix(cities.get(position).getLsprefix());
-                }
-            });
-            CityAdapter adapter = new CityAdapter(cities, context);
-            provinceList.setAdapter(adapter);
-            window.setBackgroundDrawable(new BitmapDrawable());
-            window.setFocusable(true);
-            view.showCityWindow(window);
-        }
+
 
     }
 

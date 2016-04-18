@@ -81,9 +81,9 @@ public class MeFragment extends Fragment implements
 
 
     private void initEvents() {
-        srl_refresh.setColorSchemeColors(Color.parseColor("#4D7FE5D2"),
-                Color.parseColor("#137FE5D2"), Color.parseColor("#AE7FE5D2"),
-                Color.parseColor("#7FE5D2"));
+        srl_refresh.setColorSchemeColors(Color.parseColor("#4FA3F9"),
+                Color.parseColor("#50A2F8"), Color.parseColor("#3F51B5"),
+                Color.parseColor("#303F9F"));
         srl_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -164,7 +164,7 @@ public class MeFragment extends Fragment implements
         path = "camera" + System.currentTimeMillis() + ".jpg";
     }
 
-    public boolean hasSDCard() {
+    private boolean hasSDCard() {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
