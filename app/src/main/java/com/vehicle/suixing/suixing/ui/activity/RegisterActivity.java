@@ -1,7 +1,6 @@
 package com.vehicle.suixing.suixing.ui.activity;
 
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -70,8 +69,8 @@ public class RegisterActivity extends BaseSlidingActivity implements RegisterAct
         /**
          * 软键盘状态
          * */
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
+//                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         ButterKnife.bind(this);
         presenter = new RegisterActivityPresenter(this, this);
     }

@@ -61,6 +61,7 @@ public class MeFragmentPresenter {
                         User newuser = UserSpUtils.getUsers(context);
                         final String newHead = "file:///" + head;
                         newuser.setHead(newHead);
+                        UserSpUtils.saveHead(context,file.getFileUrl(context));
                         view.setAdapter(new InfoAdapter(SuixingApp.infos, newuser, view));
                         mainActivityView.updateHead(newHead);
                     }

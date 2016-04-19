@@ -41,4 +41,8 @@ public class UserSpUtils {
         editor.putString("motto",motto);
         editor.apply();
     }
+    public static void clearUsers(Context context){
+        SharedPreferences sp = context.getSharedPreferences("user",Context.MODE_PRIVATE);
+        sp.edit().clear().apply();
+    }
 }

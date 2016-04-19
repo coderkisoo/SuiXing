@@ -6,7 +6,6 @@ import android.text.InputFilter;
 import android.text.Selection;
 import android.text.Spannable;
 import android.view.KeyEvent;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -73,7 +72,6 @@ public class EditNameActivity extends BaseSlidingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_name);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         ButterKnife.bind(this);
         et_name.setText(UserSpUtils.getUsers(this).getName());
         CharSequence text = et_name.getText();

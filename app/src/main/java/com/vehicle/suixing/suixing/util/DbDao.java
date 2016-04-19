@@ -22,7 +22,7 @@ public class DbDao {
      * 向数据库中添加车辆信息
      * */
     public static synchronized void add(Context context, VehicleInformation vehicleInformation) {
-        if (!queryIsIn(context,vehicleInformation.getNum())){
+        if (!hasAdd(context, vehicleInformation.getNum())){
             DbHelper dbHelper = new DbHelper(context);
             SQLiteDatabase database = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
@@ -73,7 +73,7 @@ public class DbDao {
         db.close();
         return result;
     }
-    public static Boolean queryIsIn(Context context,String num) {
+    public static Boolean hasAdd(Context context, String num) {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String SELECT = "select * from UserData where num = \"" +num+"\"";
@@ -89,6 +89,15 @@ public class DbDao {
         }else {
             return false;
         }
+    }
+    public static synchronized void clearAll(Context context){
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String DELETE = "delete from UserData";
+        Cursor cursor = db.rawQuery(DELETE, new String[]{});
+        Log.e(TAG,"清空数据");
+        cursor.close();
+        db.close();
     }
 
 }

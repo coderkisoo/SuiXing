@@ -98,6 +98,9 @@ public class EditMottoActivity extends BaseSlidingActivity {
             Spannable spanText = (Spannable) text;
             Selection.setSelection(spanText, text.length());
         }
+        et_motto.setFocusable(true);
+        et_motto.setFocusableInTouchMode(true);
+        et_motto.requestFocus();
 
 
     }

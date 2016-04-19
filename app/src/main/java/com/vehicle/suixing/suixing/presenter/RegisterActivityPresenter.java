@@ -193,6 +193,7 @@ public class RegisterActivityPresenter {
                             /**
                              * 注册失败
                              * */
+                            dialog.dismiss();
                             String error = BmobError.error(i);
                             if (error.equals("")) {
                                 Toast.makeText(context, s, Toast.LENGTH_SHORT).show();

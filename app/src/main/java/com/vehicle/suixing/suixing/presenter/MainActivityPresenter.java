@@ -143,8 +143,10 @@ public class MainActivityPresenter implements UpdateList{
     }
 
     public void logOut() {
+        UserSpUtils.clearUsers(context);
         User.logOut(context);
         context.startActivity(new Intent(context, SplashActivity.class));
+        DbDao.clearAll(context);
         SuixingApp.hasUser = false;
         Config.USERNAME = "";
         view.finish();
