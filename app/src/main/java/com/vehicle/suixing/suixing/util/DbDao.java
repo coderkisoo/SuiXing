@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.common.Config;
 
@@ -96,6 +97,7 @@ public class DbDao {
         String DELETE = "delete from UserData";
         Cursor cursor = db.rawQuery(DELETE, new String[]{});
         Log.e(TAG,"清空数据");
+        SuixingApp.infos = new ArrayList<>();
         cursor.close();
         db.close();
     }
