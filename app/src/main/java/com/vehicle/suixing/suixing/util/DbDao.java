@@ -42,13 +42,18 @@ public class DbDao {
             values.put("url", vehicleInformation.getUrl());
             database.insert(Config.TABLE_NAME, null, values);
             database.close();
+        }else {
+            update(context,vehicleInformation);
         }
     }
+    /**
+     * 查询出全部的本地信息
+     * */
     public static synchronized List<VehicleInformation> queryPart(Context context,String username) {
         List<VehicleInformation> result = new ArrayList<>();
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String SELECT = "select * from UserData where username = \"" +username+"\"";
+        String SELECT = "select * from "+Config.TABLE_NAME+" where username = \"" +username+"\"";
         Cursor cursor = db.rawQuery(SELECT, new String[]{});
         Log.e(TAG, "查询到一共" + cursor.getCount() + "条数据");
         while (cursor.moveToNext()) {
@@ -74,10 +79,13 @@ public class DbDao {
         db.close();
         return result;
     }
+    /**
+     * 是否已经添加
+     * */
     public static Boolean hasAdd(Context context, String num) {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String SELECT = "select * from UserData where num = \"" +num+"\"";
+        String SELECT = "select * from "+Config.TABLE_NAME+" where num = \"" +num+"\"";
         Cursor cursor = db.rawQuery(SELECT, new String[]{});
         int number = cursor.getCount();
         cursor.close();
@@ -91,6 +99,9 @@ public class DbDao {
             return false;
         }
     }
+    /**
+     * 清除数据
+     * */
     public static synchronized void clearAll(Context context){
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -98,6 +109,29 @@ public class DbDao {
         Cursor cursor = db.rawQuery(DELETE, new String[]{});
         Log.e(TAG,"清空数据");
         SuixingApp.infos = new ArrayList<>();
+        cursor.close();
+        db.close();
+    }
+    /**
+     * 更新数据
+     * */
+    public static synchronized void update(Context context,VehicleInformation vehicleInformation){
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String UPDATE_SQL = " update "+Config.TABLE_NAME+
+                " set username = '"+vehicleInformation.getUsername()+
+                "', name = '" +vehicleInformation.getName()+
+                "', framenum  = '" + vehicleInformation.getNum()+
+                "', percent = '"+vehicleInformation.getPercent()+
+                "', size = '"+vehicleInformation.getSize()+
+                "', mileage = '"+ vehicleInformation.getMileage()+
+                "', model = '"+vehicleInformation.getModel()+
+                "', function = '"+vehicleInformation.getFunction()+
+                "', speed = '"+vehicleInformation.getSpeed()+
+                "', light = '"+vehicleInformation.getLight()+
+                "', url = '"+vehicleInformation.getUrl()+
+                "' where num = '"+vehicleInformation.getNum()+"'";
+        Cursor cursor = db.rawQuery(UPDATE_SQL, new String[]{});
         cursor.close();
         db.close();
     }

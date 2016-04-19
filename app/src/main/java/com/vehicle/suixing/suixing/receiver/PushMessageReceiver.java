@@ -12,14 +12,14 @@ import cn.bmob.push.PushConstants;
  */
 public class PushMessageReceiver extends BroadcastReceiver {
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO Auto-generated method stub
         if (intent.getAction().equals(PushConstants.ACTION_MESSAGE)) {
+
             Log.e("bmob", "客户端收到推送内容：" + intent.getStringExtra("msg"));
+
         }
     }
-
 
 }

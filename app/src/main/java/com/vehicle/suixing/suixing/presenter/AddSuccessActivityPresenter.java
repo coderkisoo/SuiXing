@@ -18,6 +18,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by KiSoo on 2016/4/4.
@@ -48,22 +49,64 @@ public class AddSuccessActivityPresenter {
         final VehicleInformation info = view.getInformation();
         info.setUsername(Config.USERNAME);
         info.setUrl(img.getFileUrl(context));
-        info.save(context, new SaveListener() {
+        BmobQuery<VehicleInformation> bmobQuery = new BmobQuery<>();
+        bmobQuery.addWhereEqualTo("username",Config.USERNAME);
+        bmobQuery.addWhereEqualTo("num", info.getNum());
+        bmobQuery.findObjects(context, new FindListener<VehicleInformation>() {
             @Override
-            public void onSuccess() {
-                DbDao.add(context, info);
-                dialog.dismiss();
-                view.finish();
-            }
+            public void onSuccess(List<VehicleInformation> list) {
+                if (list.size() == 0) {
+                    /**
+                     * 没有添加过，保存
+                     * */
+                    info.save(context, new SaveListener() {
+                        @Override
+                        public void onSuccess() {
+                            Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
+                            DbDao.add(context, info);
+                            dialog.dismiss();
+                            view.finish();
+                        }
 
+                        @Override
+                        public void onFailure(int i, String s) {
+                            dialog.dismiss();
+                            Toast.makeText(context, BmobError.error(i), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    /**
+                     * 添加过，修改
+                     * */
+                    info.update(context, list.get(0).getObjectId(), new UpdateListener() {
+                        @Override
+                        public void onSuccess() {
+                            /**
+                             * 修改成功
+                             * */
+                            Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
+                            DbDao.add(context, info);
+                            dialog.dismiss();
+                            view.finish();
+                        }
+
+                        @Override
+                        public void onFailure(int i, String s) {
+                            /**
+                             * 修改失败
+                             * */
+                            Toast.makeText(context,BmobError.error(i),Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            }
             @Override
-            public void onFailure(int i, String s) {
+            public void onError(int i, String s) {
                 dialog.dismiss();
-                Toast.makeText(context, BmobError.error(i),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,BmobError.error(i),Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     public void startDownLoad() {
