@@ -11,7 +11,7 @@ import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 import com.vehicle.suixing.suixing.common.Config;
-import com.vehicle.suixing.suixing.model.PeccanydAcitivtyView;
+import com.vehicle.suixing.suixing.view.activity.PeccanydAcitivtyView;
 import com.vehicle.suixing.suixing.presenter.PeccanydActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
 
@@ -108,7 +108,7 @@ public class PeccanydActivity extends BaseSlidingActivity
     }
 
     @Override
-    public void defau() {
+    public void fail() {
         toast("网络状态不佳，请检查网络设置");
         dismiss();
     }

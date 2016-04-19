@@ -26,7 +26,7 @@ import com.vehicle.suixing.suixing.bean.WeiZhang1.Province;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangInfo;
 import com.vehicle.suixing.suixing.common.Config;
-import com.vehicle.suixing.suixing.model.QueryOthersView;
+import com.vehicle.suixing.suixing.view.activity.QueryOthersActivityView;
 import com.vehicle.suixing.suixing.ui.activity.PeccanydActivity;
 import com.vehicle.suixing.suixing.ui.adapter.CityAdapter;
 import com.vehicle.suixing.suixing.ui.adapter.ProvinceAdapter;
@@ -43,7 +43,7 @@ import java.util.List;
  * Created by KiSoo on 2016/4/9.
  */
 public class QueryOthersActivityPresenter {
-    private QueryOthersView view;
+    private QueryOthersActivityView view;
     private Context context;
     private String TAG = this.getClass().getName();
     private List<Province> provinces;
@@ -53,7 +53,7 @@ public class QueryOthersActivityPresenter {
     private List<City> cities;
     private CheGuanJu cheGuanJu;
 
-    public QueryOthersActivityPresenter(Context context, QueryOthersView view) {
+    public QueryOthersActivityPresenter(Context context, QueryOthersActivityView view) {
         this.view = view;
         this.context = context;
         provinces = new ArrayList<>();

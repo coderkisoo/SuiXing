@@ -3,7 +3,7 @@ package com.vehicle.suixing.suixing.presenter;
 import android.content.Context;
 
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
-import com.vehicle.suixing.suixing.model.PeccanydFragmentView;
+import com.vehicle.suixing.suixing.view.fragment.PeccanydFragmentView;
 import com.vehicle.suixing.suixing.ui.adapter.PeccanyItemAdapter;
 
 import java.util.List;

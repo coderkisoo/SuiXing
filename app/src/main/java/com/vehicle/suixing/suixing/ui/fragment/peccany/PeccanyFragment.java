@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.model.PeccanyFragmentView;
+import com.vehicle.suixing.suixing.view.fragment.PeccanyFragmentView;
 import com.vehicle.suixing.suixing.presenter.PeccanyFragmentPresenter;
 
 import butterknife.Bind;

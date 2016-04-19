@@ -4,51 +4,55 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 import com.vehicle.suixing.suixing.callback.GetWeizhangInfo;
-import com.vehicle.suixing.suixing.model.PeccanydAcitivtyView;
+import com.vehicle.suixing.suixing.callback.SwitchDate;
+import com.vehicle.suixing.suixing.model.IPeccanyActivityModel;
+import com.vehicle.suixing.suixing.model.impl.PeccanyActivityModel;
+import com.vehicle.suixing.suixing.view.activity.PeccanydAcitivtyView;
 import com.vehicle.suixing.suixing.ui.fragment.peccany.PeccanydFragment;
-import com.vehicle.suixing.suixing.util.JisuApiQuery;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by KiSoo on 2016/4/5.
  */
-public class PeccanydActivityPresenter implements GetWeizhangInfo {
+public class PeccanydActivityPresenter implements
+        GetWeizhangInfo ,
+        SwitchDate{
     private String TAG = this.getClass().getName();
     private PeccanydAcitivtyView view;
+    private IPeccanyActivityModel model;
     private Context context;
-    private VehicleInformation info;
     private Fragment nowFragment;
     private Fragment pastFragment;
     private List<WeizhangDate> now;
     private List<WeizhangDate> past;
-    private final int BEGIN = 0;
-    private final int FINISH = 1;
-    private final int DEFAILT = 2;
+    public final int BEGIN = 1000;
+    public final int FINISH = 1001;
+    public final int DEFAILT = 1002;
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
+                /*开始查询*/
                 case BEGIN:
                     view.begin();
                     break;
+                /*结束查询*/
                 case FINISH:
                     view.dismiss();
                     now();
                     break;
+                /*查询失败*/
                 case DEFAILT:
-                    view.defau();
+                    view.fail();
                     break;
                 default:
                     break;
@@ -59,9 +63,10 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
     public PeccanydActivityPresenter(PeccanydAcitivtyView view, Context context, VehicleInformation info) {
         this.view = view;
         this.context = context;
-        this.info = info;
         this.now = new ArrayList<>();
         this.past = new ArrayList<>();
+        this.model = new PeccanyActivityModel();
+        model.beginQuery(info,this);
         beginQuery();
     }
 
@@ -70,92 +75,52 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
         this.past = new ArrayList<>();
         this.view = view;
         this.context = context;
+        this.model = new PeccanyActivityModel();
         switchDate(infos);
     }
-
+    /*此处为手动输入各项参数的查询没有查询过*/
     private void beginQuery() {
-        Log.e(TAG, "查询中");
         Message message = new Message();
         message.what = BEGIN;
         handler.sendMessage(message);
-//        PeccanyQueryUtils.query(info.getNum(), info.getModel(), info.getFramenum(), this);
-        JisuApiQuery query = new JisuApiQuery();
-        query.query(info.getNum(), info.getFramenum(), info.getModel(), this);
     }
 
     private void switchDate(List<WeizhangDate> infos) {
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        int month = Calendar.getInstance().get(Calendar.MONTH);
-        if (null != infos) {
-            Iterator<WeizhangDate> weizhangDateIterator = infos.iterator();
-            while (weizhangDateIterator.hasNext()) {
-                WeizhangDate weizhangDate = weizhangDateIterator.next();
-                String date = weizhangDate.getTime();
-                int peccanyMonth = Integer.parseInt(date.substring(0, 4));
-                int peccanyYear = Integer.parseInt(date.substring(5, 7));
-                //年份小于今年，不是本月
-                if (peccanyYear < year) {
-                    past.add(weizhangDate);
-                    continue;
-                }
-                //月份小于本月，不是本月
-                if (peccanyMonth < month) {
-                    past.add(weizhangDate);
-                    continue;
-                }
-                //做完判断，添加到本月
-                now.add(weizhangDate);
-            }
-
-        }
-
-//            for (int i = 0; i < infos.size(); i++) {
-//                Log.e(TAG, "history不为null");
-//                String date = infos.get(i).getTime();
-//                /**
-//                 * 将返回值转化成年和月
-//                 * */
-//                int peccanyMonth = Integer.parseInt(date.substring(0, 4));
-//                int peccanyYear = Integer.parseInt(date.substring(5, 7));
-//                //年份小于今年，不是本月
-//                if (peccanyYear < year) {
-//                    past.add(infos.get(i));
-//                    continue;
-//                }
-//                //月份小于本月，不是本月
-//                if (peccanyMonth < month) {
-//                    past.add(infos.get(i));
-//                    continue;
-//                }
-//                //做完判断，添加到本月
-//                now.add(infos.get(i));
-//            }
-        Log.e(TAG, "for循环执行完");
+        model.switchDate(infos,this);
         Message message = new Message();
         message.what = FINISH;
         handler.sendMessage(message);
     }
-
+    /**
+     * 监听点击事件，now
+     * */
     public void now() {
         if (nowFragment == null)
             nowFragment = new PeccanydFragment(now);
         view.now(nowFragment);
     }
-
+    /**
+     * 监听点击事件，past
+     * */
     public void past() {
         if (pastFragment == null)
             pastFragment = new PeccanydFragment(past);
         view.past(pastFragment);
     }
 
-
+    /**
+     * 查询成功
+     * */
     @Override
     public void requestSuccess(List<WeizhangDate> list) {
         switchDate(list);
     }
 
+    /**
+     * 查询失败
+     * */
     @Override
-    public void requestDefault(String error) {
+    public void requestFail(String error) {
         Message message = new Message();
         message.what = DEFAILT;
         handler.sendMessage(message);
@@ -164,5 +129,15 @@ public class PeccanydActivityPresenter implements GetWeizhangInfo {
     @Override
     public void showText(String msg) {
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getPast(List<WeizhangDate> past) {
+        this.past = past;
+    }
+
+    @Override
+    public void getNow(List<WeizhangDate> now) {
+        this.now = now;
     }
 }

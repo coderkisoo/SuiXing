@@ -6,23 +6,16 @@ import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
-import com.vehicle.suixing.suixing.common.Config;
-import com.vehicle.suixing.suixing.model.MainActivityView;
-import com.vehicle.suixing.suixing.model.MeFragmentView;
+import com.vehicle.suixing.suixing.callback.BmobListener;
+import com.vehicle.suixing.suixing.model.IMeFragmentModel;
+import com.vehicle.suixing.suixing.model.impl.MeFragmentModel;
 import com.vehicle.suixing.suixing.ui.adapter.InfoAdapter;
 import com.vehicle.suixing.suixing.util.BmobError;
-import com.vehicle.suixing.suixing.util.SaveUser;
 import com.vehicle.suixing.suixing.util.UserSpUtils;
+import com.vehicle.suixing.suixing.view.activity.MainActivityView;
+import com.vehicle.suixing.suixing.view.fragment.MeFragmentView;
 
-import java.io.File;
 import java.util.List;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.UpdateListener;
-import cn.bmob.v3.listener.UploadFileListener;
 
 /**
  * Created by KiSoo on 2016/4/11.
@@ -30,12 +23,14 @@ import cn.bmob.v3.listener.UploadFileListener;
 public class MeFragmentPresenter {
     private MeFragmentView view;
     private Context context;
+    private IMeFragmentModel model;
     private static String TAG = MeFragmentPresenter.class.getName();
     private MainActivityView mainActivityView;
     public MeFragmentPresenter(Context context, MeFragmentView view, MainActivityView mainActivityView) {
         this.context = context;
         this.view = view;
         this.mainActivityView = mainActivityView;
+        this.model = new MeFragmentModel();
     }
 
     public void getInfo() {
@@ -43,71 +38,58 @@ public class MeFragmentPresenter {
     }
 
     public void setHead(final String head) {
-        view.setUpdate(true);
         //在此处先上传图片，然后再将其设置到后台表中，最后再将图片设置为头像
+        view.setUpdate(true);
         Log.e(TAG,"正在上传图片"+head);
-        final BmobFile file = new BmobFile(new File(head));
-        file.upload(context, new UploadFileListener() {
+        model.setHead(context, head, new BmobListener() {
             @Override
             public void onSuccess() {
-                final User user = new User();
-                user.setHead(file.getFileUrl(context));
-                user.update(context, BmobUser.getCurrentUser(context, User.class).getObjectId(), new UpdateListener() {
-                    @Override
-                    public void onSuccess() {
-                        Log.e(TAG, "设置成功");
-                        Toast.makeText(context, "设置成功", Toast.LENGTH_SHORT).show();
-                        view.setUpdate(false);
-                        User newuser = UserSpUtils.getUsers(context);
-                        final String newHead = "file:///" + head;
-                        newuser.setHead(newHead);
-                        UserSpUtils.saveHead(context,file.getFileUrl(context));
-                        view.setAdapter(new InfoAdapter(SuixingApp.infos, newuser, view));
-                        mainActivityView.updateHead(newHead);
-                    }
-
-                    @Override
-                    public void onFailure(int i, String s) {
-                        Toast.makeText(context, BmobError.error(i), Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, "设置失败 " + BmobError.error(i));
-                        view.setUpdate(false);
-                    }
-                });
+                Toast.makeText(context, "设置成功", Toast.LENGTH_SHORT).show();
+                view.setUpdate(false);
+                User newuser = UserSpUtils.getUsers(context);
+                final String newHead = "file:///" + head;
+                newuser.setHead(newHead);
+                view.setAdapter(new InfoAdapter(SuixingApp.infos, newuser, view));
+                mainActivityView.updateHead(newHead);
             }
 
             @Override
             public void onFailure(int i, String s) {
-                Log.e(TAG, "上传失败" + BmobError.error(i));
-                view.setUpdate(false);
                 Toast.makeText(context, BmobError.error(i), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "设置失败 " + BmobError.error(i));
+                view.setUpdate(false);
+            }
+
+            @Override
+            public void onSuccess(List list) {
+
             }
         });
 
     }
-
+    /*更新信息*/
     public void onResume() {
         view.setAdapter(new InfoAdapter(SuixingApp.infos, UserSpUtils.getUsers(context), view));
         mainActivityView.resume();
     }
 
     public void refresh() {
-        BmobQuery<User> query = new BmobQuery<>();
-        query.addWhereEqualTo(SaveUser.isTel(Config.USERNAME)?"mobilePhoneNumber":"username",Config.USERNAME);
-        query.findObjects(context, new FindListener<User>() {
+        model.updateUser(context, new BmobListener<User>() {
             @Override
-            public void onSuccess(List<User> list) {
-                User user = list.get(0);
-                UserSpUtils.saveMotto(context,user.getMotto());
-                UserSpUtils.saveName(context, user.getName());
-                UserSpUtils.saveHead(context,user.getHead());
+            public void onSuccess() {
                 onResume();
                 view.setUpdate(false);
             }
 
             @Override
-            public void onError(int i, String s) {
-                Toast.makeText(context,BmobError.error(i),Toast.LENGTH_SHORT).show();
+            public void onFailure(int i, String s) {
+                Toast.makeText(context, BmobError.error(i), Toast.LENGTH_SHORT).show();
                 view.setUpdate(false);
+            }
+
+            @Override
+            public void onSuccess(List<User> list) {
+
             }
         });
     }

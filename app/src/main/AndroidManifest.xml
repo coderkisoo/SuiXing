@@ -35,7 +35,7 @@
         <activity android:name=".ui.activity.AddVehicleActivity" />
         <activity android:name=".ui.activity.AddSuccessActivity" />
         <activity android:name=".ui.activity.PeccanydActivity" />
-        <activity android:name=".ui.activity.QueryOthersActivity" />
+        <activity android:name=".ui.activity.QueryOthersActivityActivity" />
         <activity android:name=".ui.activity.EditMottoActivity"/>
         <activity android:name=".ui.activity.EditNameActivity"/>
         <!--<service android:name="com.cheshouye.api.client.WeizhangIntentService"/>-->

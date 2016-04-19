@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.model.LoginActivityView;
+import com.vehicle.suixing.suixing.view.activity.LoginActivityView;
 import com.vehicle.suixing.suixing.presenter.LoginActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
 

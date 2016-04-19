@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
-import com.vehicle.suixing.suixing.model.VehicleInfoFragmentView;
+import com.vehicle.suixing.suixing.view.fragment.VehicleInfoFragmentView;
 import com.vehicle.suixing.suixing.presenter.VehicleInfoFragmentPresenter;
 import com.vehicle.suixing.suixing.ui.adapter.MyPageTransFormer;
 import com.vehicle.suixing.suixing.ui.adapter.MyPagerAdapter;
@@ -126,7 +126,6 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
         super.onResume();
         Log.e(TAG, SuixingApp.infos.size() + "");
         vp_choose_vehicle_list.setAdapter(new MyPagerAdapter(getActivity(), SuixingApp.infos));
-        vp_choose_vehicle_list.setOffscreenPageLimit(SuixingApp.infos.size());
         if (SuixingApp.infos.size() > 0)
             initInfo(SuixingApp.infos.get(0));
     }

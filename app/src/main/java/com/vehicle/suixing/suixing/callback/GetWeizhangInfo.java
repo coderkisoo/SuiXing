@@ -11,7 +11,7 @@ public interface GetWeizhangInfo {
 //    void geted(WeizhangResponseHistoryJson json);
 
     void requestSuccess(List<WeizhangDate> list);
-    void requestDefault(String error);
+    void requestFail(String error);
 
     void showText(String msg);
 }

@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
-import com.vehicle.suixing.suixing.model.PeccanydFragmentView;
+import com.vehicle.suixing.suixing.view.fragment.PeccanydFragmentView;
 import com.vehicle.suixing.suixing.presenter.PeccanydFragmentPresenter;
 import com.vehicle.suixing.suixing.ui.adapter.PeccanyItemAdapter;
 

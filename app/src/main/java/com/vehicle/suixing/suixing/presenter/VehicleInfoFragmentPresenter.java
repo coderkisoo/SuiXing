@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.app.SuixingApp;
-import com.vehicle.suixing.suixing.model.VehicleInfoFragmentView;
+import com.vehicle.suixing.suixing.view.fragment.VehicleInfoFragmentView;
 import com.vehicle.suixing.suixing.ui.activity.AddVehicleActivity;
 import com.vehicle.suixing.suixing.ui.activity.SplashActivity;
 

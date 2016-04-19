@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuixingApp;
-import com.vehicle.suixing.suixing.model.MainActivityView;
+import com.vehicle.suixing.suixing.view.activity.MainActivityView;
 import com.vehicle.suixing.suixing.presenter.MainActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseActivity;
 
@@ -123,10 +123,6 @@ public class MainActivity extends BaseActivity implements MainActivityView{
         presenter.onResume();
     }
 
-    @Override
-    public void logOut() {
-        finish();
-    }
 
     @Override
     public void UpdateName(String name) {
@@ -138,7 +134,9 @@ public class MainActivity extends BaseActivity implements MainActivityView{
     public void updateMotto(String motto) {
         tv_motto.setText(motto);
     }
-
+/**
+ * 设置头像
+ * */
     @Override
     public void updateHead(String head) {
         ImageLoader.getInstance().displayImage(head, civ_head);

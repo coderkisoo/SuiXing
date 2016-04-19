@@ -13,9 +13,9 @@ import android.widget.Toast;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
-import com.vehicle.suixing.suixing.model.PeccanyFragmentView;
+import com.vehicle.suixing.suixing.view.fragment.PeccanyFragmentView;
 import com.vehicle.suixing.suixing.ui.activity.PeccanydActivity;
-import com.vehicle.suixing.suixing.ui.activity.QueryOthersActivity;
+import com.vehicle.suixing.suixing.ui.activity.QueryOthersActivityActivity;
 import com.vehicle.suixing.suixing.ui.adapter.PopupListAdapter;
 
 /**
@@ -69,7 +69,7 @@ public class PeccanyFragmentPresenter {
      */
 
     public void queryOthers() {
-        context.startActivity(new Intent(context, QueryOthersActivity.class));
+        context.startActivity(new Intent(context, QueryOthersActivityActivity.class));
     }
 
     /**

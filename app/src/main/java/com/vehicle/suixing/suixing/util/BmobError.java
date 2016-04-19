@@ -128,8 +128,8 @@ public class BmobError {
                 Log.e(TAG,"username or password incorrect");
                 return "用户名或密码错误,请重新登录";
             default:
-                break;
+                Log.e(TAG,"错误码为:"+code);
+                return "错误码"+code+"";
         }
-        return "";
     }
 }

@@ -10,7 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
-import com.vehicle.suixing.suixing.model.RegisterActivityView;
+import com.vehicle.suixing.suixing.view.activity.RegisterActivityView;
 import com.vehicle.suixing.suixing.ui.activity.MainActivity;
 import com.vehicle.suixing.suixing.util.AuthCodeUtil;
 import com.vehicle.suixing.suixing.util.BmobError;

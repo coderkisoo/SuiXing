@@ -3,22 +3,20 @@ package com.vehicle.suixing.suixing.presenter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleImage;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
+import com.vehicle.suixing.suixing.callback.BmobListener;
 import com.vehicle.suixing.suixing.common.Config;
-import com.vehicle.suixing.suixing.model.AddSuccessActivityView;
+import com.vehicle.suixing.suixing.view.activity.AddSuccessActivityView;
+import com.vehicle.suixing.suixing.model.impl.AddSuccessActivityModel;
+import com.vehicle.suixing.suixing.model.IAddSuccessActivityModel;
 import com.vehicle.suixing.suixing.util.BmobError;
 import com.vehicle.suixing.suixing.util.DbDao;
 
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by KiSoo on 2016/4/4.
@@ -26,6 +24,7 @@ import cn.bmob.v3.listener.UpdateListener;
 public class AddSuccessActivityPresenter {
     private String TAG = AddSuccessActivityPresenter.class.getName();
     private AddSuccessActivityView view;
+    private IAddSuccessActivityModel model;
     private Context context;
     private BmobFile img;
 
@@ -33,13 +32,14 @@ public class AddSuccessActivityPresenter {
     public AddSuccessActivityPresenter(AddSuccessActivityView view, Context context) {
         this.view = view;
         this.context = context;
+        model = new AddSuccessActivityModel();
     }
 
-
+    /**
+     * 确认添加,将图片的url先存至网络，再缓存到本地
+     * */
     public void addSuccess() {
-        /**
-         * 确认添加,将图片先存至网络，再缓存到本地
-         * */
+
         Log.e(TAG, img.getFilename() + "\n" + img.getFileUrl(context) + "\n" + img.getUrl());
         final ProgressDialog dialog = new ProgressDialog(context);
         dialog.setTitle("提示:");
@@ -49,114 +49,60 @@ public class AddSuccessActivityPresenter {
         final VehicleInformation info = view.getInformation();
         info.setUsername(Config.USERNAME);
         info.setUrl(img.getFileUrl(context));
-        BmobQuery<VehicleInformation> bmobQuery = new BmobQuery<>();
-        bmobQuery.addWhereEqualTo("username",Config.USERNAME);
-        bmobQuery.addWhereEqualTo("num", info.getNum());
-        bmobQuery.findObjects(context, new FindListener<VehicleInformation>() {
+        model.saveOnInternet(context, info, new BmobListener() {
             @Override
-            public void onSuccess(List<VehicleInformation> list) {
-                if (list.size() == 0) {
-                    /**
-                     * 没有添加过，保存
-                     * */
-                    info.save(context, new SaveListener() {
-                        @Override
-                        public void onSuccess() {
-                            Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
-                            DbDao.add(context, info);
-                            dialog.dismiss();
-                            view.finish();
-                        }
-
-                        @Override
-                        public void onFailure(int i, String s) {
-                            dialog.dismiss();
-                            Toast.makeText(context, BmobError.error(i), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    /**
-                     * 添加过，修改
-                     * */
-                    info.update(context, list.get(0).getObjectId(), new UpdateListener() {
-                        @Override
-                        public void onSuccess() {
-                            /**
-                             * 修改成功
-                             * */
-                            Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
-                            DbDao.add(context, info);
-                            dialog.dismiss();
-                            view.finish();
-                        }
-
-                        @Override
-                        public void onFailure(int i, String s) {
-                            /**
-                             * 修改失败
-                             * */
-                            Toast.makeText(context,BmobError.error(i),Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                        }
-                    });
-                }
-            }
-            @Override
-            public void onError(int i, String s) {
+            public void onSuccess() {
+                view.showToast("添加成功");
+                DbDao.add(context, info);
                 dialog.dismiss();
-                Toast.makeText(context,BmobError.error(i),Toast.LENGTH_SHORT).show();
+                view.finish();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                dialog.dismiss();
+                view.showToast(BmobError.error(i));
+            }
+
+            @Override
+            public void onSuccess(List list) {
+
             }
         });
-    }
 
+    }
+    /**
+     * 开始下载图片，图片存储在bmob后台上，请求来得到数据
+     * */
     public void startDownLoad() {
         view.launch();
-        final VehicleInformation information = view.getInformation();
-        String name = information.getName();
-        BmobQuery<VehicleImage> query = new BmobQuery<VehicleImage>();
-        query.addWhereEqualTo("vehicleId", name);
-        query.setLimit(1);
-        query.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ONLY);
-        
+        model.startDownLoad(context, view.getInformation(), new BmobListener<VehicleImage>() {
+            @Override
+            public void onFailure(int i, String s) {
+                Log.e(TAG, "出错原因：" + s + "错误代码：" + i);
+                view.launchFailed();
+                view.showToast(BmobError.error(i));
+            }
 
-        query.findObjects(context, new FindListener<VehicleImage>() {
             @Override
             public void onSuccess(List<VehicleImage> list) {
                 /**
-                 * 查询成功，将图片赋值
+                 * 查询成功
                  * */
                 img = list.get(0).getVehicleImg();
-                //picasso的图片缓存
-//                Picasso.with(AddSuccessActivity.this)
-//                        .load(img.getFileUrl(AddSuccessActivity.this))
-//                        .into(iv_vehicle_img);
-                //Bmob的图片缓存
-//                img.loadImage(AddSuccessActivity.this, iv_vehicle_img);
                 view.displayImg(img.getFileUrl(context));
-                Log.e(TAG, img.getFileUrl(context));
-                /**
-                 * 此处得到url
-                 * */
-                Log.e(TAG, img.getUrl());
-                Log.e(TAG, img.getFilename());
-//                startActivity(new Intent(AddSuccessActivity.this,TestActivity.class).putExtra("0",img.getUrl()));
                 view.launched();
                 view.tvAddSuccess();
-                view.setName(information.getName());
-                view.setNumber(information.getNum());
+                view.setName(view.getInformation().getName());
+                view.setNumber(view.getInformation().getNum());
             }
 
             @Override
-            public void onError(int i, String s) {
-                /**
-                 * 查询失败
-                 * */
-                Toast.makeText(context, "你的网络似乎有些问题哦", Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "出错原因：" + s + "错误代码：" + i);
-                view.launchFailed();
+            public void onSuccess() {
 
             }
-        });
 
+
+        });
     }
 }

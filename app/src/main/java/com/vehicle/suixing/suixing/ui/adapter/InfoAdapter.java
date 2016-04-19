@@ -11,7 +11,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
-import com.vehicle.suixing.suixing.model.MeFragmentView;
+import com.vehicle.suixing.suixing.view.fragment.MeFragmentView;
 
 import java.util.List;
 
