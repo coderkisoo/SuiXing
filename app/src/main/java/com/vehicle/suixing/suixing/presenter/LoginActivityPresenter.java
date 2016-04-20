@@ -13,8 +13,6 @@ import com.vehicle.suixing.suixing.ui.activity.RepasswordActivity;
 import com.vehicle.suixing.suixing.util.BmobError;
 import com.vehicle.suixing.suixing.view.activity.LoginActivityView;
 
-import java.util.List;
-
 /**
  * Created by KiSoo on 2016/4/4.
  */
@@ -47,11 +45,6 @@ public class LoginActivityPresenter {
             public void onFailure(int i, String s) {
                 progressDialog.dismiss();
                 showToast(BmobError.error(i));
-            }
-
-            @Override
-            public void onSuccess(List list) {
-
             }
         });
 

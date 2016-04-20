@@ -75,7 +75,6 @@ public class MeFragment extends Fragment implements
         presenter = new MeFragmentPresenter(getActivity(), this, mainActivityView);
         dialog = new AlertDialog.Builder(getActivity()).create();
         initEvents();
-        presenter.getInfo();
         return view;
     }
 

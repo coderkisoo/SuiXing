@@ -29,7 +29,7 @@ public class VehicleInfoFragmentPresenter {
              * 没有登录
              * */
             showToast("您当前没有登录账号，请先登录");
-            context.startActivity(new Intent(context, SplashActivity.class));
+            context.startActivity(new Intent(context, SplashActivity.class).putExtra("start",2));
         }
     }
     private void showToast(String toast){

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleImage;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.callback.BmobListener;
+import com.vehicle.suixing.suixing.callback.BmobListenerWithList;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.activity.IAddSuccessActivityModel;
 
@@ -21,7 +22,7 @@ import cn.bmob.v3.listener.UpdateListener;
 public class AddSuccessActivityModel implements IAddSuccessActivityModel {
 
     @Override
-    public void saveOnInternet(final Context context,final VehicleInformation info, final BmobListener<VehicleImage> listener) {
+    public void saveOnInternet(final Context context,final VehicleInformation info, final BmobListener listener) {
         BmobQuery<VehicleInformation> bmobQuery = new BmobQuery<>();
         bmobQuery.addWhereEqualTo("username", Config.USERNAME);
         bmobQuery.addWhereEqualTo("num", info.getNum());
@@ -74,7 +75,7 @@ public class AddSuccessActivityModel implements IAddSuccessActivityModel {
     }
 
     @Override
-    public void startDownLoad(Context context,final VehicleInformation information,final BmobListener listener) {
+    public void startDownLoad(Context context,final VehicleInformation information,final BmobListenerWithList<VehicleImage> listener) {
        String name = information.getName();
         BmobQuery<VehicleImage> query = new BmobQuery<VehicleImage>();
         query.addWhereEqualTo("vehicleId", name);

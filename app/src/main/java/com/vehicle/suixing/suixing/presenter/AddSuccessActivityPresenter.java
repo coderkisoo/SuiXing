@@ -7,6 +7,7 @@ import android.util.Log;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleImage;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.callback.BmobListener;
+import com.vehicle.suixing.suixing.callback.BmobListenerWithList;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.view.activity.AddSuccessActivityView;
 import com.vehicle.suixing.suixing.model.impl.activity.AddSuccessActivityModel;
@@ -64,10 +65,7 @@ public class AddSuccessActivityPresenter {
                 view.showToast(BmobError.error(i));
             }
 
-            @Override
-            public void onSuccess(List list) {
 
-            }
         });
 
     }
@@ -76,14 +74,7 @@ public class AddSuccessActivityPresenter {
      * */
     public void startDownLoad() {
         view.launch();
-        model.startDownLoad(context, view.getInformation(), new BmobListener<VehicleImage>() {
-            @Override
-            public void onFailure(int i, String s) {
-                Log.e(TAG, "出错原因：" + s + "错误代码：" + i);
-                view.launchFailed();
-                view.showToast(BmobError.error(i));
-            }
-
+        model.startDownLoad(context, view.getInformation(), new BmobListenerWithList<VehicleImage>() {
             @Override
             public void onSuccess(List<VehicleImage> list) {
                 /**
@@ -102,7 +93,12 @@ public class AddSuccessActivityPresenter {
 
             }
 
-
+            @Override
+            public void onFailure(int i, String s) {
+                Log.e(TAG, "出错原因：" + s + "错误代码：" + i);
+                view.launchFailed();
+                view.showToast(BmobError.error(i));
+            }
         });
     }
 }

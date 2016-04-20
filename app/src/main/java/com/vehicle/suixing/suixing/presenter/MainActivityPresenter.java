@@ -64,10 +64,6 @@ public class MainActivityPresenter implements UpdateList{
 
             }
 
-            @Override
-            public void onSuccess(List list) {
-
-            }
         });
         initFragments();
     }

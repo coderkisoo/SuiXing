@@ -37,6 +37,9 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         this.view = view;
         total = list.size() + 2;
     }
+    public void updateUser(User user){
+        this.users = user;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
