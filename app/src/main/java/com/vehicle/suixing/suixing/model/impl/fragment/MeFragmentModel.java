@@ -1,11 +1,11 @@
-package com.vehicle.suixing.suixing.model.impl;
+package com.vehicle.suixing.suixing.model.impl.fragment;
 
 import android.content.Context;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
 import com.vehicle.suixing.suixing.callback.BmobListener;
-import com.vehicle.suixing.suixing.callback.UrlGeter;
 import com.vehicle.suixing.suixing.common.Config;
+import com.vehicle.suixing.suixing.model.fragment.IMeFragmentModel;
 import com.vehicle.suixing.suixing.util.SaveUser;
 import com.vehicle.suixing.suixing.util.UserSpUtils;
 
@@ -22,7 +22,7 @@ import cn.bmob.v3.listener.UploadFileListener;
 /**
  * Created by KiSoo on 2016/4/20.
  */
-public class MeFragmentModel implements com.vehicle.suixing.suixing.model.IMeFragmentModel {
+public class MeFragmentModel implements IMeFragmentModel {
     private String TAG = this.getClass().getName();
 
     @Override

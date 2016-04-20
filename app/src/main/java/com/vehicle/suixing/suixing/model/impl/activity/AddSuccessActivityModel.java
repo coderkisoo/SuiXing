@@ -1,4 +1,4 @@
-package com.vehicle.suixing.suixing.model.impl;
+package com.vehicle.suixing.suixing.model.impl.activity;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import com.vehicle.suixing.suixing.bean.BmobBean.VehicleImage;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.callback.BmobListener;
 import com.vehicle.suixing.suixing.common.Config;
-import com.vehicle.suixing.suixing.model.IAddSuccessActivityModel;
+import com.vehicle.suixing.suixing.model.activity.IAddSuccessActivityModel;
 
 import java.util.List;
 

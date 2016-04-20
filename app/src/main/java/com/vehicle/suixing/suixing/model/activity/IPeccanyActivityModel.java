@@ -1,4 +1,4 @@
-package com.vehicle.suixing.suixing.model;
+package com.vehicle.suixing.suixing.model.activity;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;

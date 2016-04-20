@@ -1,10 +1,10 @@
-package com.vehicle.suixing.suixing.model.impl;
+package com.vehicle.suixing.suixing.model.impl.activity;
 
 import android.content.Context;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
 import com.vehicle.suixing.suixing.callback.BmobListener;
-import com.vehicle.suixing.suixing.model.ILoginActivityModel;
+import com.vehicle.suixing.suixing.model.activity.ILoginActivityModel;
 import com.vehicle.suixing.suixing.util.MD5Utils;
 import com.vehicle.suixing.suixing.util.SaveUser;
 
@@ -23,14 +23,14 @@ public class LoginActivityModel implements ILoginActivityModel{
              * */
             username = MD5Utils.ecoder(username);
         }
-        final String password1 = MD5Utils.ecoder(password);
+        final String finalpassword = MD5Utils.ecoder(password);
         final String finalUsername = username;
         user.setUsername(finalUsername);
-        user.setPassword(password1);
+        user.setPassword(finalpassword);
         user.login(context, new SaveListener() {
             @Override
             public void onSuccess() {
-                SaveUser.save(finalUsername, password, context);
+                SaveUser.save(finalUsername, finalpassword, context);
                 listener.onSuccess();
             }
 

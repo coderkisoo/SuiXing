@@ -1,10 +1,10 @@
-package com.vehicle.suixing.suixing.model.impl;
+package com.vehicle.suixing.suixing.model.impl.activity;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 import com.vehicle.suixing.suixing.callback.GetWeizhangInfo;
 import com.vehicle.suixing.suixing.callback.SwitchDate;
-import com.vehicle.suixing.suixing.model.IPeccanyActivityModel;
+import com.vehicle.suixing.suixing.model.activity.IPeccanyActivityModel;
 import com.vehicle.suixing.suixing.util.JisuApiQuery;
 
 import java.util.ArrayList;
@@ -15,12 +15,13 @@ import java.util.List;
  * Created by KiSoo on 2016/4/20.
  */
 public class PeccanyActivityModel implements IPeccanyActivityModel {
+    /*开始查询*/
     @Override
     public void beginQuery(VehicleInformation info,GetWeizhangInfo callback) {
         JisuApiQuery query = new JisuApiQuery();
         query.query(info.getNum(), info.getFramenum(), info.getModel(), callback);
     }
-
+    /*将违章信息根据天气来分离开*/
     @Override
     public void switchDate(List<WeizhangDate> infos,SwitchDate callback) {
         List<WeizhangDate> past = new ArrayList<>();

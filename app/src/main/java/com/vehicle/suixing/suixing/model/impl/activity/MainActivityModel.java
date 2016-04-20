@@ -1,15 +1,13 @@
-package com.vehicle.suixing.suixing.model.impl;
+package com.vehicle.suixing.suixing.model.impl.activity;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
 import com.vehicle.suixing.suixing.callback.BmobListener;
 import com.vehicle.suixing.suixing.callback.UpdateList;
 import com.vehicle.suixing.suixing.common.Config;
-import com.vehicle.suixing.suixing.model.IMainActivityModel;
-import com.vehicle.suixing.suixing.util.BmobError;
+import com.vehicle.suixing.suixing.model.activity.IMainActivityModel;
 import com.vehicle.suixing.suixing.util.BmobUtils;
 import com.vehicle.suixing.suixing.util.DbDao;
 import com.vehicle.suixing.suixing.util.SaveUser;

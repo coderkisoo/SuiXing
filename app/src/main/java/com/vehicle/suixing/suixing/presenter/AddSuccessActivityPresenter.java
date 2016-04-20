@@ -9,8 +9,8 @@ import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.callback.BmobListener;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.view.activity.AddSuccessActivityView;
-import com.vehicle.suixing.suixing.model.impl.AddSuccessActivityModel;
-import com.vehicle.suixing.suixing.model.IAddSuccessActivityModel;
+import com.vehicle.suixing.suixing.model.impl.activity.AddSuccessActivityModel;
+import com.vehicle.suixing.suixing.model.activity.IAddSuccessActivityModel;
 import com.vehicle.suixing.suixing.util.BmobError;
 import com.vehicle.suixing.suixing.util.DbDao;
 

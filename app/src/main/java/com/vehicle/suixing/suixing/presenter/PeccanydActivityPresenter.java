@@ -10,8 +10,8 @@ import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 import com.vehicle.suixing.suixing.callback.GetWeizhangInfo;
 import com.vehicle.suixing.suixing.callback.SwitchDate;
-import com.vehicle.suixing.suixing.model.IPeccanyActivityModel;
-import com.vehicle.suixing.suixing.model.impl.PeccanyActivityModel;
+import com.vehicle.suixing.suixing.model.activity.IPeccanyActivityModel;
+import com.vehicle.suixing.suixing.model.impl.activity.PeccanyActivityModel;
 import com.vehicle.suixing.suixing.view.activity.PeccanydAcitivtyView;
 import com.vehicle.suixing.suixing.ui.fragment.peccany.PeccanydFragment;
 

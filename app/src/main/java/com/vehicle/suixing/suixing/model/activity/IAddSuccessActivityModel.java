@@ -1,4 +1,4 @@
-package com.vehicle.suixing.suixing.model;
+package com.vehicle.suixing.suixing.model.activity;
 
 import android.content.Context;
 

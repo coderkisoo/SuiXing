@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.callback.BmobListener;
-import com.vehicle.suixing.suixing.model.ILoginActivityModel;
-import com.vehicle.suixing.suixing.model.impl.LoginActivityModel;
+import com.vehicle.suixing.suixing.model.activity.ILoginActivityModel;
+import com.vehicle.suixing.suixing.model.impl.activity.LoginActivityModel;
 import com.vehicle.suixing.suixing.ui.activity.MainActivity;
 import com.vehicle.suixing.suixing.ui.activity.RepasswordActivity;
 import com.vehicle.suixing.suixing.util.BmobError;
