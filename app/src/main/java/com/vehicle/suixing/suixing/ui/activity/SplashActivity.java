@@ -54,6 +54,7 @@ public class SplashActivity extends BaseActivity {
                 return fragments.size();
             }
         });
+        vp_splash.setCurrentItem(getIntent().getIntExtra("start",0));
     }
 
 
