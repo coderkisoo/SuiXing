@@ -34,7 +34,7 @@ public class MyPagerAdapter extends PagerAdapter {
         ImageView imageView = new ImageView(context);
         ImageLoader.getInstance()
                 .displayImage(info.get(position).getUrl(), imageView);
-        container.addView(imageView, position);
+        container.addView(imageView, 0);
         return imageView;
     }
 

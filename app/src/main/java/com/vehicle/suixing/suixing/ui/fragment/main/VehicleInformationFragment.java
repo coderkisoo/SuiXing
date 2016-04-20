@@ -64,7 +64,7 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
     }
     @OnClick(R.id.v_right_view)
     void v_right_view(){
-        vp_choose_vehicle_list.setCurrentItem(nowPosition+1);
+        vp_choose_vehicle_list.setCurrentItem(nowPosition + 1);
     }
 
 
@@ -82,12 +82,11 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_vehicle_information, null);
         ButterKnife.bind(this, view);
-//        final ViewPager vp_choose_vehicle_list = (ViewPager) view.findViewById(R.id.vp_choose_vehicle_list);
         presenter = new VehicleInfoFragmentPresenter(this,getActivity());
         initView();
         return view;
     }
-
+    /*初始化控件的各项属性*/
     private void initView() {
         ll_container.setOnTouchListener(new View.OnTouchListener() {
             /**
@@ -124,14 +123,11 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(TAG, SuixingApp.infos.size() + "");
-        vp_choose_vehicle_list.setAdapter(new MyPagerAdapter(getActivity(), SuixingApp.infos));
-        if (SuixingApp.infos.size() > 0)
-            initInfo(SuixingApp.infos.get(0));
+        presenter.setAdapter();
     }
 
-
-    private void initInfo(VehicleInformation vehicleInformation) {
+    /*更新信息*/
+    public void initInfo(VehicleInformation vehicleInformation) {
         tv_name.setText(vehicleInformation.getName());
         tv_num.setText(vehicleInformation.getNum());
         tv_frame_num.setText(vehicleInformation.getFramenum().substring(11,17));//只显示11-17位的
@@ -143,4 +139,8 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
         tv_light.setText(vehicleInformation.getLight());
     }
 
+    @Override
+    public void setAdapter(MyPagerAdapter adapter) {
+        vp_choose_vehicle_list.setAdapter(adapter);
+    }
 }
