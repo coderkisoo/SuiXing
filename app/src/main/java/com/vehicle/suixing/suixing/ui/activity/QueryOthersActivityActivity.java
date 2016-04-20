@@ -9,9 +9,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.view.activity.QueryOthersActivityView;
 import com.vehicle.suixing.suixing.presenter.QueryOthersActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
+import com.vehicle.suixing.suixing.view.activity.QueryOthersActivityView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,7 +45,10 @@ public class QueryOthersActivityActivity extends BaseSlidingActivity implements 
     @Bind(R.id.til_frame_num)
     TextInputLayout til_frame_num;
 
-
+    @OnClick(R.id.iv_toolbar_left_image)
+    void iv_toolbar_left_image(){
+        finish();
+    }
     @OnClick(R.id.tv_province)
     void tv_province(){
         /**
