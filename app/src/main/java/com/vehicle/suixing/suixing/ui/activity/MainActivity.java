@@ -70,6 +70,7 @@ public class MainActivity extends BaseActivity implements MainActivityView{
          * 音乐
          * */
         presenter.music();
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "音乐", false);
     }
 
     @OnClick(R.id.ll_peccany)

@@ -185,7 +185,6 @@ public class QueryOthersActivityPresenter {
                         }.getType();
                         WeizhangInfo result3 = gson3.fromJson(response2body, type3);
                         context.startActivity(new Intent(context, PeccanydActivity.class).putExtra("isLoad", true).putExtra("list", (Serializable) result3.getResult().getList()));
-// info.requestSuccess(result3.getResult().getList());
                     } else if (response2body.length() < 60) {
                         Gson gson = new Gson();
                         Type type3 = new TypeToken<CheguanjuError>() {

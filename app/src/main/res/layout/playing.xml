@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@mipmap/playing_background"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:id="@id/caidan"
+            android:background="@mipmap/title_back"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/currentProgress"
+            android:layout_toEndOf="@+id/currentProgress">
+
+        </RelativeLayout>
+    <SeekBar
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:indeterminate="false"
+        android:layout_above="@+id/liner"
+        android:layout_toRightOf="@+id/currentProgress"
+        android:layout_toEndOf="@+id/currentProgress"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/songV"
+        android:layout_above="@+id/artistV"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="76dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/artistV"
+        android:layout_above="@+id/seekBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="46dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="当前时间"
+            android:id="@+id/currentProgress"
+            android:layout_below="@+id/artistV"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="总共时间"
+            android:id="@+id/finalProgress"
+            android:layout_alignTop="@+id/currentProgress"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/title_back"
+            android:id="@+id/turn"
+            android:layout_alignBottom="@id/caidan" />
+        <TextView
+            android:layout_marginTop="15dp"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="我的音乐"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:id="@+id/liner"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:layout_width="81dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/xihuan"
+                android:background="@mipmap/playing_mylove_no"
+                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/preBtn"
+                android:layout_toStartOf="@+id/preBtn" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="81dp"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/playing_last_music"
+                android:id="@+id/preBtn"
+                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/playBtn"
+                android:layout_toStartOf="@+id/playBtn" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="81dp"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/music_playmusic"
+                android:id="@+id/playBtn"
+                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/nextBtn"
+                android:layout_toStartOf="@+id/nextBtn"
+                android:layout_alignTop="@+id/preBtn" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="81dp"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/music_nextmusic"
+                android:id="@+id/nextBtn"
+                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/repBtn"
+                android:layout_toStartOf="@+id/repBtn"
+                android:layout_alignTop="@+id/playBtn" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="81dp"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/playing_unknown"
+                android:id="@+id/repBtn"
+                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

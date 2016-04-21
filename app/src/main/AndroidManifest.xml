@@ -29,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".ui.activity.Playing" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RepasswordActivity" />
@@ -48,6 +49,8 @@
                 <action android:name="cn.bmob.push.lib.service.PushService" />
             </intent-filter>
         </service>
+
+        <service android:name=".service.PlayerService" android:exported="true" />
 
         <receiver android:name="cn.bmob.push.PushReceiver">
             <intent-filter>

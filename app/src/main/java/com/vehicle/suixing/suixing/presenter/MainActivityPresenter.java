@@ -19,6 +19,7 @@ import com.vehicle.suixing.suixing.model.impl.activity.MainActivityModel;
 import com.vehicle.suixing.suixing.ui.activity.SplashActivity;
 import com.vehicle.suixing.suixing.ui.fragment.main.MeFragment;
 import com.vehicle.suixing.suixing.ui.fragment.main.VehicleInformationFragment;
+import com.vehicle.suixing.suixing.ui.fragment.music.MusicFragment;
 import com.vehicle.suixing.suixing.ui.fragment.peccany.PeccanyFragment;
 import com.vehicle.suixing.suixing.util.BmobError;
 import com.vehicle.suixing.suixing.util.DbDao;
@@ -84,6 +85,7 @@ public class MainActivityPresenter implements UpdateList{
         fragments.add(new MeFragment(view));
         fragments.add(new VehicleInformationFragment());
         fragments.add(new PeccanyFragment());
+        fragments.add(new MusicFragment());
         startFragment(fragments.get(1));
 
     }
@@ -133,6 +135,7 @@ public class MainActivityPresenter implements UpdateList{
     }
 
     public void music() {
+        startFragment(fragments.get(3));
         view.closeDrawer();
     }
 
