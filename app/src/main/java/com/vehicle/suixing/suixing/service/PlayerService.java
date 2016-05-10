@@ -8,12 +8,14 @@ import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.vehicle.suixing.suixing.app.AppConstant;
 import com.vehicle.suixing.suixing.model.info.Mp3Info;
 import com.vehicle.suixing.suixing.util.MediaUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +29,7 @@ public class PlayerService extends Service {
     private boolean isPlaying;
     private int current = 0; 		// 记录当前正在播放的音乐
     private List<Mp3Info> mp3Infos;	//存放Mp3Info对象的集合
+    private List<Mp3Info> list_local;
     private int status = 3;			//播放状态，默认为顺序播放
     private MyReceiver myReceiver;	//自定义广播接收器
     private int currentTime;		//当前播放进度
@@ -54,14 +57,19 @@ public class PlayerService extends Service {
             }
         }
     };
-    @Override
+    /*@Override
     public IBinder onBind(Intent  arg0) {
         return null;
     }
     @Override
     public void onStart(Intent intent, int startId) {
-        path = intent.getStringExtra("url");		//歌曲路径
+        //path = intent.getStringExtra("url");		//歌曲路径
+        list_local = new ArrayList<>();
+        list_local.clear();
+        list_local = (List<Mp3Info>) intent.getSerializableExtra("list_local");
         current = intent.getIntExtra("listPosition", -1);	//当前播放歌曲的在mp3Infos的位置
+        path = mp3Infos.get(current).getUrl();
+//        path = intent.getStringExtra("url");
         msg = intent.getIntExtra("MSG", 0);			//播放信息
         if (msg == AppConstant.PlayerMsg.PLAY_MSG) {	//直接播放音乐
             play(0);
@@ -80,12 +88,41 @@ public class PlayerService extends Service {
             handler.sendEmptyMessage(1);
         }
 
-
         super.onStart(intent, startId);
+    }*/
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        list_local = new ArrayList<>();
+        list_local.clear();
+        list_local = (List<Mp3Info>) intent.getSerializableExtra("list_local");
+        current = intent.getIntExtra("listPosition", -1);	//当前播放歌曲的在mp3Infos的位置
+        path = mp3Infos.get(current).getUrl();
+//        path = intent.getStringExtra("url");
+        msg = intent.getIntExtra("MSG", 0);			//播放信息
+        if (msg == AppConstant.PlayerMsg.PLAY_MSG) {	//直接播放音乐
+            play(0);
+        } else if (msg == AppConstant.PlayerMsg.PAUSE_MSG) {	//暂停
+            pause();
+        } else if (msg == AppConstant.PlayerMsg.CONTINUE_MSG) {	//继续播放
+            resume();
+        } else if (msg == AppConstant.PlayerMsg.NEXT_MSG) {		//下一首
+            next();
+        }else if (msg == AppConstant.PlayerMsg.PRIVIOUS_MSG) {	//上一首
+            previous();
+        }else if (msg == AppConstant.PlayerMsg.PROGRESS_CHANGE) {	//进度更新
+            currentTime = intent.getIntExtra("progress", -1);
+            play(currentTime);
+        } else if (msg == AppConstant.PlayerMsg.PLAYING_MSG) {
+            handler.sendEmptyMessage(1);
+        }
+        return super.onStartCommand(intent, flags, startId);
     }
+
     /**
      * 设置音乐播放完成时的监听器
      */
+
 
 
 
@@ -220,6 +257,13 @@ public class PlayerService extends Service {
             mediaPlayer.release();
             mediaPlayer = null;
         }}
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
     /**
      *
      * 实现一个OnPrepareLister接口,当音乐准备好的时候开始播放

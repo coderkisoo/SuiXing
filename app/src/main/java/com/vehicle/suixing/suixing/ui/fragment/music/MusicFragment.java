@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,13 +25,13 @@ import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.AppConstant;
 import com.vehicle.suixing.suixing.manager.DBManager;
 import com.vehicle.suixing.suixing.model.info.Mp3Info;
-import com.vehicle.suixing.suixing.presenter.VehicleInfoFragmentPresenter;
 import com.vehicle.suixing.suixing.service.PlayerService;
-import com.vehicle.suixing.suixing.ui.activity.MainActivity;
+import com.vehicle.suixing.suixing.ui.activity.FindMusicOnLineActivity;
 import com.vehicle.suixing.suixing.ui.activity.Playing;
 import com.vehicle.suixing.suixing.ui.adapter.MusicListAdapter;
 import com.vehicle.suixing.suixing.util.MediaUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +48,8 @@ public class MusicFragment extends Fragment {
     private ImageButton playBtn;
     private SeekBar seekBar1;
     private Button nextBtn; // 下一首
+    private RelativeLayout online;
     private List<Mp3Info> mp3Infos = null;
-    private Intent intent;
     private TextView musicTitle,musicArtist;// 歌曲标题
     private ListView listView;
     private ArrayAdapter transformerArrayAdapter;
@@ -67,6 +68,7 @@ public class MusicFragment extends Fragment {
     /*
     一系列动作
      */
+    public String LOCAL = "LOCAL";
     public static final String UPDATE_ACTION = "UPDATE_ACTION"; // 更新动作
     public static final String CTL_ACTION = "CTL_ACTION"; // 控制动作
     public static final String MUSIC_CURRENT = "MUSIC_CURRENT"; // 当前音乐改变动作
@@ -84,6 +86,7 @@ public class MusicFragment extends Fragment {
         ButterKnife.bind(this, view);
         initView();
         onClick();
+        showgetMp3List();
         return view;
     }
 
@@ -91,28 +94,27 @@ public class MusicFragment extends Fragment {
         listView.setOnItemClickListener(new MusicListItemClickListener());
         seekBar1.setOnSeekBarChangeListener(new SeekBarChangeListener());
         seekBar1.setMax(100);
-        getSong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showgetMp3List();
-            }
-        });
         ViewOnClickListener viewOnClickListener = new ViewOnClickListener();
         playBtn.setOnClickListener(viewOnClickListener);
-        playingBtn.setOnClickListener(viewOnClickListener);
         nextBtn.setOnClickListener(viewOnClickListener);
         seekBar1.setOnSeekBarChangeListener(new SeekBarChangeListener());
+        online.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FindMusicOnLineActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initView() {
-        playingBtn=(ImageButton)view.findViewById(R.id.playingBtn);
         musicTitle=(TextView)view.findViewById(R.id.songView);
         musicArtist=(TextView)view.findViewById(R.id.artistView);
         playBtn = (ImageButton)view.findViewById(R.id.playBtn);
         seekBar1=(SeekBar)view.findViewById(R.id.seekBar1);
-        getSong=(ImageButton)view.findViewById(R.id.getSong);
         listView = (ListView) view.findViewById(R.id.mMusiclist);
         nextBtn = (Button)view.findViewById(R.id.nextBtn);
+        online = (RelativeLayout) view.findViewById(R.id.online);
         db=new DBManager(getActivity());
         transformerArrayAdapter = new ArrayAdapter(getContext(), R.layout.adapter_transformer, transformerList);
         seekBar1.setProgress(currentTime);
@@ -166,7 +168,6 @@ public class MusicFragment extends Fragment {
     public void audioTrackChange(int progress) {
         Intent intent = new Intent(getContext(),PlayerService.class);
         intent.setAction("MUSIC_SERVICE");
-        //   intent.putExtra("url", url);
         intent.putExtra("listPosition", listPosition);
         intent.putExtra("MSG", AppConstant.PlayerMsg.PROGRESS_CHANGE);
         intent.putExtra("progress", progress);
@@ -199,12 +200,14 @@ public class MusicFragment extends Fragment {
                         else {
                             if (isPlaying) {
                                 intent.setAction("MUSIC_SERVICE");
+                                intent.putExtra("listPosition", listPosition);
                                 intent.putExtra("MSG", AppConstant.PlayerMsg.PAUSE_MSG);
                                 getContext().startService(intent);
                                 isPlaying = false;
                                 isPause = true;
                             } else if (isPause) {
                                 intent.setAction("MUSIC_SERVICE");
+                                intent.putExtra("listPosition", listPosition);
                                 intent.putExtra("MSG",
                                         AppConstant.PlayerMsg.CONTINUE_MSG);
                                 getContext().startService(intent);
@@ -221,8 +224,12 @@ public class MusicFragment extends Fragment {
                         isPause = false;
                         next();
                         break;}else {Toast.makeText(getContext(),"请先导入歌曲",Toast.LENGTH_SHORT).show();}
-                case R.id.playingBtn://我的音乐
+                /*case R.id.playingBtn://我的音乐
                     if(mp3Infos!=null){
+                        if (mp3Infos.size()==0){
+                            Toast.makeText(getContext(),"本地无歌曲",Toast.LENGTH_SHORT).show();
+                            break;
+                        }
                         Mp3Info mp3Info = mp3Infos.get(listPosition);
                         Intent intent = new Intent(getContext(),Playing.class);
                         intent.putExtra("title", mp3Info.getTitle());
@@ -234,18 +241,18 @@ public class MusicFragment extends Fragment {
                         intent.putExtra("MSG", AppConstant.PlayerMsg.PLAYING_MSG);
                         intent.putExtra("isPlaying",isPlaying);
                         intent.putExtra("isPause",isPause);
+                        intent.putExtra("list_local", (Serializable) mp3Infos);
                         startActivity(intent);
                         break;}else{
                         Toast.makeText(getContext(),"请先导入歌曲",Toast.LENGTH_SHORT).show();
-                    }
-
-
+                    }*/
             }
 
         }
     }
 
     private void showgetMp3List(){
+        db.clearData();
         mp3Infos =null;
         ArrayList<Mp3Info>  m1=db.searchAllData1();
         if(m1.size()<1){
@@ -260,6 +267,10 @@ public class MusicFragment extends Fragment {
 
     public void playMusic(int listPosition) {
         if (mp3Infos != null) {
+            if (mp3Infos.size()==0){
+                Toast.makeText(getContext(),"本地无歌曲",Toast.LENGTH_SHORT).show();
+                return;
+            }
             Mp3Info mp3Info = mp3Infos.get(listPosition);
             musicTitle.setText(mp3Info.getTitle()); // 这里显示标题
             musicArtist.setText(mp3Info.getArtist());//歌手
@@ -279,6 +290,7 @@ public class MusicFragment extends Fragment {
             intent.putExtra("MSG", AppConstant.PlayerMsg.PLAY_MSG);
             intent.putExtra("isPlaying",isPlaying);
             intent.putExtra("isPause",isPause);
+            intent.putExtra("list_class",LOCAL);
             startActivity(intent);
             play();
         }
@@ -286,17 +298,26 @@ public class MusicFragment extends Fragment {
 
     public void play() {
         // playBtn.setBackground(getDrawable(R.drawable.beijing));
+        if (mp3Infos.size()==0){
+            Toast.makeText(getContext(),"本地无歌曲",Toast.LENGTH_SHORT).show();
+            return;
+        }
         Mp3Info mp3Info = mp3Infos.get(listPosition);
         musicTitle.setText(mp3Info.getTitle());
         musicArtist.setText(mp3Info.getArtist());//歌手
         Intent intent = new Intent(getContext(),PlayerService.class);
         intent.setAction("MUSIC_SERVICE");
-        intent.putExtra("listPosition", 0);
         intent.putExtra("url", mp3Info.getUrl());
+        intent.putExtra("list_local", (Serializable) mp3Infos);
+        intent.putExtra("listPosition", listPosition);
         intent.putExtra("MSG", AppConstant.PlayerMsg.PLAY_MSG);
         getContext().startService(intent);}
 
     public void next() {
+        if (mp3Infos.size()==0){
+            Toast.makeText(getContext(),"本地无歌曲",Toast.LENGTH_SHORT).show();
+            return;
+        }
         listPosition = listPosition + 1;
 
         if (listPosition <= mp3Infos.size() - 1) {

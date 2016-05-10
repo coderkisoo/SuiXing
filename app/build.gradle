@@ -54,4 +54,6 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     //违章查询sdk
     compile files('libs/weizhang_sdk.jar')
+    compile files('libs/ApiStoreSDK1.0.4.jar')
+    compile files('libs/gson-2.5.jar')
 }

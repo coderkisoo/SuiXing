@@ -8,92 +8,79 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-        <RelativeLayout
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:background="#FFFFFF">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:orientation="horizontal"
-                android:id="@+id/caidan"
-                android:background="@mipmap/title_back">
-            </RelativeLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_below="@id/caidan">
+                android:id="@+id/title_music"
+                android:background="#F7F7F7">
                 <RelativeLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/gongneng">
-                    <ImageButton
-                        android:layout_width="105dp"
-                        android:layout_height="70dp"
-                        android:id="@+id/playingBtn"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@mipmap/music_mymusic"
-                        android:layout_centerHorizontal="true" />
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="13dp"
+                    android:layout_marginLeft="13dp"
+                    android:id="@+id/online"
+                    android:background="@mipmap/music_findmusic">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_centerInParent="true">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="搜索"
+                            android:textSize="16sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  " />
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="14dp"
+                            android:src="@mipmap/music_findmusicglass" />
+                    </LinearLayout>
                 </RelativeLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/yihang">
-                    <ImageButton
-                        android:layout_width="fill_parent"
-                        android:layout_height="50dp"
-                        android:id="@+id/c1"
-                        android:background="@mipmap/music_songlist"
-                        android:layout_below="@+id/gongneng"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"  />
-                    <ImageButton
-                        android:layout_width="fill_parent"
-                        android:layout_height="50dp"
-                        android:id="@+id/getSong"
-                        android:background="@mipmap/music_getsong"
-                        android:layout_below="@+id/getBtn11"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
-
-                    <ImageButton
-                        android:layout_width="fill_parent"
-                        android:layout_height="50dp"
-                        android:id="@+id/e1"
-                        android:background="@mipmap/music_mylove"
-                        android:layout_below="@+id/d1"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
-                </LinearLayout>
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:id="@+id/mMusiclist">
-                </ListView>
+            </RelativeLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/music_line"/>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/mMusiclist">
+            </ListView>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#F7F7F7"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:layout_gravity="bottom">
                     <SeekBar
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/seekBar1"
                         android:indeterminate="false"
-                        android:layout_above="@+id/zuidi"
-                        android:layout_alignTop="@+id/zuidi"
+                        android:layout_above="@+id/music_order_main"
+                        android:layout_alignTop="@+id/music_order_main"
                         />
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:id="@+id/zuidi"
+                        android:id="@+id/music_order_main"
                         android:layout_height="60dp"
                         android:layout_alignParentBottom="true"
-                        android:background="#ffffd0"
                         android:layout_marginLeft="0dp">
                         <ImageView
                             android:layout_width="60dp"
@@ -101,44 +88,54 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentBottom="true"
-                            android:id="@+id/tupian"
-                            android:background="#ffffd0"
+                            android:id="@+id/image_playing"
+                            android:background="@mipmap/music_local"
                             />
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="歌曲"
-                            android:id="@+id/songView"
-                            android:layout_alignParentBottom="true"
-                            android:layout_toRightOf="@+id/tupian"
-                            android:layout_marginBottom="37dp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="歌手"
-                            android:id="@+id/artistView"
-                            android:layout_alignParentBottom="true"
-                            android:layout_toRightOf="@+id/tupian" />
+                            android:orientation="vertical"
+                            android:layout_toRightOf="@+id/image_playing"
+                            android:layout_centerVertical="true">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="歌曲"
+                                android:textSize="18sp"
+                                android:id="@+id/songView" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:textSize="16sp"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="歌手"
+                                android:id="@+id/artistView" />
+                        </LinearLayout>
+
                         <ImageButton
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:id="@+id/playBtn"
-                            android:background="@mipmap/music_playmusic"
+                            android:background="@mipmap/music_pause"
                             android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/nextBtn"/>.
+                            android:layout_toLeftOf="@+id/nextBtn"
+                            android:layout_marginRight="15dp"/>.
 
                         <Button
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:id="@+id/nextBtn"
-                            android:background="@mipmap/music_nextmusic"
+                            android:background="@mipmap/music_next"
                             android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true" />
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="20dp"/>
                     </RelativeLayout>
                 </RelativeLayout>
-            </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

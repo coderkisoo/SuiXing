@@ -30,6 +30,7 @@
         </activity>
         <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.Playing" />
+        <activity android:name=".ui.activity.FindMusicOnLineActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RepasswordActivity" />
@@ -51,6 +52,13 @@
         </service>
 
         <service android:name=".service.PlayerService" android:exported="true" />
+
+        <service android:name=".service.OnLineMusicPlayService"
+            android:exported="true" >
+            <intent-filter >
+                <action android:name="com.xpJun.MyOnLineMusicReceiver"/>
+            </intent-filter>
+        </service>
 
         <receiver android:name="cn.bmob.push.PushReceiver">
             <intent-filter>

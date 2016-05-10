@@ -1,9 +1,11 @@
 package com.vehicle.suixing.suixing.model.info;
 
+import java.io.Serializable;
+
 /**
  * Created by lenovo on 2016/4/20.
  */
-public class Mp3Info {
+public class Mp3Info implements Serializable{
     public long id; // 歌曲ID 3
     public String title; // 歌曲名称 0
     public String album; // 专辑 7

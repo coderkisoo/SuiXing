@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.baidu.apistore.sdk.ApiStoreSDK;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -47,6 +48,10 @@ public class SuixingApp extends Application {
          * imageloader的初始化
          * */
         initImageLoader(getApplicationContext());
+        /**
+         * 百度api初始化
+         */
+        ApiStoreSDK.init(this, "c18a63c08d9b4cc02a2afdf41ccbb606");
         activities = new ArrayList<>();
         infos = new ArrayList<>();
         /**
