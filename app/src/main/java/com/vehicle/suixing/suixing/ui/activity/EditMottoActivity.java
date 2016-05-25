@@ -15,10 +15,10 @@ import android.widget.Toast;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
-import com.vehicle.suixing.suixing.util.BmobError;
-import com.vehicle.suixing.suixing.util.DensityUtil;
-import com.vehicle.suixing.suixing.util.NameLengthFilter;
-import com.vehicle.suixing.suixing.util.UserSpUtils;
+import com.vehicle.suixing.suixing.util.RegisterUtils.BmobError;
+import com.vehicle.suixing.suixing.util.formatUtils.DensityUtil;
+import com.vehicle.suixing.suixing.util.formatUtils.NameLengthFilter;
+import com.vehicle.suixing.suixing.util.RegisterUtils.SpUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -58,7 +58,7 @@ public class EditMottoActivity extends BaseSlidingActivity {
             public void onSuccess() {
                 dialog.dismiss();
                 Toast.makeText(EditMottoActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-                UserSpUtils.saveMotto(EditMottoActivity.this, et_motto.getText().toString());
+                SpUtils.saveMotto(EditMottoActivity.this, et_motto.getText().toString());
                 finish();
             }
 
@@ -92,7 +92,7 @@ public class EditMottoActivity extends BaseSlidingActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-        et_motto.setText(UserSpUtils.getUsers(this).getMotto());
+        et_motto.setText(SpUtils.getUsers(this).getMotto());
         CharSequence text = et_motto.getText();
         if (text instanceof Spannable) {
             Spannable spanText = (Spannable) text;

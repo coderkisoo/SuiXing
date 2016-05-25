@@ -24,14 +24,14 @@ import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.callback.UpdateList;
-import com.vehicle.suixing.suixing.view.activity.MainActivityView;
-import com.vehicle.suixing.suixing.view.fragment.MeFragmentView;
-import com.vehicle.suixing.suixing.presenter.MeFragmentPresenter;
+import com.vehicle.suixing.suixing.presenter.fragment.MeFragmentPresenter;
 import com.vehicle.suixing.suixing.ui.activity.AddVehicleActivity;
 import com.vehicle.suixing.suixing.ui.activity.EditMottoActivity;
 import com.vehicle.suixing.suixing.ui.activity.EditNameActivity;
 import com.vehicle.suixing.suixing.ui.adapter.InfoAdapter;
-import com.vehicle.suixing.suixing.util.FileUtils;
+import com.vehicle.suixing.suixing.util.formatUtils.FileUtils;
+import com.vehicle.suixing.suixing.view.activity.MainActivityView;
+import com.vehicle.suixing.suixing.view.fragment.MeFragmentView;
 
 import java.io.File;
 import java.util.List;
@@ -57,7 +57,6 @@ public class MeFragment extends Fragment implements
     private AlertDialog dialog;
 
     private String path;
-
     @Bind(R.id.rv_vehicle)
     RecyclerView rv_vehicle;
     @Bind(R.id.srl_refresh)
@@ -100,7 +99,7 @@ public class MeFragment extends Fragment implements
 
     @Override
     public void editHead() {
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.show();
         Window window = dialog.getWindow();
         window.setContentView(R.layout.edit_head_dialog);

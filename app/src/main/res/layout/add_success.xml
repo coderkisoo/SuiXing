@@ -17,6 +17,10 @@
             android:layout_height="@dimen/icon_size_height"
             android:layout_marginLeft="13dp"
             android:background="?android:attr/selectableItemBackground"
+            android:paddingBottom="9dp"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp"
+            android:paddingTop="9dp"
             android:src="@mipmap/tb_back" />
 
         <TextView
@@ -132,13 +136,12 @@
 
 
         <TextView
-            android:visibility="gone"
-            android:layout_below="@+id/cv_add_success"
-            android:layout_marginTop="32dp"
             android:id="@+id/tv_add_success"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/cv_add_success"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
             android:background="@mipmap/choose_in_mobile"
             android:gravity="center"
             android:paddingBottom="5dp"
@@ -147,6 +150,7 @@
             android:paddingTop="5dp"
             android:text="确认添加"
             android:textColor="@color/add_vehicle_frame_color"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="gone" />
     </RelativeLayout>
 </LinearLayout>

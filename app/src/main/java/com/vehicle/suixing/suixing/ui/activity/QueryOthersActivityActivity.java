@@ -9,7 +9,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.presenter.QueryOthersActivityPresenter;
+import com.vehicle.suixing.suixing.presenter.activity.QueryOthersActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
 import com.vehicle.suixing.suixing.view.activity.QueryOthersActivityView;
 

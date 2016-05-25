@@ -10,6 +10,10 @@
         android:id="@+id/iv_toolbar_left_image"
         android:layout_width="@dimen/icon_size_width"
         android:layout_height="@dimen/icon_size_height"
+        android:paddingLeft="9dp"
+        android:paddingRight="9dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
         android:layout_marginLeft="13dp"
         android:background="?android:attr/selectableItemBackground"
         android:src="@mipmap/tb_back" />

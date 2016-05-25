@@ -16,7 +16,7 @@ import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.view.fragment.VehicleInfoFragmentView;
-import com.vehicle.suixing.suixing.presenter.VehicleInfoFragmentPresenter;
+import com.vehicle.suixing.suixing.presenter.fragment.VehicleInfoFragmentPresenter;
 import com.vehicle.suixing.suixing.ui.adapter.MyPageTransFormer;
 import com.vehicle.suixing.suixing.ui.adapter.MyPagerAdapter;
 
@@ -142,5 +142,8 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
     @Override
     public void setAdapter(MyPagerAdapter adapter) {
         vp_choose_vehicle_list.setAdapter(adapter);
+    }
+    public void updateData(){
+        presenter.update();
     }
 }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:background="@color/add_vehicle_frame_color"
+        android:orientation="vertical">
+        <SeekBar
+            android:layout_marginTop="12dp"
+            android:background="@mipmap/sb_music"
+            android:id="@+id/sb_music"
+            android:layout_width="240dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_height="3dp" />
+        <TextView
+            android:text=""
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/tv_title"
+            android:textColor="@color/add_vehicle_text_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:id="@+id/tv_name"
+            android:text=""
+            android:layout_marginTop="4dp"
+            android:textColor="@color/add_vehicle_text_color"
+            />
+        <RelativeLayout
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="36dp">
+            <ImageView
+                android:src="@mipmap/white_last"
+                android:layout_marginRight="24dp"
+                android:paddingTop="9dp"
+                android:id="@+id/iv_last_music"
+                android:paddingBottom="9dp"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp"
+                android:layout_toLeftOf="@+id/iv_music_play"
+                android:layout_width="36dp"
+                android:layout_height="36dp" />
+            <ImageView
+                android:id="@+id/iv_music_play"
+                android:src="@mipmap/white_begin"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp"
+                android:layout_centerInParent="true"
+                android:layout_width="36dp"
+                android:layout_height="36dp" />
+            <ImageView
+                android:src="@mipmap/white_next"
+                android:layout_marginLeft="24dp"
+                android:id="@+id/iv_next_music"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp"
+                android:layout_toRightOf="@+id/iv_music_play"
+                android:layout_width="36dp"
+                android:layout_height="36dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

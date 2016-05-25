@@ -1,27 +1,34 @@
 package com.vehicle.suixing.suixing.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuixingApp;
-import com.vehicle.suixing.suixing.view.activity.MainActivityView;
-import com.vehicle.suixing.suixing.presenter.MainActivityPresenter;
+import com.vehicle.suixing.suixing.presenter.activity.MainActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseActivity;
+import com.vehicle.suixing.suixing.view.activity.MainActivityView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends BaseActivity implements MainActivityView{
+public class MainActivity extends BaseActivity implements MainActivityView {
     private String TAG = MainActivity.class.getName();
     private MainActivityPresenter presenter;
+    private View parent;
     @Bind(R.id.tb_main_toobar)
     Toolbar toolbar;
     @Bind(R.id.dl_main_drawer)
@@ -32,6 +39,8 @@ public class MainActivity extends BaseActivity implements MainActivityView{
     TextView tv_motto;
     @Bind(R.id.civ_head)
     CircleImageView civ_head;
+    @Bind(R.id.ll_root_view)
+    LinearLayout ll_root_view;
 
     @OnClick(R.id.iv_toolbar_left_image)
     void iv_toolbar_left_image() {
@@ -60,18 +69,15 @@ public class MainActivity extends BaseActivity implements MainActivityView{
          * 加油
          * */
         presenter.getGas();
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "加油", false);
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "加油", true);
 
     }
-
-    @OnClick(R.id.ll_music)
-    void ll_music() {
-        /**
-         * 音乐
-         * */
-        presenter.music();
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "音乐", false);
+    @OnClick(R.id.iv_me)
+    void iv_me(){
+        startActivity(new Intent(this,MyDateActivity.class));
     }
+
+
 
     @OnClick(R.id.ll_peccany)
     void ll_peccany() {
@@ -98,24 +104,24 @@ public class MainActivity extends BaseActivity implements MainActivityView{
         presenter.logOut();
     }
 
-    @OnClick(R.id.ll_location)
-    void ll_location() {
-        /**
-         * 定位
-         * */
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SuixingApp.removeActivity(this);
         SuixingApp.clearAll();
         SuixingApp.addActivity(this);
-        setContentView(R.layout.activity_main);
+        parent = View.inflate(this,R.layout.activity_main,null);
+        setContentView(parent);
         ButterKnife.bind(this);
         initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", false);
-        presenter = new MainActivityPresenter(this,this,getSupportFragmentManager());
+        presenter = new MainActivityPresenter(this, this,getSupportFragmentManager());
         presenter.init();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.showFab();
     }
 
     @Override
@@ -124,6 +130,34 @@ public class MainActivity extends BaseActivity implements MainActivityView{
         presenter.onResume();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presenter.dismissFab(false);
+    }
+
+    private long firstTime = 0;
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                long secondTime = System.currentTimeMillis();
+                if (secondTime - firstTime > 2000) {                                         //如果两次按键时间间隔大于2秒，则不退出
+                    Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                    firstTime = secondTime;//更新firstTime
+                    return true;
+                } else {//两次按键小于2秒时，退出应用
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    this.startActivity(intent);
+                    return true;
+                }
+        }
+        return super.onKeyUp(keyCode, event);
+    }
 
     @Override
     public void UpdateName(String name) {
@@ -135,13 +169,14 @@ public class MainActivity extends BaseActivity implements MainActivityView{
     public void updateMotto(String motto) {
         tv_motto.setText(motto);
     }
-/**
- * 设置头像
- * */
+
+    /**
+     * 设置头像
+     */
     @Override
     public void updateHead(String head) {
         ImageLoader.getInstance().displayImage(head, civ_head);
-        Log.e(TAG,"成功设置头像"+head);
+        Log.e(TAG, "成功设置头像" + head);
     }
 
     @Override
@@ -155,11 +190,17 @@ public class MainActivity extends BaseActivity implements MainActivityView{
     }
 
     @Override
+    public View getParentView() {
+        return parent;
+    }
+
+    @Override
+    public ViewGroup getRootViewGroup() {
+        return ll_root_view;
+    }
+
+    @Override
     public void showToast(String toast) {
         toast(toast);
     }
-
-
-
-
 }

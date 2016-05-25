@@ -37,9 +37,6 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         this.view = view;
         total = list.size() + 2;
     }
-    public void updateUser(User user){
-        this.users = user;
-    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -69,8 +66,8 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             infoViewHolder.getTv_motto().setText(users.getMotto());
         } else if (total - 1 == position) {
             //添加按钮
-        } else {
 
+        } else {
             ListViewHolder listViewHolder = (ListViewHolder) holder;
             VehicleInformation info = list.get(position - 1);
             ImageLoader.getInstance().displayImage(info.getUrl(), listViewHolder.getIv_vehicle_img());

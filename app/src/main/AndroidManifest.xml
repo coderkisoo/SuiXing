@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vehicle.suixing.suixing">
 
-    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,8 +12,16 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- SD卡读取权限，用户写入离线定位数据-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
         android:name=".app.SuixingApp"
@@ -22,6 +30,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/ThemeActivity">
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="Bo5X7uxwH7WYpBV912ujpkuywVkQi9sM" />
+
         <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +41,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.MainActivity" />
-        <activity android:name=".ui.activity.Playing" />
-        <activity android:name=".ui.activity.FindMusicOnLineActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RepasswordActivity" />
@@ -38,10 +48,12 @@
         <activity android:name=".ui.activity.AddSuccessActivity" />
         <activity android:name=".ui.activity.PeccanydActivity" />
         <activity android:name=".ui.activity.QueryOthersActivityActivity" />
-        <activity android:name=".ui.activity.EditMottoActivity"/>
-        <activity android:name=".ui.activity.EditNameActivity"/>
-        <!--<service android:name="com.cheshouye.api.client.WeizhangIntentService"/>-->
-        <service
+        <activity android:name=".ui.activity.EditMottoActivity" />
+        <activity android:name=".ui.activity.EditNameActivity" />
+        <activity android:name=".ui.activity.DateActivity" />
+        <activity android:name=".ui.activity.DateSuccessActivity" />
+        <activity android:name=".ui.activity.MyDateActivity"/>
+       <service
             android:name="cn.bmob.push.lib.service.PushService"
             android:exported="true"
             android:label="PushService"
@@ -50,15 +62,16 @@
                 <action android:name="cn.bmob.push.lib.service.PushService" />
             </intent-filter>
         </service>
-
-        <service android:name=".service.PlayerService" android:exported="true" />
-
-        <service android:name=".service.OnLineMusicPlayService"
-            android:exported="true" >
-            <intent-filter >
-                <action android:name="com.xpJun.MyOnLineMusicReceiver"/>
-            </intent-filter>
-        </service>
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>
+        <service
+            android:name=".service.MusicPlayService"
+            android:process=":music_player" />
+        <service
+            android:name=".service.VehicleService"
+            android:process=":vehicle_listener" />
 
         <receiver android:name="cn.bmob.push.PushReceiver">
             <intent-filter>
@@ -68,6 +81,16 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
                 <!-- 监听网络连通性 -->
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.VehicleInfoReceiver">
+            <intent-filter>
+                <!-- 汽车故障广播-->
+                <action android:name="com.vehicle.suixing.action_vehicle_error" />
+                <!-- 油量不足广播-->
+                <action android:name="com.vehicle.suixing.action_vehicle_less" />
+                <!-- 行驶过多广播-->
+                <action android:name="com.vehicle.suixing.actnio_mileage_much" />
             </intent-filter>
         </receiver>
 

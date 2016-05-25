@@ -12,9 +12,9 @@ import android.widget.Toast;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
-import com.vehicle.suixing.suixing.util.BmobError;
-import com.vehicle.suixing.suixing.util.NameLengthFilter;
-import com.vehicle.suixing.suixing.util.UserSpUtils;
+import com.vehicle.suixing.suixing.util.RegisterUtils.BmobError;
+import com.vehicle.suixing.suixing.util.formatUtils.NameLengthFilter;
+import com.vehicle.suixing.suixing.util.RegisterUtils.SpUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,7 +55,7 @@ public class EditNameActivity extends BaseSlidingActivity {
                 public void onSuccess() {
                     dialog.dismiss();
                     Toast.makeText(EditNameActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-                    UserSpUtils.saveName(EditNameActivity.this, et_name.getText().toString());
+                    SpUtils.saveName(EditNameActivity.this, et_name.getText().toString());
                     finish();
                 }
 
@@ -73,7 +73,7 @@ public class EditNameActivity extends BaseSlidingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_name);
         ButterKnife.bind(this);
-        et_name.setText(UserSpUtils.getUsers(this).getName());
+        et_name.setText(SpUtils.getUsers(this).getName());
         CharSequence text = et_name.getText();
         if (text instanceof Spannable) {
             Spannable spanText = (Spannable) text;

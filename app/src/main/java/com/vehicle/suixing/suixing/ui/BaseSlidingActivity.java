@@ -79,7 +79,6 @@ public abstract class BaseSlidingActivity extends BaseActivity implements Slidin
     @Override
     public void setContentView(View v, ViewGroup.LayoutParams params) {
         super.setContentView(mSlidingPaneLayout, params);
-
         mContainerFl.removeAllViews();
         mContainerFl.addView(v, params);
     }

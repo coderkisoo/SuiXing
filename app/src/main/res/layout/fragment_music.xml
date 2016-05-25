@@ -1,141 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#c0c0c0">
-    <LinearLayout
-        android:layout_width="wrap_content"
+    android:clickable="true"
+    android:background="@color/fragment_background">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <LinearLayout
+        android:id="@+id/srl_refresh">
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/rv_music"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true">
+        <ImageView
+            android:layout_centerInParent="true"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/image_playing"
+            android:src="@mipmap/music_local"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#FFFFFF">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:id="@+id/title_music"
-                android:background="#F7F7F7">
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="13dp"
-                    android:layout_marginLeft="13dp"
-                    android:id="@+id/online"
-                    android:background="@mipmap/music_findmusic">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_centerInParent="true">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="搜索"
-                            android:textSize="16sp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  " />
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="14dp"
-                            android:src="@mipmap/music_findmusicglass" />
-                    </LinearLayout>
-                </RelativeLayout>
-            </RelativeLayout>
-            <ImageView
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/image_playing"
+            android:layout_centerVertical="true">
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/music_line"/>
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/mMusiclist">
-            </ListView>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="#F7F7F7"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_gravity="bottom">
-                    <SeekBar
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/seekBar1"
-                        android:indeterminate="false"
-                        android:layout_above="@+id/music_order_main"
-                        android:layout_alignTop="@+id/music_order_main"
-                        />
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:id="@+id/music_order_main"
-                        android:layout_height="60dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="0dp">
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentBottom="true"
-                            android:id="@+id/image_playing"
-                            android:background="@mipmap/music_local"
-                            />
-                        <LinearLayout
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_toRightOf="@+id/image_playing"
-                            android:layout_centerVertical="true">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:singleLine="true"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="歌曲"
-                                android:textSize="18sp"
-                                android:id="@+id/songView" />
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:singleLine="true"
-                                android:textSize="16sp"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="歌手"
-                                android:id="@+id/artistView" />
-                        </LinearLayout>
-
-                        <ImageButton
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:id="@+id/playBtn"
-                            android:background="@mipmap/music_pause"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/nextBtn"
-                            android:layout_marginRight="15dp"/>.
-
-                        <Button
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:id="@+id/nextBtn"
-                            android:background="@mipmap/music_next"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="20dp"/>
-                    </RelativeLayout>
-                </RelativeLayout>
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="歌曲"
+                android:textSize="18sp"
+                android:id="@+id/tv_music_name" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="歌手"
+                android:id="@+id/tv_artist" />
         </LinearLayout>
-    </LinearLayout>
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:paddingTop="9dp"
+            android:paddingBottom="9dp"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp"
+            android:id="@+id/iv_start"
+            android:src="@mipmap/music_pause"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="60dp"/>
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:id="@+id/iv_next_music"
+            android:src="@mipmap/music_next"
+            android:paddingTop="9dp"
+            android:paddingBottom="9dp"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"/>
+    </RelativeLayout>
+
 </RelativeLayout>

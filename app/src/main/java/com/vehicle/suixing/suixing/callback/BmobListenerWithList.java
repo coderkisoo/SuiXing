@@ -7,5 +7,4 @@ import java.util.List;
  */
 public interface BmobListenerWithList<T> extends BmobListener {
     void onSuccess(List<T> list);
-
 }

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +26,11 @@ public class BaseActivity extends AppCompatActivity {
         toolbar_title.setText(activityName);
         ImageView iv_toolbar_left_image = (ImageView) findViewById(R.id.iv_toolbar_left_image);
         iv_toolbar_left_image.setImageResource(resId);
-        LinearLayout ll_location = (LinearLayout) findViewById(R.id.ll_location);
+        ImageView iv_me = (ImageView) findViewById(R.id.iv_me);
         if (isShow) {
-            ll_location.setVisibility(View.VISIBLE);
+            iv_me.setVisibility(View.VISIBLE);
         } else {
-            ll_location.setVisibility(View.INVISIBLE);
+            iv_me.setVisibility(View.INVISIBLE);
         }
     }
 

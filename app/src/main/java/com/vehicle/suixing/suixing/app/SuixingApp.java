@@ -3,9 +3,10 @@ package com.vehicle.suixing.suixing.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
-import com.baidu.apistore.sdk.ApiStoreSDK;
+import com.baidu.mapapi.SDKInitializer;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -14,7 +15,12 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
+import com.vehicle.suixing.suixing.bean.musicInfo.BmobMusic;
+import com.vehicle.suixing.suixing.bean.musicInfo.Mp3Info;
 import com.vehicle.suixing.suixing.common.Config;
+import com.vehicle.suixing.suixing.service.MusicPlayService;
+import com.vehicle.suixing.suixing.util.dataBase.DbDao;
+import com.vehicle.suixing.suixing.util.musicUtil.MusicUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,6 +38,9 @@ public class SuixingApp extends Application {
     private static String TAG = SuixingApp.class.getName();
     public static boolean hasUser = false;
     public static List<VehicleInformation> infos;
+    public static List<Mp3Info> mp3Infos;
+    public static List<Mp3Info> onLineInfos;
+    public static List<BmobMusic> bmobMusicList;
 
     @Override
     public void onCreate() {
@@ -43,24 +52,20 @@ public class SuixingApp extends Application {
         // 使用推送服务时的初始化操作
         BmobInstallation.getCurrentInstallation(this).save();
         // 启动推送服务
-        BmobPush.startWork(this,Config.BMOBID);
+        BmobPush.startWork(this, Config.BMOBID);
+        SDKInitializer.initialize(getApplicationContext());
         /**
          * imageloader的初始化
          * */
         initImageLoader(getApplicationContext());
-        /**
-         * 百度api初始化
-         */
-        ApiStoreSDK.init(this, "c18a63c08d9b4cc02a2afdf41ccbb606");
         activities = new ArrayList<>();
         infos = new ArrayList<>();
-        /**
-         * 违章CLIENT的初始化
-         * */
-//        startService(new Intent(this,WeizhangIntentService.class)
-//                .putExtra("appId", Config.WEIZHANG_APPID)
-//                .putExtra("appKey", Config.WEIZHANG_KEY));
+        mp3Infos = DbDao.queryPartMusic(getApplicationContext());
+        onLineInfos = new ArrayList<>();
+        bmobMusicList = MusicUtils.getMusicList();
+        startService(new Intent(getApplicationContext(), MusicPlayService.class));
     }
+
 
     public synchronized static void addActivity(Activity activity) {
         activities.add(activity);
@@ -68,12 +73,7 @@ public class SuixingApp extends Application {
     }
 
     public synchronized static void clearAll() {
-//        int size = activities.size();
-//        for (int i = size; i > 0; i--) {
-//            activities.get(i - 1).finish();
-//        }
 
-//        Iterator<Activity> activityIterator = activities.iterator();
         while (activities.size()!=0){
             activities.get(0).finish();
         }
@@ -102,4 +102,6 @@ public class SuixingApp extends Application {
                 .build();
         ImageLoader.getInstance().init(config);
     }
+
+
 }

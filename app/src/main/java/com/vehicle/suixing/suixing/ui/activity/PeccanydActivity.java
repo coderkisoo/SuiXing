@@ -12,7 +12,7 @@ import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.view.activity.PeccanydAcitivtyView;
-import com.vehicle.suixing.suixing.presenter.PeccanydActivityPresenter;
+import com.vehicle.suixing.suixing.presenter.activity.PeccanydActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
 
 import java.util.List;

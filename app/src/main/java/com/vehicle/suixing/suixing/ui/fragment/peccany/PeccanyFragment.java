@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.view.fragment.PeccanyFragmentView;
-import com.vehicle.suixing.suixing.presenter.PeccanyFragmentPresenter;
+import com.vehicle.suixing.suixing.presenter.fragment.PeccanyFragmentPresenter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

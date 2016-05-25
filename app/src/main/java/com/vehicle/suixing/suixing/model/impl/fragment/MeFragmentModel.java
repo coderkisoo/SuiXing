@@ -10,8 +10,8 @@ import com.vehicle.suixing.suixing.callback.BmobListener;
 import com.vehicle.suixing.suixing.callback.BmobListenerWithProgress;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.fragment.IMeFragmentModel;
-import com.vehicle.suixing.suixing.util.SaveUser;
-import com.vehicle.suixing.suixing.util.UserSpUtils;
+import com.vehicle.suixing.suixing.util.RegisterUtils.SaveUser;
+import com.vehicle.suixing.suixing.util.RegisterUtils.SpUtils;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class MeFragmentModel implements IMeFragmentModel {
                     @Override
                     public void onSuccess() {
                         listener.onSuccess();
-                        UserSpUtils.saveHead(context, file.getFileUrl(context));
+                        SpUtils.saveHead(context, file.getFileUrl(context));
                     }
 
                     @Override
@@ -70,9 +70,9 @@ public class MeFragmentModel implements IMeFragmentModel {
             @Override
             public void onSuccess(List<User> list) {
                 User user = list.get(0);
-                UserSpUtils.saveMotto(context, user.getMotto());
-                UserSpUtils.saveName(context, user.getName());
-                UserSpUtils.saveHead(context, user.getHead());
+                SpUtils.saveMotto(context, user.getMotto());
+                SpUtils.saveName(context, user.getName());
+                SpUtils.saveHead(context, user.getHead());
                 listener.onSuccess();
 
             }

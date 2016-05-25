@@ -15,7 +15,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+            }
     }
 }
 
@@ -28,32 +28,28 @@ dependencies {
     //bmob的库
     compile files('src/libs/Bmob_Push_V0.6beta_20150408.jar')
     compile files('src/libs/BmobSDK_V3.4.5_1111.jar')
+    //okHttp网络请求库
     compile files('src/libs/okhttp-2.4.0.jar')
     compile files('src/libs/okio-1.4.0.jar')
-    //google退出解析json用的 官方的库
+    //google推出解析json用的 官方的库
     compile 'com.google.code.gson:gson:2.4'
     //rxandroid
     compile 'io.reactivex:rxandroid:1.1.0'
-    //控件
+    //cardView,recylerview,design,materialdialog,circleImageView控件
     compile 'com.android.support:cardview-v7:23.2.1'
     compile 'com.android.support:recyclerview-v7:23.2.1'
     compile 'com.android.support:design:23.2.1'
     compile 'me.drakeet.materialdialog:library:1.3.1'
-    //material design 的 edittext
     compile 'de.hdodenhof:circleimageview:2.0.0'
     //缓存图片用的库
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
-    compile 'com.squareup.picasso:picasso:2.5.2'
     //扫描二维码用的库
     compile project(':zxinglib')
-    //网络请求
-    compile files('libs/volley.jar')
-    //rxjava
-    compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'io.reactivex:rxjava:1.1.0'
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
-    //违章查询sdk
-    compile files('libs/weizhang_sdk.jar')
-    compile files('libs/ApiStoreSDK1.0.4.jar')
-    compile files('libs/gson-2.5.jar')
+    compile files('libs/baidumapapi_base_v3_7_0.jar')
+    compile files('libs/baidumapapi_cloud_v3_7_0.jar')
+    compile files('libs/baidumapapi_map_v3_7_0.jar')
+    compile files('libs/baidumapapi_radar_v3_7_0.jar')
+    compile files('libs/baidumapapi_search_v3_7_0.jar')
+    compile files('libs/baidumapapi_util_v3_7_0.jar')
+    compile files('libs/locSDK_6.13.jar')
 }

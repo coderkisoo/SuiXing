@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.view.activity.RegisterActivityView;
-import com.vehicle.suixing.suixing.presenter.RepasswordActivityPresenter;
+import com.vehicle.suixing.suixing.presenter.activity.RepasswordActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
 
 import butterknife.Bind;

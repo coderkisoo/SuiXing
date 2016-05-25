@@ -5,8 +5,8 @@
     <dimen name="drawer_layout_text_size">16sp</dimen>
     <dimen name="drawer_layout_name">16sp</dimen>
     <dimen name="drawer_layout_motto">12sp</dimen>
-    <dimen name="icon_size_width">18dp</dimen>
-    <dimen name="icon_size_height">18dp</dimen>
+    <dimen name="icon_size_width">36dp</dimen>
+    <dimen name="icon_size_height">36dp</dimen>
     <dimen name="toolbar_title_size">22sp</dimen>
     <dimen name="toolbar_location_text_size">15sp</dimen>
     <dimen name="toolbar_location_image_width">16dp</dimen>
@@ -30,4 +30,9 @@
     <dimen name="username_frame_height">48dp</dimen>
     <dimen name="frame_margin">40dp</dimen>
     <dimen name="login_frame_textsize">18sp</dimen>
+    <dimen name="date_detail_top">6dp</dimen>
+    <dimen name="date_detail_account_left">18dp</dimen>
+    <dimen name="gas_station_layout_height">60dp</dimen>
+    <dimen name="gas_station_right">12dp</dimen>
+    <dimen name="gas_station_icon_size">28dp</dimen>
 </resources>

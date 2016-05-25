@@ -1,5 +1,8 @@
 package com.vehicle.suixing.suixing.view.activity;
 
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.vehicle.suixing.suixing.view.BaseView;
 
 /**
@@ -19,4 +22,8 @@ public interface MainActivityView extends BaseView {
     void finish();
 
     void resume();
+
+    View getParentView();
+
+    ViewGroup getRootViewGroup();
 }

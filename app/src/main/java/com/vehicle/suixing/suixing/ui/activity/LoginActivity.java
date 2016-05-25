@@ -5,7 +5,7 @@ import android.widget.EditText;
 
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.view.activity.LoginActivityView;
-import com.vehicle.suixing.suixing.presenter.LoginActivityPresenter;
+import com.vehicle.suixing.suixing.presenter.activity.LoginActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
 
 import butterknife.Bind;
