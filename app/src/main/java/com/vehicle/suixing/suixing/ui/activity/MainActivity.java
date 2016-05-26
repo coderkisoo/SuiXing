@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity implements MainActivityView {
     }
     @OnClick(R.id.iv_me)
     void iv_me(){
-        startActivity(new Intent(this,MyDateActivity.class));
+        startActivity(new Intent(this, MyDateActivity.class));
     }
 
 

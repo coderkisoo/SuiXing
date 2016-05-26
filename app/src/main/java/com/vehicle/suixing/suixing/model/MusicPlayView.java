@@ -33,6 +33,7 @@ import com.vehicle.suixing.suixing.util.RegisterUtils.SpUtils;
 /**
  * Created by KiSoo on 2016/5/14.
  */
+@Deprecated
 public class MusicPlayView implements View.OnClickListener {
     public static final int ACTION_MUSIC_PLAY = 1001;
     public static final int ACTION_MUSIC_PAUSE = 1002;

@@ -16,7 +16,6 @@ import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.callback.BmobListener;
 import com.vehicle.suixing.suixing.callback.UpdateList;
 import com.vehicle.suixing.suixing.common.Config;
-import com.vehicle.suixing.suixing.model.MusicPlayView;
 import com.vehicle.suixing.suixing.model.activity.IMainModel;
 import com.vehicle.suixing.suixing.model.impl.activity.MainModel;
 import com.vehicle.suixing.suixing.ui.activity.SplashActivity;
@@ -51,14 +50,14 @@ public class MainActivityPresenter implements UpdateList {
         Me, vehicleInfo, peccany, gas, about_us
     }
 
-    private MusicPlayView musicPlayView;
+//    private MusicPlayView musicPlayView;
 
     public MainActivityPresenter(final MainActivityView view, final Context context, FragmentManager fragmentManager) {
         this.mainActivityView = view;
         this.context = context;
         this.fragmentManager = fragmentManager;
         model = new MainModel();
-        musicPlayView = new MusicPlayView(context);
+//        musicPlayView = new MusicPlayView(context);
     }
 
     /**
@@ -228,19 +227,19 @@ public class MainActivityPresenter implements UpdateList {
     }
 
     public void showFab() {
-        if (musicPlayView.isShow())
-            return;
-        if (type != Type.Me) {
-            musicPlayView.showFab();
-            musicPlayView.bindService();
-        }
+//        if (musicPlayView.isShow())
+//            return;
+//        if (type != Type.Me) {
+//            musicPlayView.showFab();
+//            musicPlayView.bindService();
+//        }
     }
 
     public void dismissFab(boolean show) {
-        if (!musicPlayView.isShow())
-            return;
-        musicPlayView.dismissFab(show);
-        musicPlayView.unBindSerice();
+//        if (!musicPlayView.isShow())
+//            return;
+//        musicPlayView.dismissFab(show);
+//        musicPlayView.unBindSerice();
 
     }
 
