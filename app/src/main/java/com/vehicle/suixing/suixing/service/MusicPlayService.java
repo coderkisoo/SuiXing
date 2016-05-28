@@ -17,14 +17,22 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.musicInfo.BmobMusic;
+import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.RegisterUtils.SpUtils;
+import com.vehicle.suixing.suixing.util.formatUtils.DensityUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by KiSoo on 2016/5/12.
@@ -36,6 +44,7 @@ public class MusicPlayService extends Service {
     private TimerTask mTimerTask;
     private static int currentPosition = 0;//列表当前位置
     private boolean isFirstPlay = true;
+    private final String TAG = "MusicPlayService";
 
     @Nullable
     @Override
@@ -81,11 +90,12 @@ public class MusicPlayService extends Service {
             floatView = View.inflate(MusicPlayService.this, R.layout.fab_music, null);
             params = new WindowManager.LayoutParams();
             params.gravity = Gravity.TOP + Gravity.LEFT;
+
             int[] location = SpUtils.getLocation(MusicPlayService.this);
             params.x = location[0];
             params.y = location[1];
-            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+            params.width = DensityUtil.dip2px(MusicPlayService.this, 72);
+            params.height = DensityUtil.dip2px(MusicPlayService.this, 72);
             params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
             params.format = PixelFormat.TRANSLUCENT;
@@ -177,6 +187,7 @@ public class MusicPlayService extends Service {
                 musicPlayDialog.dismiss();
             }
         }
+
         //dismiss floatbutton
         public void dismissFab() {
             if (isShow) {
@@ -191,6 +202,8 @@ public class MusicPlayService extends Service {
             switch (v.getId()) {
                 case R.id.iv_music_play:
                     //播放音乐
+                    if (null == player)
+                        player = new MediaPlayer();
                     if (player.isPlaying()) {
                         player.pause();
                         iv_music_play.setImageResource(R.mipmap.white_begin);
@@ -202,11 +215,15 @@ public class MusicPlayService extends Service {
                     break;
                 case R.id.iv_last_music:
                     //上一曲
+                    tv_name.setText("正在获取歌曲信息中...");
+                    tv_title.setText("获取信息ing...");
                     currentPosition--;
                     play(true);
                     break;
                 case R.id.iv_next_music:
                     //下一曲
+                    tv_name.setText("正在获取歌曲信息中...");
+                    tv_title.setText("获取信息ing...");
                     currentPosition++;
                     play(true);
                     break;
@@ -227,34 +244,60 @@ public class MusicPlayService extends Service {
     }
 
     /***
-     * 播放音乐
+     * 播放音乐,将reset MediaPlayer的任务放在子线程，更新，绘制UI放在主线程
      */
 
-    private void play(boolean reset) {
-        isFirstPlay = false;
-        //如果当前列表的position大于列表的总数据数
-        if (currentPosition > SuixingApp.bmobMusicList.size() - 1) {
-            currentPosition = 0;
-        }
-        if (currentPosition < 0) {
-            currentPosition = 6;
-        }
-        if (reset) {
-            player.reset();
-            player = MediaPlayer.create(this, SuixingApp.bmobMusicList.get(currentPosition).getUri());
-        }
-        player.start();
-        mTimer = null;
-        mTimerTask = null;
-        mTimer = new Timer();
-        mTimerTask = new TimerTask() {
-            @Override
-            public void run() {
-                playView.setProgress(player.getCurrentPosition());
-            }
-        };
-        mTimer.schedule(mTimerTask, 0, 10);
-        playView.changeInfo();
-    }
+    private void play(final boolean reset) {
+        Observable
+                .create(new Observable.OnSubscribe<Boolean>() {
+                    @Override
+                    public void call(Subscriber<? super Boolean> subscriber) {
+                        subscriber.onNext(true);
+                        if (reset) {
+                            player.reset();
+                            player = MediaPlayer.create(MusicPlayService.this, SuixingApp.bmobMusicList.get(currentPosition).getUri());
+                        }
+                        player.start();
+                        if (player.isPlaying()) {
+                            mTimer = null;
+                            mTimerTask = null;
+                            mTimer = new Timer();
+                            mTimerTask = new TimerTask() {
+                                @Override
+                                public void run() {
+                                    playView.setProgress(player.getCurrentPosition());
+                                }
+                            };
+                            mTimer.schedule(mTimerTask, 0, 10);
+                            subscriber.onCompleted();
+                        }
+                    }
+                })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Boolean>() {
+                    @Override
+                    public void onCompleted() {
+                        playView.changeInfo();
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(MusicPlayService.this, "加载失败", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(Boolean bBoolean) {
+                        isFirstPlay = false;
+                        //如果当前列表的position大于列表的总数据数
+                        if (currentPosition > SuixingApp.bmobMusicList.size() - 1) {
+                            currentPosition = 0;
+                        }
+                        if (currentPosition < 0) {
+                            currentPosition = 6;
+                        }
+                    }
+                });
+    }
 }

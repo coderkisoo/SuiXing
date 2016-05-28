@@ -14,7 +14,6 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +27,7 @@ import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.musicInfo.BmobMusic;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.service.MusicPlayService;
+import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.RegisterUtils.SpUtils;
 
 /**
@@ -183,7 +183,7 @@ public class MusicPlayView implements View.OnClickListener {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.e(TAG,"service断开连接");
+            Log.e(TAG, "service断开连接");
             messenger = null;
         }
     };

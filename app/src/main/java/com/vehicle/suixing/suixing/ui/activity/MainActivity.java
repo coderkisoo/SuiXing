@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,6 +17,7 @@ import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.presenter.activity.MainActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseActivity;
+import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.view.activity.MainActivityView;
 
 import butterknife.Bind;
@@ -72,12 +72,11 @@ public class MainActivity extends BaseActivity implements MainActivityView {
         initToolbar(toolbar, R.mipmap.iv_swipe_left, "加油", true);
 
     }
+
     @OnClick(R.id.iv_me)
-    void iv_me(){
+    void iv_me() {
         startActivity(new Intent(this, MyDateActivity.class));
     }
-
-
 
     @OnClick(R.id.ll_peccany)
     void ll_peccany() {
@@ -110,30 +109,18 @@ public class MainActivity extends BaseActivity implements MainActivityView {
         SuixingApp.removeActivity(this);
         SuixingApp.clearAll();
         SuixingApp.addActivity(this);
-        parent = View.inflate(this,R.layout.activity_main,null);
+        parent = View.inflate(this, R.layout.activity_main, null);
         setContentView(parent);
         ButterKnife.bind(this);
         initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", false);
-        presenter = new MainActivityPresenter(this, this,getSupportFragmentManager());
+        presenter = new MainActivityPresenter(this, this, getSupportFragmentManager());
         presenter.init();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.showFab();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         presenter.onResume();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        presenter.dismissFab(false);
     }
 
     private long firstTime = 0;
@@ -176,7 +163,7 @@ public class MainActivity extends BaseActivity implements MainActivityView {
     @Override
     public void updateHead(String head) {
         ImageLoader.getInstance().displayImage(head, civ_head);
-        Log.e(TAG, "成功设置头像" + head);
+        Log.d(TAG, "成功设置头像" + head);
     }
 
     @Override

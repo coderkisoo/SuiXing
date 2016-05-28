@@ -5,11 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.common.Config;
+import com.vehicle.suixing.suixing.util.Log;
 
 import org.json.JSONObject;
 

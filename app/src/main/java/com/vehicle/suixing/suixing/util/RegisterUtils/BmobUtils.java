@@ -1,12 +1,12 @@
 package com.vehicle.suixing.suixing.util.RegisterUtils;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.callback.UpdateList;
 import com.vehicle.suixing.suixing.common.Config;
+import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.dataBase.DbDao;
 
 import java.util.List;

@@ -6,7 +6,6 @@ import android.graphics.Point;
 import android.hardware.Camera;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -14,7 +13,10 @@ import android.view.SurfaceView;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.vehicle.suixing.suixing.util.Log;
+
 import java.util.List;
+
 
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private static final String TAG = "CameraPreview";

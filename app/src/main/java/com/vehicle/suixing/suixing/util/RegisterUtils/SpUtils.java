@@ -2,8 +2,7 @@ package com.vehicle.suixing.suixing.util.RegisterUtils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-
+import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
 import com.vehicle.suixing.suixing.common.Config;
 

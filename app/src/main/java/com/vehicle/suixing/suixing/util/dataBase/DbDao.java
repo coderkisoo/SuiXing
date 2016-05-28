@@ -4,12 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.bean.musicInfo.Mp3Info;
 import com.vehicle.suixing.suixing.common.Config;
+import com.vehicle.suixing.suixing.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class DbDao {
             values.put("username", vehicliInfo.getUsername());
             values.put("name", vehicliInfo.getName());
             values.put("framenum",vehicliInfo.getFramenum());
-            Log.e(TAG,vehicliInfo.getFramenum());
+            Log.e(TAG, vehicliInfo.getFramenum());
             values.put("num", vehicliInfo.getNum());
             values.put("percent", vehicliInfo.getPercent());
             values.put("size", vehicliInfo.getSize());
@@ -57,7 +57,7 @@ public class DbDao {
         SQLiteDatabase db = DbHelper.getHelper(context).getReadableDatabase();
         String SELECT = "select * from "+Config.VEHICLE_TABLE_NAME +" where username = \"" +username+"\"";
         Cursor cursor = db.rawQuery(SELECT, new String[]{});
-        Log.e(TAG, "查询到一共" + cursor.getCount() + "条数据");
+        Log.d(TAG, "查询到一共" + cursor.getCount() + "条数据");
         while (cursor.moveToNext()) {
             /**
              * 将从表中获取的信息依次赋值给vehicleInformation

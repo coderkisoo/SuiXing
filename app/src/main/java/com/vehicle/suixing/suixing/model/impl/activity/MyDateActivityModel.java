@@ -1,7 +1,7 @@
 package com.vehicle.suixing.suixing.model.impl.activity;
 
 import android.content.Context;
-import android.util.Log;
+import com.vehicle.suixing.suixing.util.Log;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.Bmob_date_gasstation;
 import com.vehicle.suixing.suixing.callback.BmobListenerWithList;

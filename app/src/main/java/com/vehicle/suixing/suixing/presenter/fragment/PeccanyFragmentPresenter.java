@@ -3,7 +3,6 @@ package com.vehicle.suixing.suixing.presenter.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,10 +12,11 @@ import android.widget.Toast;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
-import com.vehicle.suixing.suixing.view.fragment.PeccanyFragmentView;
 import com.vehicle.suixing.suixing.ui.activity.PeccanydActivity;
 import com.vehicle.suixing.suixing.ui.activity.QueryOthersActivityActivity;
 import com.vehicle.suixing.suixing.ui.adapter.PopupListAdapter;
+import com.vehicle.suixing.suixing.util.Log;
+import com.vehicle.suixing.suixing.view.fragment.PeccanyFragmentView;
 
 /**
  * Created by KiSoo on 2016/4/4.

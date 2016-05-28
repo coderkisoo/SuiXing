@@ -3,7 +3,8 @@ package com.vehicle.suixing.suixing.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+
+import com.vehicle.suixing.suixing.util.Log;
 
 import cn.bmob.push.PushConstants;
 

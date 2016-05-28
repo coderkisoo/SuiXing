@@ -2,18 +2,18 @@ package com.vehicle.suixing.suixing.presenter.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleImage;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.callback.BmobListener;
 import com.vehicle.suixing.suixing.callback.BmobListenerWithList;
 import com.vehicle.suixing.suixing.common.Config;
-import com.vehicle.suixing.suixing.view.activity.AddSuccessActivityView;
-import com.vehicle.suixing.suixing.model.impl.activity.AddSuccessModel;
 import com.vehicle.suixing.suixing.model.activity.IAddSuccessModel;
+import com.vehicle.suixing.suixing.model.impl.activity.AddSuccessModel;
+import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.RegisterUtils.BmobError;
 import com.vehicle.suixing.suixing.util.dataBase.DbDao;
+import com.vehicle.suixing.suixing.view.activity.AddSuccessActivityView;
 
 import java.util.List;
 

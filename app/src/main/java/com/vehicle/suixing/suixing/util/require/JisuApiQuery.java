@@ -1,6 +1,6 @@
 package com.vehicle.suixing.suixing.util.require;
 
-import android.util.Log;
+import com.vehicle.suixing.suixing.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

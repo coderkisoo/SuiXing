@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -21,6 +20,7 @@ import com.google.zxing.PlanarYUVLuminanceSource;
 import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
+import com.vehicle.suixing.suixing.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;

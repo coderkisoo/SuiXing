@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fragment_background"
     android:orientation="vertical">
 
 
+    <com.baidu.mapapi.map.TextureMapView
+        android:id="@+id/tmv_location"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true" />
+
+    <LinearLayout
+        android:id="@+id/ll_mapinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/fragment_background"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:visibility="visible">
+
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -72,13 +92,13 @@
                 android:textSize="15dp" />
         </LinearLayout>
 
-    <com.baidu.mapapi.map.TextureMapView
-        android:id="@+id/tmv_location"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:clickable="true" />
-</LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_my_location"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="64dp"
+        android:layout_marginLeft="24dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/find_location"/>
+</RelativeLayout>

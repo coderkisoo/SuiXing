@@ -1,6 +1,5 @@
 package com.vehicle.suixing.suixing.util.require;
 
-import android.util.Log;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -8,6 +7,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.vehicle.suixing.suixing.callback.GetWeizhangInfo;
 import com.vehicle.suixing.suixing.common.Config;
+import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.formatUtils.MD5Utils;
 
 import java.io.IOException;

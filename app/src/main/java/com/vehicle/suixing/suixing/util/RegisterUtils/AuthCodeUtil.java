@@ -4,8 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.Toast;
+
+import com.vehicle.suixing.suixing.util.Log;
 
 import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.exception.BmobException;

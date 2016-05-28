@@ -21,5 +21,6 @@
     <string name="input_num">请输入你的车牌号</string>
     <string name="input_frame">请输入车架号</string>
     <string name="input_engine">请输入引擎号</string>
+    <string name="navigation">导航</string>
 
 </resources>

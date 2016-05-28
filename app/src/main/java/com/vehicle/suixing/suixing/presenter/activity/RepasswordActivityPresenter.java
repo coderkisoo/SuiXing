@@ -6,15 +6,15 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
-import com.vehicle.suixing.suixing.view.activity.RegisterActivityView;
 import com.vehicle.suixing.suixing.ui.activity.MainActivity;
+import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.RegisterUtils.AuthCodeUtil;
 import com.vehicle.suixing.suixing.util.RegisterUtils.BmobError;
 import com.vehicle.suixing.suixing.util.RegisterUtils.SaveUser;
+import com.vehicle.suixing.suixing.view.activity.RegisterActivityView;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.ResetPasswordByCodeListener;

@@ -1,7 +1,6 @@
 package com.vehicle.suixing.suixing.model.impl.fragment;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.bmob.BmobProFile;
 import com.bmob.btp.callback.UploadListener;
@@ -10,6 +9,7 @@ import com.vehicle.suixing.suixing.callback.BmobListener;
 import com.vehicle.suixing.suixing.callback.BmobListenerWithProgress;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.fragment.IMeFragmentModel;
+import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.RegisterUtils.SaveUser;
 import com.vehicle.suixing.suixing.util.RegisterUtils.SpUtils;
 
@@ -29,7 +29,7 @@ public class MeFragmentModel implements IMeFragmentModel {
 
     @Override
     public void setHead(final Context context, final String head, final BmobListenerWithProgress listener) {
-        Log.e(TAG, "开始上传图片");
+        Log.d(TAG, "开始上传图片");
         BmobProFile.getInstance(context).upload(head, new UploadListener() {
             @Override
             public void onSuccess(String s, String s1, final BmobFile file) {

@@ -2,7 +2,6 @@ package com.vehicle.suixing.suixing.presenter.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.app.SuixingApp;
@@ -12,6 +11,7 @@ import com.vehicle.suixing.suixing.callback.BmobListenerWithProgress;
 import com.vehicle.suixing.suixing.model.fragment.IMeFragmentModel;
 import com.vehicle.suixing.suixing.model.impl.fragment.MeFragmentModel;
 import com.vehicle.suixing.suixing.ui.adapter.InfoAdapter;
+import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.RegisterUtils.BmobError;
 import com.vehicle.suixing.suixing.util.RegisterUtils.SpUtils;
 import com.vehicle.suixing.suixing.view.activity.MainActivityView;

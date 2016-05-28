@@ -3,7 +3,6 @@ package com.vehicle.suixing.suixing.ui.activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -18,6 +17,7 @@ import com.google.zxing.Result;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
+import com.vehicle.suixing.suixing.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;

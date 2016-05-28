@@ -3,7 +3,6 @@ package com.vehicle.suixing.suixing.presenter.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,10 +25,11 @@ import com.vehicle.suixing.suixing.bean.WeiZhang1.Province;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangDate;
 import com.vehicle.suixing.suixing.bean.WeiZhang1.WeizhangInfo;
 import com.vehicle.suixing.suixing.common.Config;
-import com.vehicle.suixing.suixing.view.activity.QueryOthersActivityView;
 import com.vehicle.suixing.suixing.ui.activity.PeccanydActivity;
 import com.vehicle.suixing.suixing.ui.adapter.CityAdapter;
 import com.vehicle.suixing.suixing.ui.adapter.ProvinceAdapter;
+import com.vehicle.suixing.suixing.util.Log;
+import com.vehicle.suixing.suixing.view.activity.QueryOthersActivityView;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -111,7 +111,7 @@ public class QueryOthersActivityPresenter {
                 cheGuanJu.setFrameno(provinces.get(provincePosition).getFrameno());
                 cheGuanJu.setLsprefix(provinces.get(provincePosition).getLsprefix());
 
-                Log.e(TAG, "显示城市为" + provinces.get(provincePosition).getProvince());
+                Log.d(TAG, "显示城市为" + provinces.get(provincePosition).getProvince());
             } else {
                 final PopupWindow window = new PopupWindow();
                 window.setWidth(view.getWidth());

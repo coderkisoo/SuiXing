@@ -1,6 +1,7 @@
 package com.vehicle.suixing.suixing.util.RegisterUtils;
 
-import android.util.Log;
+
+import com.vehicle.suixing.suixing.util.Log;
 
 /**
  * Created by KiSoo on 2016/3/31.
@@ -12,7 +13,7 @@ public class BmobError {
     private static String TAG = BmobError.class.getName();
 
     public static String error(int code) {
-        Log.e(TAG,"本次解析的异常号是:"+code);
+        Log.e(TAG, "本次解析的异常号是:" + code);
         switch (code) {
             case 9001:
                 Log.e(TAG, "AppKey is Null, Please initialize BmobSDK.Application Id为空，请初始化.");

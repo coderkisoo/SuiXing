@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_drawer_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4EA2F8"
-    android:orientation="vertical"
-    android:id="@+id/ll_drawer_view"
     android:layout_gravity="start"
-    >
+    android:background="#4EA2F8"
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_me"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:paddingLeft="32dp"
-        android:id="@+id/ll_me"
+        android:layout_marginTop="53dp"
         android:background="?android:attr/selectableItemBackground"
-        android:layout_marginTop="53dp">
+        android:paddingLeft="32dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_head"
@@ -38,167 +37,179 @@
                 android:textSize="@dimen/drawer_layout_name" />
 
             <TextView
+                android:id="@+id/tv_motto"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="@string/example_motto"
                 android:textColor="#ffffff"
-                android:textSize="@dimen/drawer_layout_motto"
-                android:id="@+id/tv_motto" />
+                android:textSize="@dimen/drawer_layout_motto" />
         </LinearLayout>
     </LinearLayout>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:paddingLeft="32dp"
         android:layout_marginTop="18dp"
-        android:src="@mipmap/dl_blue_line" />
-    <LinearLayout
-        android:layout_marginTop="10dp"
         android:paddingLeft="32dp"
+        android:src="@mipmap/dl_blue_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_vehicle_information"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/ll_vehicle_information"
+        android:layout_marginTop="10dp"
         android:background="?android:attr/selectableItemBackground"
-        >
-        <LinearLayout
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="26dp">
+        android:gravity="center_vertical"
+        android:paddingLeft="32dp">
 
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@mipmap/dl_vehicle_information" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:text="@string/vehicle_information"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/drawer_layout_text_size" />
-        </LinearLayout>
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@mipmap/dl_vehicle_information" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="@string/vehicle_information"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/drawer_layout_text_size" />
 
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/ll_get_gas"
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:paddingLeft="32dp"
-        android:id="@+id/ll_get_gas"
         android:background="?android:attr/selectableItemBackground"
-        >
-        <LinearLayout
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="26dp">
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@mipmap/dl_get_gas" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:text="@string/add_gas"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/drawer_layout_text_size" />
-        </LinearLayout>
+        android:gravity="center_vertical"
+        android:paddingLeft="32dp">
+
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@mipmap/dl_get_gas" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="@string/add_gas"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/drawer_layout_text_size" />
+
 
     </LinearLayout>
 
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_navigation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="54dp"-->
+        <!--android:background="?android:attr/selectableItemBackground"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:paddingLeft="32dp">-->
+
+
+        <!--<ImageView-->
+            <!--android:layout_width="26dp"-->
+            <!--android:layout_height="26dp"-->
+            <!--android:src="@mipmap/dl_navigation" />-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="25dp"-->
+            <!--android:text="@string/navigation"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:textSize="@dimen/drawer_layout_text_size" />-->
+
+    <!--</LinearLayout>-->
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:paddingLeft="32dp"
         android:layout_marginTop="15dp"
+        android:paddingLeft="32dp"
         android:src="@mipmap/dl_blue_line" />
+
     <LinearLayout
         android:id="@+id/ll_peccany"
-        android:paddingLeft="32dp"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="?android:attr/selectableItemBackground"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:paddingLeft="32dp">
+
+
+        <ImageView
+            android:layout_width="26dp"
             android:layout_height="26dp"
-            android:layout_gravity="center_vertical">
+            android:src="@mipmap/dl_peccany" />
 
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@mipmap/dl_peccany" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:text="@string/peccany"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/drawer_layout_text_size" />
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="@string/peccany"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/drawer_layout_text_size" />
 
     </LinearLayout>
+
     <ImageView
-        android:paddingLeft="32dp"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:src="@mipmap/dl_blue_line" />
-    <LinearLayout
         android:paddingLeft="32dp"
+        android:src="@mipmap/dl_blue_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_about_us"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:id="@+id/ll_about_us"
         android:background="?android:attr/selectableItemBackground"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingLeft="32dp">
 
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@mipmap/dl_about_us" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:text="@string/about_us"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/drawer_layout_text_size" />
-        </LinearLayout>
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@mipmap/dl_about_us" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="@string/about_us"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/drawer_layout_text_size" />
+
 
     </LinearLayout>
+
     <LinearLayout
-        android:paddingLeft="32dp"
+        android:id="@+id/ll_back"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
-        android:id="@+id/ll_back"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingLeft="32dp">
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@mipmap/dl_back" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:text="@string/back"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/drawer_layout_text_size" />
-        </LinearLayout>
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@mipmap/dl_back" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="@string/back"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/drawer_layout_text_size" />
 
     </LinearLayout>
 </LinearLayout>

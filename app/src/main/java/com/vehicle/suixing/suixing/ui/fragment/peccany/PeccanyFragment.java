@@ -3,7 +3,6 @@ package com.vehicle.suixing.suixing.ui.fragment.peccany;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.view.fragment.PeccanyFragmentView;
 import com.vehicle.suixing.suixing.presenter.fragment.PeccanyFragmentPresenter;
+import com.vehicle.suixing.suixing.util.Log;
+import com.vehicle.suixing.suixing.view.fragment.PeccanyFragmentView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

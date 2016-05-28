@@ -2,13 +2,13 @@ package com.vehicle.suixing.suixing.presenter.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.ui.activity.AddVehicleActivity;
 import com.vehicle.suixing.suixing.ui.activity.SplashActivity;
 import com.vehicle.suixing.suixing.ui.adapter.MyPagerAdapter;
+import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.view.fragment.VehicleInfoFragmentView;
 
 /**
