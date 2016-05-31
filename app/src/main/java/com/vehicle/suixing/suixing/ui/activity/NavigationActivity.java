@@ -11,8 +11,12 @@ import com.baidu.navisdk.adapter.BNaviBaseCallbackModel;
 import com.baidu.navisdk.adapter.BaiduNaviCommonModule;
 import com.baidu.navisdk.adapter.NaviModuleFactory;
 import com.baidu.navisdk.adapter.NaviModuleImpl;
+import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.ui.BaseActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 诱导界面
@@ -46,6 +50,7 @@ public class NavigationActivity extends BaseActivity {
         Bundle bundle = getIntent().getExtras();
         mBNRoutePlanNode = (BNRoutePlanNode) bundle.getSerializable(Config.KEY_ROUTE_PLANE_NODE);
         name = bundle.getString(Config.KEY_GAS_NAME);
+//        addCustomizedLayerItems();
     }
 
     @Override
@@ -105,7 +110,15 @@ public class NavigationActivity extends BaseActivity {
         }
     }
 
+    private void addCustomizedLayerItems() {
+        List<BNRouteGuideManager.CustomizedLayerItem> items = new ArrayList<>();
+        BNRouteGuideManager.CustomizedLayerItem item1 = new BNRouteGuideManager.CustomizedLayerItem(mBNRoutePlanNode.getLongitude(), mBNRoutePlanNode.getLatitude(),
+                BNRoutePlanNode.CoordinateType.BD09LL, getResources().getDrawable(R.mipmap.ic_launcher), BNRouteGuideManager.CustomizedLayerItem.ALIGN_CENTER);
+        items.add(item1);
 
+        BNRouteGuideManager.getInstance().setCustomizedLayerItems(items);
+        BNRouteGuideManager.getInstance().showCustomizedLayer(true);
+    }
 
 
     private OnNavigationListener mOnNavigationListener = new OnNavigationListener() {
