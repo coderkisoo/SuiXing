@@ -93,6 +93,8 @@ public class MainActivity extends BaseActivity implements MainActivityView {
          * 关于我们
          * */
         presenter.aboutUs();
+        initToolbar(toolbar, R.mipmap.iv_swipe_left, "关于我们", false);
+
     }
 
     @OnClick(R.id.ll_back)

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SuiXing</string>
+    <string name="app_name">随行</string>
     <string name="example_name">请登录</string>
     <string name="example_motto"></string>
     <string name="vehicle_information">车辆信息</string>

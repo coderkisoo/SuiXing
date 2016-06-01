@@ -30,9 +30,9 @@ public class GasStationFragment extends Fragment implements GasStationFragmentVi
     @Bind(R.id.ll_mapinfo)
     LinearLayout ll_mapinfo;
 
-    @OnClick(R.id.iv_my_location)
-    void iv_my_location() {
-        presenter.iv_my_location();
+    @OnClick(R.id.btn_my_location)
+    void btn_my_location() {
+        presenter.btn_my_location();
     }
 
     private View parent;

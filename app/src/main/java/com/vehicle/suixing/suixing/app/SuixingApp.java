@@ -84,6 +84,7 @@ public class SuixingApp extends Application {
     }
 
 
+
     public synchronized static void addActivity(Activity activity) {
         activities.add(activity);
         Log.e(TAG, activity.toString() + "已经被添加");

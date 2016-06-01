@@ -21,6 +21,7 @@ public class Config {
     public static final String USER_SP = "user";
     public static final String KEY_LEFT = "keyleft";
     public static final String KEY_TOP = "keytop";
+    public static boolean canBeUsed = false;
     public static boolean isLocal = true;
     public static final String CHANGE_INFO_ACTION = "com.vehicle.suixing.changeinfo";
 

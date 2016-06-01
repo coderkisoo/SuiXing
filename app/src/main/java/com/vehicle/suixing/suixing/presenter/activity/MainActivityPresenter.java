@@ -18,6 +18,7 @@ import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.activity.IMainModel;
 import com.vehicle.suixing.suixing.model.impl.activity.MainModel;
 import com.vehicle.suixing.suixing.ui.activity.SplashActivity;
+import com.vehicle.suixing.suixing.ui.fragment.main.AboutUsFragment;
 import com.vehicle.suixing.suixing.ui.fragment.main.GasStationFragment;
 import com.vehicle.suixing.suixing.ui.fragment.main.MeFragment;
 import com.vehicle.suixing.suixing.ui.fragment.main.VehicleInformationFragment;
@@ -67,7 +68,7 @@ public class MainActivityPresenter implements UpdateList {
         model.initUser(context, this, new BmobListener() {
             @Override
             public void onSuccess() {
-                fragments.get(1).notifyAll();
+//                fragments.get(1).notifyAll();
             }
 
             @Override
@@ -85,11 +86,13 @@ public class MainActivityPresenter implements UpdateList {
         fragments.add(new VehicleInformationFragment());//车辆信息
         fragments.add(new GasStationFragment());//加油站信息
         fragments.add(new PeccanyFragment());//违章查询
+        fragments.add(new AboutUsFragment());//关于我们
         startFragment(TYPE_VEHICLE);
     }
 
     public void onResume() {
         User users = SpUtils.getUsers(context);
+        (fragments.get(TYPE_VEHICLE)).onResume();
         mainActivityView.UpdateName(users.getName());
         mainActivityView.updateMotto(users.getMotto());
         mainActivityView.updateHead(users.getHead());
@@ -140,7 +143,7 @@ public class MainActivityPresenter implements UpdateList {
     }
 
     public void aboutUs() {
-//        startFragment(TYPE_ABOUT_US);
+        startFragment(TYPE_ABOUT_US);
         mainActivityView.closeDrawer();
     }
 
@@ -194,6 +197,9 @@ public class MainActivityPresenter implements UpdateList {
     @Override
     public void updateList(List<VehicleInformation> infos) {
         SuixingApp.infos = infos;
+//        fragments.get(1).notifyAll();
+        fragments.get(1).onResume();
+        Toast.makeText(context,"车辆数据已更新",Toast.LENGTH_SHORT).show();
     }
 
 

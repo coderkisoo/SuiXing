@@ -193,6 +193,10 @@ public class GasStationFragmentPresenter {
             @Override
             public void onClick(View v) {
                 Log.d("点击了");
+                if (!Config.canBeUsed){
+                    Toast.makeText(context,"百度地图引擎初始化未成功",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (BaiduNaviManager.isNaviInited())
                     routeplanToNavi(position, name);
             }
@@ -240,11 +244,11 @@ public class GasStationFragmentPresenter {
         infoWindow.showAtLocation(view.getParent(), Gravity.BOTTOM, 0, 0);
     }
 
-    public void iv_my_location() {
+    public void btn_my_location() {
         if (null == myLatng) return;
         MapStatus mMapStatus = new MapStatus.Builder()
                 .target(myLatng)
-                .zoom(12)
+                .zoom(14)
                 .build();
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);//改变地图状态
         mBaiduMap.setMapStatus(mMapStatusUpdate);

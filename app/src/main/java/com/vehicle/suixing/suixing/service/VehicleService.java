@@ -50,7 +50,8 @@ public class VehicleService extends Service {
                     if (!data.optString("userName").equals(Config.USERNAME))
                         return;
                     //当服务器端的数据库里记录的汽油量少于20%时，给手机发送通知告诉汽车车主该去加油
-                    if (20 > Integer.valueOf(data.optString("percent").substring(0, data.optString("percent").length() - 1)))
+                    String percent = data.optString("percent");
+                    if (20 > Integer.valueOf(percent.substring(0, percent.length() - 1)))
                         sendBroadcast(new Intent().setAction(Config.ACTION_PERCENT_LESS));
                     //当服务器端的数据库里记录的发动机出现异常、变速器出现异常或车灯有坏的时候，给手机发送通知告诉汽车车主需要进行维修
                     if (!(data.optString("function").equals("良好") && data.optString("speed").equals("正常") && data.optString("light").equals("好")))

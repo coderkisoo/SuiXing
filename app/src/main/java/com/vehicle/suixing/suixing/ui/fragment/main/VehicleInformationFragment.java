@@ -9,11 +9,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.app.SuixingApp;
-import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.presenter.fragment.VehicleInfoFragmentPresenter;
 import com.vehicle.suixing.suixing.ui.adapter.MyPageTransFormer;
 import com.vehicle.suixing.suixing.ui.adapter.MyPagerAdapter;
@@ -27,7 +25,7 @@ import butterknife.OnClick;
 /**
  * Created by KiSoo on 2016/3/20.
  */
-public class VehicleInformationFragment extends Fragment implements VehicleInfoFragmentView{
+public class VehicleInformationFragment extends Fragment implements VehicleInfoFragmentView {
     private String TAG = "VehicleInformationFragment";
     private View view;
     private VehicleInfoFragmentPresenter presenter;
@@ -36,34 +34,14 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
     ViewPager vp_choose_vehicle_list;
     @Bind(R.id.ll_container)
     LinearLayout ll_container;
-    /**
-     * 车上的数据绑定
-     */
-    @Bind(R.id.tv_vehicle_information_name)
-    TextView tv_name;
-    @Bind(R.id.tv_vehicle_information_frame_num)
-    TextView tv_frame_num;
-    @Bind(R.id.tv_vehicle_information_number)
-    TextView tv_num;
-    @Bind(R.id.tv_vehicle_information_gas_percent)
-    TextView tv_percent;
-    @Bind(R.id.tv_vehicle_information_level)
-    TextView tv_size;
-    @Bind(R.id.tv_vehicle_information_mileage)
-    TextView tv_mileage;
-    @Bind(R.id.tv_vehicle_information_engine_version)
-    TextView tv_model;
-    @Bind(R.id.tv_vehicle_information_engine_function)
-    TextView tv_function;
 
-    @Bind(R.id.tv_vehicle_information_light)
-    TextView tv_light;
     @OnClick(R.id.v_left_view)
-    void v_left_view(){
-        vp_choose_vehicle_list.setCurrentItem(nowPosition-1);
+    void v_left_view() {
+        vp_choose_vehicle_list.setCurrentItem(nowPosition - 1);
     }
+
     @OnClick(R.id.v_right_view)
-    void v_right_view(){
+    void v_right_view() {
         vp_choose_vehicle_list.setCurrentItem(nowPosition + 1);
     }
 
@@ -82,10 +60,11 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_vehicle_information, null);
         ButterKnife.bind(this, view);
-        presenter = new VehicleInfoFragmentPresenter(this,getActivity());
+        presenter = new VehicleInfoFragmentPresenter(this, getActivity(),getChildFragmentManager());
         initView();
         return view;
     }
+
     /*初始化控件的各项属性*/
     private void initView() {
         ll_container.setOnTouchListener(new View.OnTouchListener() {
@@ -108,7 +87,7 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
 
             @Override
             public void onPageSelected(int position) {
-                initInfo(SuixingApp.infos.get(position));
+                presenter.startFragment(position);
                 nowPosition = position;
             }
 
@@ -118,32 +97,24 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
             }
 
         });
+        vp_choose_vehicle_list.setOffscreenPageLimit(SuixingApp.infos.size() + 1);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        presenter.setAdapter();
-    }
-
-    /*更新信息*/
-    public void initInfo(VehicleInformation vehicleInformation) {
-        tv_name.setText(vehicleInformation.getName());
-        tv_num.setText(vehicleInformation.getNum());
-        tv_frame_num.setText(vehicleInformation.getFramenum().substring(11,17));//只显示11-17位的
-        tv_percent.setText(vehicleInformation.getPercent());
-        tv_size.setText(vehicleInformation.getSize());
-        tv_mileage.setText(vehicleInformation.getMileage());
-        tv_model.setText(vehicleInformation.getModel());
-        tv_function.setText(vehicleInformation.getFunction());
-        tv_light.setText(vehicleInformation.getLight());
+        presenter.initInfo();
+        if (vp_choose_vehicle_list.getAdapter() == null){
+            presenter.setAdapter();
+        }else {
+            vp_choose_vehicle_list.getAdapter().notifyDataSetChanged();
+        }
+        vp_choose_vehicle_list.setOffscreenPageLimit(SuixingApp.infos.size() + 1);
     }
 
     @Override
     public void setAdapter(MyPagerAdapter adapter) {
         vp_choose_vehicle_list.setAdapter(adapter);
     }
-    public void updateData(){
-        presenter.update();
-    }
+
 }

@@ -92,6 +92,7 @@ public class SplashActivity extends BaseActivity {
                         public void initSuccess() {
                             //百度导航引擎初始化成功
                             Log.d("导航引擎初始化成功");
+                            Config.canBeUsed = true;
                             BNaviSettingManager.setDayNightMode(BNaviSettingManager.DayNightMode.DAY_NIGHT_MODE_DAY);
                             BNaviSettingManager.setShowTotalRoadConditionBar(BNaviSettingManager.PreViewRoadCondition.ROAD_CONDITION_BAR_SHOW_ON);
                             BNaviSettingManager.setVoiceMode(BNaviSettingManager.VoiceMode.Veteran);

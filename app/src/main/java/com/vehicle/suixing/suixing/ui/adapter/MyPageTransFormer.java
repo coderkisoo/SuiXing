@@ -12,13 +12,7 @@ public class MyPageTransFormer implements ViewPager.PageTransformer {
     @Override
     public void transformPage(View view, float position) {
         int pageWidth = view.getWidth();
-
-      /*  if (position < -1) { // [-Infinity,-1)
-            // This page is way off-screen to the left.
-            view.setScaleX(0.5f);
-            view.setScaleY(0.5f);
-            Log.e(TAG,"position < -1");
-        } else */
+//        Log.d("偏移量"+position);
         float m = Math.abs(position);
         if(position>1){
             view.setScaleX(0.5f);
