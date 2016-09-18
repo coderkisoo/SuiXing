@@ -54,7 +54,7 @@ public class DateAdapter extends BaseAdapter {
         holder = (ViewHolder) convertView.getTag();
         holder.tv_station_name.setText(dateList.get(position).getGasstation_name());
         holder.tv_gas_location.setText(dateList.get(position).getGasstation_drass());
-        holder.tv_amount.setText((dateList.get(position).getDate_money().equals("") ? "" : Integer.valueOf(dateList.get(position).getDate_money()) / 5 + "")+"L");
+        holder.tv_amount.setText((dateList.get(position).getDate_money().isEmpty() ? "" : Integer.valueOf(dateList.get(position).getDate_money()) / 5 + "")+"L");
         holder.tv_gas_type.setText(dateList.get(position).getDate_oilStyle());
         holder.tv_order_time.setText(dateList.get(position).getDate_time());
         holder.tv_money.setText("总价 ：" + dateList.get(position).getDate_money() + "元");

@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.Bmob_date_gasstation;
+import com.vehicle.suixing.suixing.bean.MapBean.MapInfo;
 import com.vehicle.suixing.suixing.callback.BmobListenerWithList;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.model.activity.IMyDateActivityModel;
@@ -29,9 +30,12 @@ public class MyDateActivityPresenter {
     private MyDateActivityView view;
     private IMyDateActivityModel model;
     private List<Bmob_date_gasstation> dateList;
-    public MyDateActivityPresenter(final Context context, MyDateActivityView view) {
+    private MapInfo startPoint,endPoint;
+    public MyDateActivityPresenter(final Context context, MyDateActivityView view, Intent intent) {
         this.context = context;
         this.view = view;
+        this.startPoint = intent.getParcelableExtra(Config.KEY_START_LATING);
+        this.endPoint = intent.getParcelableExtra(Config.KEY_END_LATING);
         model = new MyDateActivityModel();
         dateList = new ArrayList<>();
         adapter = new DateAdapter(dateList,context);
@@ -50,7 +54,12 @@ public class MyDateActivityPresenter {
                         .setGasLocation(info.getGasstation_drass())
                         .setGasName(info.getGasstation_name())
                         .complete();
-                context.startActivity(new Intent(context, DateSuccessActivity.class).putExtra(Config.KEY_DATE_TIME, info.getDate_time()).putExtra(Config.KEY_GAS_NAME, info.getGasstation_name()).putExtra(Config.KEY_DATE_JSON, json));
+                context.startActivity(new Intent(context, DateSuccessActivity.class)
+                        .putExtra(Config.KEY_DATE_TIME, info.getDate_time())
+                        .putExtra(Config.KEY_START_LATING,startPoint)
+                        .putExtra(Config.KEY_END_LATING,endPoint)
+                        .putExtra(Config.KEY_GAS_NAME, info.getGasstation_name())
+                        .putExtra(Config.KEY_DATE_JSON, json));
             }
         });
     }

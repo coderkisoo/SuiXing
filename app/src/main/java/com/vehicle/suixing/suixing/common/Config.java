@@ -9,8 +9,11 @@ public class Config {
      */
 
     public static final String BMOBID = "ac76d4ba3fcef92047844b2c3df194e8";
+    public static final String TT_APPID = "57944f01";
     public static final String WEIZHANG_KEY = "803bab4ccb2e741c4ca07d5bfcd6e816";
     public static final String BAIDU_MUSIC_API = "c18a63c08d9b4cc02a2afdf41ccbb606";
+    public static final String LBS_MAP_KEY = "5a704c259ad69fa818fd63c58ab02560";
+    public static final String KEY_UPDATE = "key_update";
     public static final String WEIZHANG_APPID = "1546";
     public static final String VEHICLE_TABLE_NAME = "UserData";
     public static final String MUSIC_TABLE_NAME = "UserMusic";
@@ -23,6 +26,11 @@ public class Config {
     public static final String KEY_TOP = "keytop";
     public static boolean canBeUsed = false;
     public static boolean isLocal = true;
+
+    public static final String KEY_START_LATING = "KEYmyLatng";
+
+    public static final String KEY_END_LATING = "KEYendLatng";
+
     public static final String CHANGE_INFO_ACTION = "com.vehicle.suixing.changeinfo";
 
     public static final String CHANGE_SEEKBAR_ACTION = "com.vehicle.suixing.changeseekbar";
@@ -37,6 +45,9 @@ public class Config {
 
     public static final String ACTION_MILEAGE_MUCH = "com.vehicle.suixing.actnio_mileage_much";
 
+    public static final String KEY_FROM = "key_from";
+
+    public static final String KEY_FINAL = "key_final";
 
     public static final String KEY_MAX_MILEAGE = "key_max_mileage";
 

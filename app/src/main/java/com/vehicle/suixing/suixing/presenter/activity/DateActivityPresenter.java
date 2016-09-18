@@ -24,10 +24,12 @@ public class DateActivityPresenter {
     private Context context;
     private DateActivityView view;
     private IDateActivityModel model;
+    private Intent intent;
 
-    public DateActivityPresenter(Context context, DateActivityView view) {
+    public DateActivityPresenter(Context context, DateActivityView view, Intent intent) {
         this.context = context;
         this.view = view;
+        this.intent = intent;
         model = new DateActivityModel();
     }
 
@@ -52,7 +54,9 @@ public class DateActivityPresenter {
                         .setGasName(view.getGasName())
                         .complete();
                 Toast.makeText(context, "预约成功", Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, DateSuccessActivity.class).putExtra(Config.KEY_DATE_TIME, view.getTime()).putExtra(Config.KEY_GAS_NAME, view.getGasName()).putExtra(Config.KEY_DATE_JSON, json));
+                intent.setClass(context,DateSuccessActivity.class)
+                        .putExtra(Config.KEY_DATE_JSON, json);
+                context.startActivity(intent);
             }
 
             @Override

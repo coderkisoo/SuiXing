@@ -15,7 +15,7 @@
         android:paddingRight="9dp"
         android:paddingBottom="9dp"
         android:background="?android:attr/selectableItemBackground"
-        android:src="@mipmap/tb_back" />
+        android:src="@mipmap/iv_swipe_left" />
 
     <TextView
         android:id="@+id/toolbar_text"
@@ -29,17 +29,31 @@
 
 
 
-        <ImageView
-            android:layout_width="@dimen/icon_size_width"
-            android:layout_height="@dimen/icon_size_width"
-            android:id="@+id/iv_me"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_marginRight="18dp"
-            android:layout_gravity="right"
-            android:src="@mipmap/me" />
+    <ImageView
+        android:id="@+id/iv_me"
+        android:layout_width="@dimen/icon_size_width"
+        android:layout_height="@dimen/icon_size_width"
+        android:layout_gravity="right"
+        android:layout_marginRight="18dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:src="@mipmap/me"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_search"
+        android:layout_width="@dimen/icon_size_width"
+        android:layout_height="@dimen/icon_size_width"
+        android:layout_gravity="right"
+        android:layout_marginRight="18dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:src="@mipmap/icon_search"
+        android:visibility="visible" />
 
 
 

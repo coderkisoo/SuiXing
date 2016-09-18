@@ -27,4 +27,14 @@
         android:textColor="#4EA2F8"
         android:textSize="@dimen/toolbar_title_size" />
 
+    <ImageView
+        android:id="@+id/iv_go"
+        android:layout_width="@dimen/icon_size_width"
+        android:layout_height="@dimen/icon_size_height"
+        android:padding="6dp"
+        android:layout_marginRight="12dp"
+        android:layout_gravity = "right"
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@mipmap/icon_go" />
+
 </android.support.v7.widget.Toolbar>

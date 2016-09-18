@@ -26,6 +26,7 @@ import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.RegisterUtils.SpUtils;
 import com.vehicle.suixing.suixing.util.formatUtils.DensityUtil;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -42,7 +43,7 @@ public class MusicPlayService extends Service {
     private MusicPlayView playView;
     private Timer mTimer;
     private TimerTask mTimerTask;
-    private static int currentPosition = 0;//列表当前位置
+    private static int currentPosition = new Random().nextInt(6);//列表当前位置
     private boolean isFirstPlay = true;
     private final String TAG = "MusicPlayService";
 
@@ -230,8 +231,8 @@ public class MusicPlayService extends Service {
             }
         }
 
-        public void setProgress(int currentPosition) {
-            sb_music.setProgress(currentPosition);
+        public void setProgress(int progress) {
+            sb_music.setProgress(progress);
         }
 
         public void changeInfo() {

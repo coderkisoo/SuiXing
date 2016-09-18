@@ -10,9 +10,9 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
-import com.vehicle.suixing.suixing.view.activity.AddSuccessActivityView;
 import com.vehicle.suixing.suixing.presenter.activity.AddSuccessActivityPresenter;
 import com.vehicle.suixing.suixing.ui.BaseSlidingActivity;
+import com.vehicle.suixing.suixing.view.activity.AddSuccessActivityView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

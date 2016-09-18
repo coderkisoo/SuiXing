@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.vehicle.suixing.suixing.R;
@@ -34,7 +35,8 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
     ViewPager vp_choose_vehicle_list;
     @Bind(R.id.ll_container)
     LinearLayout ll_container;
-
+    @Bind(R.id.fl_vehicle)
+    FrameLayout fl_vehicle;
     @OnClick(R.id.v_left_view)
     void v_left_view() {
         vp_choose_vehicle_list.setCurrentItem(nowPosition - 1);
@@ -53,6 +55,9 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
          * 启动相机是耗时操作，防止多次点击创建多个activity
          * */
         presenter.addVehicle();
+    }
+
+    public VehicleInformationFragment() {
     }
 
     @Nullable
@@ -107,7 +112,7 @@ public class VehicleInformationFragment extends Fragment implements VehicleInfoF
         if (vp_choose_vehicle_list.getAdapter() == null){
             presenter.setAdapter();
         }else {
-            vp_choose_vehicle_list.getAdapter().notifyDataSetChanged();
+            presenter.update();
         }
         vp_choose_vehicle_list.setOffscreenPageLimit(SuixingApp.infos.size() + 1);
     }

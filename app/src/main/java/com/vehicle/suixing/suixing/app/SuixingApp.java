@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -14,11 +13,10 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.bean.musicInfo.BmobMusic;
-import com.vehicle.suixing.suixing.bean.musicInfo.Mp3Info;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.service.MusicPlayService;
+import com.vehicle.suixing.suixing.ui.activity.MainActivity;
 import com.vehicle.suixing.suixing.util.Log;
-import com.vehicle.suixing.suixing.util.dataBase.DbDao;
 import com.vehicle.suixing.suixing.util.musicUtil.MusicUtils;
 
 import java.io.File;
@@ -37,9 +35,8 @@ public class SuixingApp extends Application {
     private static String TAG = SuixingApp.class.getName();
     public static boolean hasUser = false;
     public static List<VehicleInformation> infos;
-    public static List<Mp3Info> mp3Infos;
-    public static List<Mp3Info> onLineInfos;
     public static List<BmobMusic> bmobMusicList;
+    public static MainActivity mainActivity;
 
     @Override
     public void onCreate() {
@@ -48,10 +45,6 @@ public class SuixingApp extends Application {
          * bmob的初始化
          * */
         initBmob();
-        /***
-         * 百度地图的初始化
-         */
-        initBaiduMap();
         /**
          * imageloader的初始化
          * */
@@ -62,6 +55,7 @@ public class SuixingApp extends Application {
         initInfoList();
         startService(new Intent(getApplicationContext(), MusicPlayService.class));
     }
+
 
     private void initBmob() {
         Bmob.initialize(this, Config.BMOBID);
@@ -74,25 +68,20 @@ public class SuixingApp extends Application {
     private void initInfoList() {
         activities = new ArrayList<>();
         infos = new ArrayList<>();
-        mp3Infos = DbDao.queryPartMusic(getApplicationContext());
-        onLineInfos = new ArrayList<>();
         bmobMusicList = MusicUtils.getMusicList();
     }
-
-    private void initBaiduMap() {
-        SDKInitializer.initialize(getApplicationContext());
-    }
-
 
 
     public synchronized static void addActivity(Activity activity) {
         activities.add(activity);
-        Log.e(TAG, activity.toString() + "已经被添加");
+        if (activity instanceof MainActivity)
+            mainActivity = (MainActivity) activity;
+            Log.e(TAG, activity.toString() + "已经被添加");
     }
 
     public synchronized static void clearAll() {
 
-        while (activities.size()!=0){
+        while (activities.size() != 0) {
             activities.get(0).finish();
         }
         if (activities.size() == 0)

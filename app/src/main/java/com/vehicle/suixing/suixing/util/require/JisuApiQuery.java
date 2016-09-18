@@ -129,7 +129,7 @@ public class JisuApiQuery {
                         }.getType();
                         CheguanjuError result = gson.fromJson(response2body, type3);
                        /*如果status为0，则说明没有违章*/
-                        if (result.getStatus().equals("0")) {
+                        if (result.getStatus().equals("230")) {
                             List<WeizhangDate> infos = new ArrayList<WeizhangDate>();
                             info.requestSuccess(infos);
                         } else {

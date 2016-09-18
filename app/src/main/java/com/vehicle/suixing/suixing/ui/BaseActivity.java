@@ -1,5 +1,6 @@
 package com.vehicle.suixing.suixing.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,27 +18,24 @@ import com.vehicle.suixing.suixing.app.SuixingApp;
  * Created by KiSoo on 2016/3/17.
  */
 public class BaseActivity extends AppCompatActivity {
+    protected Activity mContext;
     /**
      * 初始化toolbar，包括更新toolbar上的textview
      */
-    public void initToolbar(android.support.v7.widget.Toolbar mToolbar, int resId, String activityName, Boolean isShow) {
-        mToolbar.setTitle("");
+    public void initToolbar(android.support.v7.widget.Toolbar mToolbar, String activityName, Boolean showMe,Boolean showSearch) {
         TextView toolbar_title = (TextView) mToolbar.findViewById(R.id.toolbar_text);
+        ImageView iv_me = (ImageView) mToolbar.findViewById(R.id.iv_me);
+        ImageView iv_search = (ImageView)mToolbar.findViewById(R.id.iv_search);
         toolbar_title.setText(activityName);
-        ImageView iv_toolbar_left_image = (ImageView) findViewById(R.id.iv_toolbar_left_image);
-        iv_toolbar_left_image.setImageResource(resId);
-        ImageView iv_me = (ImageView) findViewById(R.id.iv_me);
-        if (isShow) {
-            iv_me.setVisibility(View.VISIBLE);
-        } else {
-            iv_me.setVisibility(View.INVISIBLE);
-        }
+        iv_me.setVisibility(showMe?View.VISIBLE:View.GONE);
+        iv_search.setVisibility(showSearch?View.VISIBLE:View.GONE);
     }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
         /**
          * 完全沉浸式布局
          * */

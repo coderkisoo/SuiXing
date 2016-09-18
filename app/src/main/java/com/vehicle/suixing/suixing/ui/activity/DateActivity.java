@@ -50,7 +50,7 @@ public class DateActivity extends BaseSlidingActivity implements DateActivityVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date);
         ButterKnife.bind(this);
-        presenter = new DateActivityPresenter(this, this);
+        presenter = new DateActivityPresenter(this, this,getIntent());
     }
 
     @Override

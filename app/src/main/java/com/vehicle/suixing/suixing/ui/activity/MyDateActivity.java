@@ -37,7 +37,7 @@ public class MyDateActivity extends BaseSlidingActivity implements MyDateActivit
         srl_refresh.setColorSchemeColors(Color.parseColor("#4FA3F9"),
                 Color.parseColor("#50A2F8"), Color.parseColor("#3F51B5"),
                 Color.parseColor("#303F9F"));
-        presenter = new MyDateActivityPresenter(this,this);
+        presenter = new MyDateActivityPresenter(this,this,getIntent());
         srl_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

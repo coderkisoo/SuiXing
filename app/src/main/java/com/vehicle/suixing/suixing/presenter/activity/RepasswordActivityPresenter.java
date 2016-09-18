@@ -9,11 +9,11 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.vehicle.suixing.suixing.bean.BmobBean.User;
-import com.vehicle.suixing.suixing.ui.activity.MainActivity;
+import com.vehicle.suixing.suixing.ui.activity.LoginActivity;
 import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.RegisterUtils.AuthCodeUtil;
 import com.vehicle.suixing.suixing.util.RegisterUtils.BmobError;
-import com.vehicle.suixing.suixing.util.RegisterUtils.SaveUser;
+import com.vehicle.suixing.suixing.util.formatUtils.MD5Utils;
 import com.vehicle.suixing.suixing.view.activity.RegisterActivityView;
 
 import cn.bmob.v3.exception.BmobException;
@@ -41,7 +41,7 @@ public class RepasswordActivityPresenter {
                     break;
                 case AUTH_CODED:
                     view.setClickable(true);
-                   view.sendable();
+                    view.sendable();
                 default:
                     break;
             }
@@ -54,8 +54,8 @@ public class RepasswordActivityPresenter {
         this.context = context;
     }
 
-    public void sendAuth(){
-        AuthCodeUtil.sendAuthCode(context,view.getTel().toString(), handler);
+    public void sendAuth() {
+        AuthCodeUtil.sendAuthCode(context, view.getTel().toString(), handler);
     }
 
     public void repassword() {
@@ -75,14 +75,13 @@ public class RepasswordActivityPresenter {
             return;
         }
         final ProgressDialog dialog = ProgressDialog.show(context, "提示", "正在修改中...");
-        User.resetPasswordBySMSCode(context, view.getAuthCode(), view.getPassword1(), new ResetPasswordByCodeListener() {
+        User.resetPasswordBySMSCode(context, view.getAuthCode(), MD5Utils.ecoder(view.getPassword1()), new ResetPasswordByCodeListener() {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    Toast.makeText(context, "重置密码成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "重置密码成功，请重新登录", Toast.LENGTH_SHORT).show();
+                    context.startActivity(new Intent(context, LoginActivity.class));
                     dialog.dismiss();
-                    SaveUser.save(view.getTel(), view.getPassword1(), context);
-                    context.startActivity(new Intent(context, MainActivity.class));
                 } else {
                     Log.e(TAG, "重置密码失败" + e.getMessage() + e.getErrorCode());
                     String error = BmobError.error(e.getErrorCode());

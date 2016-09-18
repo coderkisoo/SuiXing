@@ -3,6 +3,7 @@ package com.vehicle.suixing.suixing.presenter.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import com.vehicle.suixing.suixing.app.SuixingApp;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleImage;
 import com.vehicle.suixing.suixing.bean.BmobBean.VehicleInformation;
 import com.vehicle.suixing.suixing.callback.BmobListener;
@@ -57,6 +58,7 @@ public class AddSuccessActivityPresenter {
                 view.showToast("添加成功");
                 DbDao.add(context, info);
                 dialog.dismiss();
+                SuixingApp.mainActivity.updateVehicle();
                 view.finish();
             }
 

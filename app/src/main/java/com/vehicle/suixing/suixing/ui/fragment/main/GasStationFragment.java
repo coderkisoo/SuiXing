@@ -7,21 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ZoomControls;
 
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.TextureMapView;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.TextureMapView;
 import com.vehicle.suixing.suixing.R;
 import com.vehicle.suixing.suixing.presenter.fragment.GasStationFragmentPresenter;
-import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.view.fragment.GasStationFragmentView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
-public class GasStationFragment extends Fragment implements GasStationFragmentView {
+public class GasStationFragment extends Fragment implements GasStationFragmentView, View.OnLongClickListener {
 
     @Bind(R.id.tmv_location)
     TextureMapView tmv_location;
@@ -30,35 +27,53 @@ public class GasStationFragment extends Fragment implements GasStationFragmentVi
     @Bind(R.id.ll_mapinfo)
     LinearLayout ll_mapinfo;
 
-    @OnClick(R.id.btn_my_location)
-    void btn_my_location() {
-        presenter.btn_my_location();
-    }
-
-    private View parent;
     private GasStationFragmentPresenter presenter;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        parent = inflater.inflate(R.layout.fragment_addgass, container, false);
+        View parent = inflater.inflate(R.layout.fragment_addgass, container, false);
         ButterKnife.bind(this, parent);
+        tmv_location.onCreate(savedInstanceState);
+        tmv_location.setOnLongClickListener(this);
         presenter = new GasStationFragmentPresenter(this, getActivity());
-        int count = tmv_location.getChildCount();
-        for (int i = 0; i < count; i++) {
-            View child = tmv_location.getChildAt(i);
-            // 隐藏百度logo ZoomControl
-            if (child instanceof ZoomControls) {
-                child.setVisibility(View.INVISIBLE);
-            }
-        }
-        presenter.initLocation();
+        presenter.initMapView();
         return parent;
     }
 
+
+
     @Override
-    public BaiduMap getMap() {
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        tmv_location.onSaveInstanceState(outState);
+    }
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+        tmv_location.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        tmv_location.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        tmv_location.onPause();
+    }
+
+    @Override
+    public AMap getMap() {
         return tmv_location.getMap();
     }
 
@@ -67,38 +82,32 @@ public class GasStationFragment extends Fragment implements GasStationFragmentVi
         tv_show_city.setText(address);
     }
 
-    @Override
-    public View getParent() {
-        return parent;
-    }
 
     @Override
     public void showInfo() {
-        Log.d("改变了ll_mapinfo的可见性");
         ll_mapinfo.setVisibility(ll_mapinfo.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
     }
 
-
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
-        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-        tmv_location.onDestroy();
+    public View getParent() {
+        return this.getView();
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-        tmv_location.onResume();
+    public void disMissLL() {
+        ll_mapinfo.setVisibility(View.GONE);
+    }
 
+    public void searchTarget() {
+        presenter.searchTarget();
+    }
+
+    public GasStationFragment() {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
-        tmv_location.onPause();
+    public boolean onLongClick(View v) {
+        showInfo();
+        return false;
     }
 }

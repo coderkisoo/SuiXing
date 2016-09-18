@@ -1,309 +1,270 @@
 package com.vehicle.suixing.suixing.presenter.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.Color;
+import android.location.Location;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.MapPoi;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.core.PoiInfo;
-import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiDetailResult;
-import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
-import com.baidu.mapapi.search.poi.PoiResult;
-import com.baidu.mapapi.search.poi.PoiSearch;
-import com.baidu.navisdk.adapter.BNRoutePlanNode;
-import com.baidu.navisdk.adapter.BaiduNaviManager;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMapOptions;
+import com.amap.api.maps.LocationSource;
+import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps.model.Poi;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
 import com.vehicle.suixing.suixing.R;
-import com.vehicle.suixing.suixing.app.SuixingApp;
+import com.vehicle.suixing.suixing.bean.MapBean.MapInfo;
 import com.vehicle.suixing.suixing.common.Config;
 import com.vehicle.suixing.suixing.ui.activity.DateActivity;
-import com.vehicle.suixing.suixing.ui.activity.NavigationActivity;
+import com.vehicle.suixing.suixing.ui.activity.QueryRouteActivity;
 import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.MapUtil.MapUtils;
 import com.vehicle.suixing.suixing.util.formatUtils.DensityUtil;
 import com.vehicle.suixing.suixing.view.fragment.GasStationFragmentView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.baidu.mapapi.map.BaiduMap.OnMapClickListener;
-import static com.baidu.navisdk.adapter.BNRoutePlanNode.CoordinateType.BD09LL;
 
 /**
  * Created by KiSoo on 2016/5/16.
  */
-public class GasStationFragmentPresenter {
+public class GasStationFragmentPresenter implements LocationSource,
+        AMapLocationListener,
+        AMap.OnMarkerClickListener,
+        AMap.OnPOIClickListener,
+        AMap.OnMapLongClickListener,
+        LocationSource.OnLocationChangedListener {
     private GasStationFragmentView view;
-    private Context context;
-    MapStatus mapStatus;
-    BaiduMap mBaiduMap;
-    public PoiSearch mPoiSearch;
-    private LatLng myLatng;
-    public LocationClient mLocationClient = null;
-    public BDLocationListener myListener = new MyLocationListener();
-    //设置发起请求后服务器返回的经纬度
-    public LatLng point;
-    //定义一个hushmap，把检索出来的经纬度作为KEY，把检索出来的result.getAllPoi()作为vaule,在地图覆盖物里面可以通过mark的经纬度把值取出来。
-    HashMap<LatLng, PoiInfo> map = new HashMap<>();
+    public static final String TAG = "GasStationFragmentPresenter";
+    private Activity context;
+    public AMapLocationClient client = null;
+    private AMap aMap;
+    private HashMap<LatLng, PoiItem> gasMap = new HashMap<>();
 
-
-    public GasStationFragmentPresenter(GasStationFragmentView view, Context context) {
+    public GasStationFragmentPresenter(GasStationFragmentView view, Activity context) {
         this.view = view;
         this.context = context;
     }
 
-    public void initLocation() {
-        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
-        //注意该方法要再setContentView方法之前实现
-        mBaiduMap = view.getMap();
-        //设置仰视角度
-        mapStatus = new MapStatus.Builder(mBaiduMap.getMapStatus()).overlook(-45).build();//构造MapStatus
-        MapStatusUpdate msu = MapStatusUpdateFactory.newMapStatus(mapStatus);//把MapStatus转换成 MapStatusUpdate
-        mBaiduMap.animateMapStatus(msu);
-        //设置旋转效果
-        mapStatus = new MapStatus.Builder(mBaiduMap.getMapStatus()).rotate(45).build();
-        MapStatusUpdate msu1 = MapStatusUpdateFactory.newMapStatus(mapStatus);
-        mBaiduMap.animateMapStatus(msu1);
-        //设置地图缩放级别
-        mBaiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(15.0f));
-        // 定位初始化
-        mLocationClient = new LocationClient(context.getApplicationContext());     //声明LocationClient类
-        mLocationClient.registerLocationListener(myListener);    //注册监听函数
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
-        );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
-        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-
-        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
-        option.setOpenGps(true);//可选，默认false,设置是否使用gps
-        option.setLocationNotify(true);//可选，默认false，设置是否当gps有效时按照1S1次频率输出GPS结果
-        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
-        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
-        option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
-        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
-        option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
-        mLocationClient.setLocOption(option);
-        mLocationClient.start();
-        //设置检索周边加油站信息
-        //实例化一个poi对象。
-        mPoiSearch = PoiSearch.newInstance();
-        //注册监听器
-        mPoiSearch.setOnGetPoiSearchResultListener(new OnGetPoiSearchResultListener() {
-            public void onGetPoiResult(PoiResult result) {
-                if (result == null
-                        || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {// 没有找到检索结果
-                    Toast.makeText(context, "附近5000米没有加油站",
-                            Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                if (result.error == SearchResult.ERRORNO.NO_ERROR) {// 检索结果正常返回
-                    List<PoiInfo> poiInfos = result.getAllPoi();
-                    Toast.makeText(context, "搜索到附近" + poiInfos.size() + "个加油站，请点击进行预约加油",
-                            Toast.LENGTH_LONG).show();
-                    for (PoiInfo p : poiInfos) {
-                        //把检索出来的经纬度和根据经纬度得到的所有信息放入hushmap
-                        map.put(p.location, p);
-                        //构建地图覆盖物图标
-                        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.gasstation_mark);
-                        //创建一个图层（图层里面有精确的经纬度和在经纬度上绑定一个图标）
-                        OverlayOptions option = new MarkerOptions()
-                                .position(p.location)//p.location是检索出来的经纬度
-                                .icon(bitmap);//把图片添加到图层里面
-                        MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(13.0f);
-                        mBaiduMap.setMapStatus(msu);
-                        //  在地图上添加Marker，并显示
-                        mBaiduMap.addOverlay(option);//把图层添加到地图中
-                    }
-
-                }
-            }
-
-            public void onGetPoiDetailResult(PoiDetailResult result) {
-                //获取Place详情页检索结果
-            }
-        });
-        //设置覆盖物监听事件
-        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                if (0 == map.size()) {
-                    return true;
-                }
-                if (marker.getPosition() == myLatng)
-                    return true;
-                PoiInfo p = map.get(marker.getPosition());
-                showPopupWindow(marker.getPosition(),p.name, p.address, MapUtils.getDistance(myLatng, marker.getPosition()), p.phoneNum);
-                return true;
-            }
-        });
-        mBaiduMap.setOnMapLongClickListener(new BaiduMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                view.showInfo();
-            }
-        });
-        mBaiduMap.setOnMapClickListener(new OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-            }
-
-            @Override
-            public boolean onMapPoiClick(MapPoi mapPoi) {
-                showLocation(mapPoi.getPosition(), mapPoi.getName());
-                return false;
-            }
-        });
-
+    //在此处初始化地图控件
+    public void initMapView() {
+        //配置
+        aMap = view.getMap();
+        aMap.setLocationSource(this);// 设置定位监听
+        aMap.setTrafficEnabled(true);// 显示实时交通状况
+        aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
+        aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);//定位模式
+        aMap.setOnMarkerClickListener(this);
+        aMap.setMyLocationEnabled(true);
+        aMap.setOnPOIClickListener(this);
+        aMap.setOnMapLongClickListener(this);
+        UiSettings settings = aMap.getUiSettings();
+        settings.setZoomControlsEnabled(true);//缩放按钮
+        settings.setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
+        settings.setMyLocationButtonEnabled(true);//定位按钮
+        settings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_RIGHT);//右下角logo
+        settings.setCompassEnabled(true);//指南针
+        settings.setScaleControlsEnabled(true);
+        MyLocationStyle myLocationStyle = new MyLocationStyle();
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.current_location));// 自定义精度范围的圆形边框颜色
+        myLocationStyle.strokeColor(Color.GRAY);//自定义精度范围的圆形边框宽度
+        myLocationStyle.strokeWidth(5);// 将自定义的 myLocationStyle 对象添加到地图上
+        aMap.setMyLocationStyle(myLocationStyle);// 构造 LocationManagerProxy 对象
+        client = new AMapLocationClient(context.getApplicationContext());
+        client.setLocationListener(this);
+        client.startLocation();
     }
 
-    private void showLocation(final LatLng position, final String name) {
+
+    private void showPoiInfo(final Poi poi) {
+        if (myLocation==null)
+            return;
         View locationView = View.inflate(context, R.layout.location_info, null);
-        PopupWindow locationWindow = new PopupWindow(locationView, ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(context, 80), true);
+        PopupWindow locationWindow = new PopupWindow(locationView,DensityUtil.getDisplayWidth(context) - 80,DensityUtil.dip2px(context,88),true);
         TextView tv_location_name = (TextView) locationView.findViewById(R.id.tv_location_name);
         TextView tv_distance = (TextView) locationView.findViewById(R.id.tv_distance);
         ImageView iv_go = (ImageView) locationView.findViewById(R.id.iv_go);
-        tv_location_name.setText(name);
-        tv_distance.setText(MapUtils.getDistance(myLatng, position));
+        tv_location_name.setText(poi.getName());
+        tv_distance.setText(MapUtils.getDistance(MapUtils.getLatLng(myLocation.getLatitude(),myLocation.getLongitude()),poi.getCoordinate()));
         iv_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("点击了");
-                if (!Config.canBeUsed){
-                    Toast.makeText(context,"百度地图引擎初始化未成功",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (BaiduNaviManager.isNaviInited())
-                    routeplanToNavi(position, name);
+                routeTo(poi.getCoordinate(),poi.getName());
             }
         });
         locationWindow.setOutsideTouchable(true);
-        locationWindow.showAtLocation(view.getParent(), Gravity.BOTTOM, 0, 0);
+        locationWindow.showAtLocation(view.getParent(), Gravity.BOTTOM, 0, 40);
+        Log.e(TAG,"宽度为"+locationWindow.getWidth());
     }
 
     public void onDestroy() {
-        mPoiSearch.destroy();
+        client.onDestroy();
     }
 
-    public void showPopupWindow(final LatLng position, final String gasName, String address, final String distance, final String tel) {
+    public void showGasWindow(final PoiItem poiItem) {
+        if (myLocation==null)
+            return;
         View infoView = View.inflate(context, R.layout.gasstation_date_popwindow, null);
-        PopupWindow infoWindow = new PopupWindow(infoView, ViewGroup.LayoutParams.MATCH_PARENT, 400, true);
+        PopupWindow locationWindow = new PopupWindow(infoView,DensityUtil.getDisplayWidth(context) - 80,DensityUtil.dip2px(context,160),true);
         TextView tv_poi_date_adress = (TextView) infoView.findViewById(R.id.tv_poi_date_adress);
         TextView tv_tel = (TextView) infoView.findViewById(R.id.tv_tel);
         TextView tv_gas_station_name = (TextView) infoView.findViewById(R.id.tv_gas_station_name);
         TextView tv_distance = (TextView) infoView.findViewById(R.id.tv_distance);
         ImageView iv_order = (ImageView) infoView.findViewById(R.id.iv_order);
         ImageView iv_go = (ImageView) infoView.findViewById(R.id.iv_go);
-        tv_gas_station_name.setText(gasName);
-        tv_distance.setText(distance);
-        tv_poi_date_adress.setText(address);
-        tv_tel.setText(tel.equals("") ? "该加油站木有留下电话号码" : tel);
+        tv_gas_station_name.setText(poiItem.getTitle());
+        LatLonPoint point = poiItem.getLatLonPoint();
+        final LatLng target = MapUtils.getLatLng(point.getLatitude(),point.getLongitude());
+        tv_distance.setText(MapUtils.getDistance(MapUtils.getLatLng(myLocation.getLatitude(),myLocation.getLongitude()),target));
+        tv_poi_date_adress.setText(poiItem.getSnippet());
+        tv_tel.setText(poiItem.getTel());
+        iv_go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                routeTo(target,poiItem.getTitle());
+            }
+        });
         iv_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DateActivity.class);
-                //把检索出来的值通过intent传到下一个类
-                intent.putExtra(Config.KEY_GAS_NAME, gasName);
-                intent.putExtra(Config.KEY_GAS_LOCATION, distance);
-                intent.putExtra(Config.KEY_GAS_TEL, tel);
+                intent.putExtra(Config.KEY_GAS_NAME, poiItem.getTitle());
+                intent.putExtra(Config.KEY_GAS_LOCATION, poiItem.getSnippet());
+                intent.putExtra(Config.KEY_GAS_TEL, poiItem.getTel());
+                intent.putExtra(Config.KEY_FROM,myLocation.getLatitude());
+                intent.putExtra(Config.KEY_START_LATING,new MapInfo(MapUtils.getLatLng(myLocation.getLatitude(),myLocation.getLongitude()),myLocation.getAddress()));
+                LatLonPoint point = poiItem.getLatLonPoint();
+                intent.putExtra(Config.KEY_END_LATING,new MapInfo(target,poiItem.getSnippet()));
                 context.startActivity(intent);
             }
         });
-        iv_go.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (BaiduNaviManager.isNaviInited())
-                    routeplanToNavi(position, gasName);
-            }
-        });
-        infoWindow.setOutsideTouchable(true);
-        infoWindow.showAtLocation(view.getParent(), Gravity.BOTTOM, 0, 0);
+        locationWindow.setOutsideTouchable(true);
+        locationWindow.showAtLocation(view.getParent(), Gravity.BOTTOM, 0, 40);
     }
 
-    public void btn_my_location() {
-        if (null == myLatng) return;
-        MapStatus mMapStatus = new MapStatus.Builder()
-                .target(myLatng)
-                .zoom(14)
-                .build();
-        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);//改变地图状态
-        mBaiduMap.setMapStatus(mMapStatusUpdate);
+    private void routeTo(LatLng target,String name) {
+        Intent intent = new Intent(context,QueryRouteActivity.class);
+        intent.putExtra(Config.KEY_START_LATING,new MapInfo(MapUtils.getLatLng(myLocation.getLatitude(),myLocation.getLongitude()),myLocation.getAddress()));
+        intent.putExtra(Config.KEY_END_LATING,new MapInfo(target,name));
+        context.startActivity(intent);
     }
 
-    public class MyLocationListener implements BDLocationListener {
-
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            //解析得到定位出来的经纬度
-            point = new LatLng(location.getLatitude(), location.getLongitude());
-            myLatng = point;
-            //设置地图中心点
-            mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newLatLng(point));
-            //设置地图定位点图标
-            BitmapDescriptor stationIcon = BitmapDescriptorFactory.fromResource(R.mipmap.current_location);
-            OverlayOptions option = new MarkerOptions()
-                    .position(point)//p.location是检索出来的经纬度
-                    .icon(stationIcon);//把图片添加到图层里面
-            mBaiduMap.addOverlay(option);
-            view.setNowLocation(location.getAddrStr());
-            //发起检索请求，必须在定位成功才能发起，否则紧缩会跪
-            mPoiSearch.searchNearby(new PoiNearbySearchOption().location(point).keyword("加油").radius(100000).pageNum(10));
+    //自定义路径
+    public void searchTarget() {
+        if (myLocation == null){
+            Toast.makeText(context,"地图尚未初始化完全，请稍后...",Toast.LENGTH_SHORT).show();
+            return;
         }
-
-
+        context.startActivity(new Intent(context, QueryRouteActivity.class)
+                .putExtra(Config.KEY_START_LATING, new MapInfo(MapUtils.getLatLng(myLocation.getLatitude(),myLocation.getLongitude()),myLocation.getAddress())));
     }
 
-    private void routeplanToNavi(LatLng latLng, final String name) {
-        Log.d("开始策划");
-        //起点
-        Toast.makeText(context,"正在计算路径...",Toast.LENGTH_SHORT).show();
-        final BNRoutePlanNode sNode = new BNRoutePlanNode(myLatng.longitude, myLatng.latitude, "当前位置", null, BD09LL);
-        final BNRoutePlanNode eNode = new BNRoutePlanNode(latLng.longitude, latLng.latitude, name, null, BD09LL);
-        List<BNRoutePlanNode> list = new ArrayList<>();
-        list.add(sNode);
-        list.add(eNode);
-        BaiduNaviManager.getInstance().launchNavigator(view.getActivity(), list, 1, true, new BaiduNaviManager.RoutePlanListener() {
+    /***
+     * LocationSource的方法
+     */
+
+    private OnLocationChangedListener listener;
+
+    @Override
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
+        listener  = onLocationChangedListener;
+    }
+
+    @Override
+    public void deactivate() {
+        listener = null;
+    }
+
+    private AMapLocation myLocation;
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (listener!=null && aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
+                view.setNowLocation(aMapLocation.getAddress());
+                myLocation = aMapLocation;
+                client.stopLocation();
+                queryNearGas();
+            } else {
+                String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
+                Log.e("AmapErr", errText);
+                Toast.makeText(context,errText,Toast.LENGTH_SHORT).show();
+            }
+            listener.onLocationChanged(aMapLocation);// 显示系统小蓝点
+        }
+    }
+
+    private void queryNearGas() {
+        PoiSearch.Query query = new PoiSearch.Query("加油站", "汽车维修|餐饮服务", myLocation.getCityCode());
+        query.setPageSize(10);
+        query.setPageNum(0);
+        PoiSearch poiSearch = new PoiSearch(context, query);
+        poiSearch.setOnPoiSearchListener(new PoiSearch.OnPoiSearchListener() {
             @Override
-            public void onJumpToNavigator() {
-                for (Activity activity : SuixingApp.activities) {
-                    if (activity.getClass().getName().endsWith("NavigationActivity"))
-                        return;
+            public void onPoiSearched(PoiResult poiResult, int i) {
+                gasMap.clear();
+                aMap.clear();
+                List<PoiItem> gasList = poiResult.getPois();
+                for (PoiItem poiItem : gasList) {
+                    LatLonPoint point = poiItem.getLatLonPoint();
+                    LatLng latLng = new LatLng(point.getLatitude(), point.getLongitude());
+                    gasMap.put(latLng, poiItem);
+                    addMarkerOnMap(latLng, poiItem.getTitle());
                 }
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(Config.KEY_ROUTE_PLANE_NODE, eNode);
-                bundle.putString(Config.KEY_GAS_NAME,name);
-                context.startActivity(new Intent(context, NavigationActivity.class).putExtras(bundle));
             }
 
             @Override
-            public void onRoutePlanFailed() {
-                Toast.makeText(context, "路线规划失败...", Toast.LENGTH_SHORT).show();
-                Log.d("导航失败");
+            public void onPoiItemSearched(PoiItem poiItem, int i) {
+
             }
         });
+        poiSearch.searchPOIAsyn();
+    }
+
+    private void addMarkerOnMap(LatLng lng, String title) {
+        aMap.addMarker(new MarkerOptions()
+                .position(lng)
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.gasstation_mark))
+                .title(title));
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (gasMap.containsKey(marker.getPosition())) {
+            showGasWindow(gasMap.get(marker.getPosition()));
+       }
+        return true;
+    }
+
+
+    @Override
+    public void onPOIClick(Poi poi) {
+        showPoiInfo(poi);
+    }
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+        view.showInfo();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
     }
 }

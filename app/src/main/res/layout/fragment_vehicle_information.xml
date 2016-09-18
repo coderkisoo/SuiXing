@@ -106,7 +106,14 @@
         android:background="@color/vehicle_information_choose_vehicle_text_color"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/add_vehicle_text_color"
+            android:text="点击上方加号\n添加车辆"/>
 
     </FrameLayout>
 </LinearLayout>

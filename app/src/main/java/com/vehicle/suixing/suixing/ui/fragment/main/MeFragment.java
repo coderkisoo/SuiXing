@@ -66,6 +66,9 @@ public class MeFragment extends Fragment implements
         this.mainActivityView = mainActivityView;
     }
 
+    public MeFragment() {
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

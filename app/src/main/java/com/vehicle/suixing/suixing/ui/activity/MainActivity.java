@@ -41,6 +41,11 @@ public class MainActivity extends BaseActivity implements MainActivityView {
     CircleImageView civ_head;
     @Bind(R.id.ll_root_view)
     LinearLayout ll_root_view;
+    @OnClick(R.id.iv_search)
+    void iv_search(){
+        presenter.searchTarget();
+    }
+
 
     @OnClick(R.id.iv_toolbar_left_image)
     void iv_toolbar_left_image() {
@@ -50,7 +55,7 @@ public class MainActivity extends BaseActivity implements MainActivityView {
     @OnClick(R.id.ll_me)
     void ll_me() {
         presenter.me();
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "我的", false);
+        initToolbar(toolbar, "我的", true,false);
     }
 
     @OnClick(R.id.ll_vehicle_information)
@@ -60,7 +65,7 @@ public class MainActivity extends BaseActivity implements MainActivityView {
          *
          * */
         presenter.vehicle();
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", false);
+        initToolbar(toolbar, "车辆信息", false,false);
     }
 
     @OnClick(R.id.ll_get_gas)
@@ -69,7 +74,7 @@ public class MainActivity extends BaseActivity implements MainActivityView {
          * 加油
          * */
         presenter.getGas();
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "加油", true);
+        initToolbar(toolbar, "导航", false,true);
 
     }
 
@@ -84,7 +89,7 @@ public class MainActivity extends BaseActivity implements MainActivityView {
          * 交通违法信息
          * */
         presenter.peccany();
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "交通违法", false);
+        initToolbar(toolbar, "违章查询", false,false);
     }
 
     @OnClick(R.id.ll_about_us)
@@ -93,7 +98,7 @@ public class MainActivity extends BaseActivity implements MainActivityView {
          * 关于我们
          * */
         presenter.aboutUs();
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "关于我们", false);
+        initToolbar(toolbar, "关于我们", false,false);
 
     }
 
@@ -114,7 +119,7 @@ public class MainActivity extends BaseActivity implements MainActivityView {
         parent = View.inflate(this, R.layout.activity_main, null);
         setContentView(parent);
         ButterKnife.bind(this);
-        initToolbar(toolbar, R.mipmap.iv_swipe_left, "车辆信息", false);
+        initToolbar(toolbar, "导航", false,true);
         presenter = new MainActivityPresenter(this, this, getSupportFragmentManager());
         presenter.init();
     }
@@ -191,5 +196,9 @@ public class MainActivity extends BaseActivity implements MainActivityView {
     @Override
     public void showToast(String toast) {
         toast(toast);
+    }
+
+    public void updateVehicle() {
+        presenter.updateVehicle();
     }
 }

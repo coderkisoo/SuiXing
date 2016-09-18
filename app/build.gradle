@@ -10,6 +10,8 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+
     }
     buildTypes {
         release {
@@ -45,12 +47,9 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
     //扫描二维码用的库
     compile project(':zxinglib')
-    compile files('libs/baidumapapi_base_v3_7_0.jar')
-    compile files('libs/baidumapapi_cloud_v3_7_0.jar')
-    compile files('libs/baidumapapi_map_v3_7_0.jar')
-    compile files('libs/baidumapapi_radar_v3_7_0.jar')
-    compile files('libs/baidumapapi_search_v3_7_0.jar')
-    compile files('libs/baidumapapi_util_v3_7_0.jar')
-    compile files('libs/locSDK_6.13.jar')
-    compile files('libs/httpmime-4.1.2.jar')
+    compile files('libs/AMap_Search_V3.3.0_20160616.jar')
+    compile files('libs/AMap_3DMap_V3.3.2_20160525.jar')
+    compile files('libs/Msc.jar')
+    compile files('libs/AMap3DMap_3.3.2_AMapNavi_1.9.0_20160713.jar')
+    compile files('libs/AMap_Location_V2.4.1_20160414.jar')
 }

@@ -35,6 +35,9 @@ public class PeccanyFragment extends Fragment implements PeccanyFragmentView {
     @Bind(R.id.tv_myvehicle)
     TextView tv_myvehicle;
 
+    public PeccanyFragment() {
+    }
+
     @OnClick(R.id.rl_choose_myverhicle)
     void rl_choose_myverhicle() {
         presenter.showWindow();

@@ -55,34 +55,10 @@
         android:src="@mipmap/dl_blue_line" />
 
     <LinearLayout
-        android:id="@+id/ll_vehicle_information"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:paddingLeft="32dp">
-
-
-        <ImageView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:src="@mipmap/dl_vehicle_information" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:text="@string/vehicle_information"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/drawer_layout_text_size" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/ll_get_gas"
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:layout_marginTop="10dp"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:paddingLeft="32dp">
@@ -104,27 +80,52 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_vehicle_information"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:paddingLeft="32dp">
+
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@mipmap/dl_vehicle_information" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="@string/vehicle_information"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/drawer_layout_text_size" />
+
+    </LinearLayout>
+
+
     <!--<LinearLayout-->
-        <!--android:id="@+id/ll_navigation"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="54dp"-->
-        <!--android:background="?android:attr/selectableItemBackground"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:paddingLeft="32dp">-->
+    <!--android:id="@+id/ll_navigation"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="54dp"-->
+    <!--android:background="?android:attr/selectableItemBackground"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:paddingLeft="32dp">-->
 
 
-        <!--<ImageView-->
-            <!--android:layout_width="26dp"-->
-            <!--android:layout_height="26dp"-->
-            <!--android:src="@mipmap/dl_navigation" />-->
+    <!--<ImageView-->
+    <!--android:layout_width="26dp"-->
+    <!--android:layout_height="26dp"-->
+    <!--android:src="@mipmap/dl_navigation" />-->
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="25dp"-->
-            <!--android:text="@string/navigation"-->
-            <!--android:textColor="#ffffff"-->
-            <!--android:textSize="@dimen/drawer_layout_text_size" />-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="25dp"-->
+    <!--android:text="@string/navigation"-->
+    <!--android:textColor="#ffffff"-->
+    <!--android:textSize="@dimen/drawer_layout_text_size" />-->
 
     <!--</LinearLayout>-->
 
@@ -200,9 +201,10 @@
 
 
         <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:src="@mipmap/dl_back" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

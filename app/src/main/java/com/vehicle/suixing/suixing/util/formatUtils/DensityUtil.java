@@ -1,6 +1,9 @@
 package com.vehicle.suixing.suixing.util.formatUtils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
+import android.view.Display;
 
 import java.lang.reflect.Field;
 import java.util.regex.Matcher;
@@ -49,6 +52,13 @@ public class DensityUtil {
                 e.printStackTrace();
             }
         return 1;
+    }
+
+    public static int getDisplayWidth(Activity activity){
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
     }
 
 

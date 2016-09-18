@@ -30,32 +30,34 @@ public class VehicleInfoFragmentPresenter {
     private MyPagerAdapter adapter;
     private FragmentManager fragmentManager;
     private int lastPostion = 1000;
+
     public VehicleInfoFragmentPresenter(VehicleInfoFragmentView view, Context context, FragmentManager childFragmentManager) {
         this.view = view;
         this.context = context;
         this.fragmentManager = childFragmentManager;
     }
-    public void addVehicle(){
-        if (SuixingApp.hasUser){
+
+    public void addVehicle() {
+        if (SuixingApp.hasUser) {
             context.startActivity(new Intent(context, AddVehicleActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
-        }else {
+        } else {
             /**
              * 没有登录
              * */
             showToast("您当前没有登录账号，请先登录");
-            context.startActivity(new Intent(context, SplashActivity.class).putExtra("start",2));
+            context.startActivity(new Intent(context, SplashActivity.class).putExtra("start", 2));
         }
-    }
-    private void showToast(String toast){
-        Toast.makeText(context,toast,Toast.LENGTH_SHORT).show();
     }
 
-    public void setAdapter(){
+    private void showToast(String toast) {
+        Toast.makeText(context, toast, Toast.LENGTH_SHORT).show();
+    }
+
+    public void setAdapter() {
         adapter = new MyPagerAdapter(context);
         view.setAdapter(adapter);
-        if (SuixingApp.infos.size() > 0){
+        if (SuixingApp.infos.size() > 0)
             startFragment(0);
-        }
     }
 
     public void startFragment(int position) {
@@ -69,14 +71,20 @@ public class VehicleInfoFragmentPresenter {
             transaction.hide(fragments.get(lastPostion));
         }
         lastPostion = position;
-        Log.d(TAG, "现在所处的ftagment为:" + position+"上一次："+lastPostion);
+        Log.d(TAG, "现在所处的ftagment为:" + position + "上一次：" + lastPostion);
         transaction.commit();
     }
 
     public void initInfo() {
         fragments = new ArrayList<>();
-        for (VehicleInformation info:SuixingApp.infos){
+        for (VehicleInformation info : SuixingApp.infos) {
             fragments.add(new VehicleInfoFragment(info));
         }
+    }
+
+    public void update() {
+        adapter.notifyDataSetChanged();
+        if (fragments.size() > 0)
+            startFragment(0);
     }
 }

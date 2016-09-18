@@ -33,4 +33,8 @@
         <item name="android:displayOptions" tools:ignore="NewApi">showCustom</item>
         <item name="android:height">?actionBarSize</item>
     </style>
+    <style name="customBackground" parent="AppTheme">
+        <item name="android:windowBackground">@mipmap/splash</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

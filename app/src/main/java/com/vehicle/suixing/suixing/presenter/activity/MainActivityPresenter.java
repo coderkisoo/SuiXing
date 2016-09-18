@@ -25,6 +25,7 @@ import com.vehicle.suixing.suixing.ui.fragment.main.VehicleInformationFragment;
 import com.vehicle.suixing.suixing.ui.fragment.peccany.PeccanyFragment;
 import com.vehicle.suixing.suixing.util.Log;
 import com.vehicle.suixing.suixing.util.RegisterUtils.BmobError;
+import com.vehicle.suixing.suixing.util.RegisterUtils.BmobUtils;
 import com.vehicle.suixing.suixing.util.RegisterUtils.SpUtils;
 import com.vehicle.suixing.suixing.util.dataBase.DbDao;
 import com.vehicle.suixing.suixing.view.activity.MainActivityView;
@@ -47,8 +48,8 @@ public class MainActivityPresenter implements UpdateList {
     private Fragment nowFragment;
     private int CURRENT_TYPE = 100;
     private final int TYPE_ME = 0;
-    private final int TYPE_VEHICLE = 1;
-    private final int TYPE_ADD_GAS = 2;
+    private final int TYPE_ADD_GAS = 1;
+    private final int TYPE_VEHICLE = 2;
     private final int TYPE_PECCANY = 3;
     private final int TYPE_ABOUT_US = 4;
 
@@ -83,16 +84,16 @@ public class MainActivityPresenter implements UpdateList {
          * */
         fragments = new ArrayList<>();
         fragments.add(new MeFragment(mainActivityView));//我的
-        fragments.add(new VehicleInformationFragment());//车辆信息
         fragments.add(new GasStationFragment());//加油站信息
+        fragments.add(new VehicleInformationFragment());//车辆信息
         fragments.add(new PeccanyFragment());//违章查询
         fragments.add(new AboutUsFragment());//关于我们
-        startFragment(TYPE_VEHICLE);
+        startFragment(TYPE_ADD_GAS);
     }
 
     public void onResume() {
         User users = SpUtils.getUsers(context);
-        (fragments.get(TYPE_VEHICLE)).onResume();
+//        (fragments.get(TYPE_VEHICLE)).onResume();
         mainActivityView.UpdateName(users.getName());
         mainActivityView.updateMotto(users.getMotto());
         mainActivityView.updateHead(users.getHead());
@@ -124,14 +125,9 @@ public class MainActivityPresenter implements UpdateList {
      * 加油
      */
     public void getGas() {
-        if (!SuixingApp.hasUser) {
-            Toast.makeText(context, "请先登录...", Toast.LENGTH_SHORT).show();
-            logOut();
-        } else {
-            Log.d(TAG, "已经有了用户");
             mainActivityView.closeDrawer();
             startFragment(TYPE_ADD_GAS);
-        }
+//        }
     }
 
     /***
@@ -197,10 +193,18 @@ public class MainActivityPresenter implements UpdateList {
     @Override
     public void updateList(List<VehicleInformation> infos) {
         SuixingApp.infos = infos;
-//        fragments.get(1).notifyAll();
-        fragments.get(1).onResume();
+        fragments.get(TYPE_VEHICLE).onResume();
         Toast.makeText(context,"车辆数据已更新",Toast.LENGTH_SHORT).show();
     }
 
+
+    public void searchTarget() {
+        ((GasStationFragment)fragments.get(TYPE_ADD_GAS)).searchTarget();
+    }
+
+    public void updateVehicle(){
+        Log.e(TAG,"更新车辆信息");
+        BmobUtils.updateList(context,this);
+    }
 
 }
