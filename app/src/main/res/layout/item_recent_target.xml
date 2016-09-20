@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="24dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:paddingRight="24dp">
+    <ImageView
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@mipmap/icon_recent"/>
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="四公里"
+        android:textColor="@color/black"
+        android:layout_marginLeft="32dp"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:id="@+id/tv_address"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="24dp"
+        android:textColor="@color/item_peccany_card_text"
+        android:text="轨道交通3号线"/>
+</RelativeLayout>

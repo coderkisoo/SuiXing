@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragment_background"
+    android:orientation="vertical">
+    <include layout="@layout/route_toolbar"/>
+    <LinearLayout
+        android:layout_below="@+id/tb_main_toobar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/username_frame_height"
+        android:layout_marginLeft="24dp"
+        android:id="@+id/ll_start"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@mipmap/username_frame"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="16dp"
+            android:src="@mipmap/icon_start" />
+
+        <EditText
+            android:id="@+id/et_start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="28dp"
+            android:background="@null"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/et_password"
+            android:singleLine="true"
+            android:hint="请输入您的起点"
+            android:text="@string/sample_text"
+            android:textColor="@color/login_blue_color"
+            android:textSize="@dimen/login_frame_textsize" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_exchange"
+        android:layout_marginTop="46dp"
+        android:layout_marginLeft="32dp"
+        android:layout_below="@+id/tb_main_toobar"
+        android:layout_width="40dp"
+        android:padding="6dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/icon_exchange"/>
+    <LinearLayout
+        android:layout_below="@+id/ll_start"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/username_frame_height"
+        android:id="@+id/ll_end"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@mipmap/username_frame"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="16dp"
+            android:src="@mipmap/icon_target" />
+
+        <EditText
+            android:hint="请输入您的终点"
+            android:id="@+id/et_target"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="28dp"
+            android:background="@null"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/et_password"
+            android:singleLine="true"
+            android:text="@string/sample_text"
+            android:textColor="@color/login_blue_color"
+            android:textSize="@dimen/login_frame_textsize" />
+    </LinearLayout>
+    <ListView
+        android:layout_below="@+id/ll_end"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lv_route_example"/>
+
+</RelativeLayout>

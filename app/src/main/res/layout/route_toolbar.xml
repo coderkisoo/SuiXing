@@ -1,0 +1,38 @@
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tb_main_toobar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toolbar_height"
+    android:background="@color/white_background"
+    android:paddingTop="@dimen/toolbar_top">
+
+    <ImageView
+        android:id="@+id/iv_toolbar_left_image"
+        android:layout_width="@dimen/icon_size_width"
+        android:layout_height="@dimen/icon_size_height"
+        android:layout_marginLeft="13dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingBottom="9dp"
+        android:paddingLeft="9dp"
+        android:paddingRight="9dp"
+        android:paddingTop="9dp"
+        android:src="@mipmap/tb_back" />
+
+    <TextView
+        android:id="@+id/toolbar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:text="规划路径"
+        android:textColor="#4EA2F8"
+        android:textSize="@dimen/toolbar_title_size" />
+
+    <ImageView
+        android:id="@+id/iv_go"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="right"
+        android:padding="6dp"
+        android:layout_marginRight="12dp"
+        android:src="@mipmap/icon_go" />
+</android.support.v7.widget.Toolbar>
